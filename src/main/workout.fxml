@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.WorkoutController">
+    <children>
+        <Label layoutX="39.0" layoutY="59.0" text="Name:"/>
+        <Label layoutX="39.0" layoutY="94.0" text="Beschreibung:"/>
+        <TextField fx:id="workoutNameField" layoutX="178.0" layoutY="54.0"/>
+        <TextField fx:id="workoutBeschreibungField" layoutX="178.0" layoutY="89.0"/>
+        <Label layoutX="39.0" layoutY="133.0" text="Übungen:"/>
+        <ButtonBar layoutX="386.0" layoutY="346.0" prefHeight="40.0" prefWidth="200.0">
+            <buttons>
+                <Button fx:id="workoutLoeschenBtn" mnemonicParsing="false" onAction="#workoutLoeschen" text="Löschen"/>
+                <Button fx:id="workoutAbbrechenBtn" mnemonicParsing="false" onAction="#workoutAbbrechen"
+                        text="Abbrechen"/>
+                <Button fx:id="workouSpeichernBtn" mnemonicParsing="false" onAction="#workoutSpeichern"
+                        text="Speichern"/>
+            </buttons>
+        </ButtonBar>
+        <ListView fx:id="workoutUebungenListView" layoutX="84.0" layoutY="179.0" prefHeight="163.0" prefWidth="200.0"/>
+        <Button fx:id="uebungHinzufuegenBtn" layoutX="488.0" layoutY="187.0" mnemonicParsing="false"
+                onAction="#uebungZuWorkoutHinzufuegen" text="hinzufügen"/>
+        <ComboBox fx:id="uebungComboBox" layoutX="301.0" layoutY="187.0" prefWidth="150.0"/>
+        <Button fx:id="uebungEntfernenBtn" layoutX="301.0" layoutY="316.0" mnemonicParsing="false"
+                onAction="#uebungEntfernen" text="Ausgewählte Übung löschen"/>
+    </children>
+</AnchorPane>
