@@ -1,18 +1,68 @@
 package daten;
 
+import javafx.beans.Observable;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.Callback;
 
 public class Programm {
 
     private StringProperty name = new SimpleStringProperty();
     private StringProperty beschreibung = new SimpleStringProperty();
 
-    private ListProperty<Tag> tage = new SimpleListProperty<>(FXCollections.observableArrayList());
+    private ListProperty<Tag> tage = new SimpleListProperty<>(FXCollections.observableArrayList(Tag.makeExtractor()));
+
+    private Valid valid = Valid.VALID;
+
+    public void isValid() {
+
+        if (name == null || name.get() == null || name.get().equalsIgnoreCase("")) {
+            valid = Valid.NAME;
+        } else if (tage.get().size() < 1) {
+            valid = Valid.TAGE;
+        } else {
+            valid = Valid.VALID;
+        }
+    }
+
+    public enum Valid {
+
+        VALID(0, ""), NAME(1, "Name ungültig"), TAGE(2, "Tage ungültig");
+
+        private int code;
+        private String error;
+
+        Valid(int code, String error) {
+            this.code = code;
+            this.error = error;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        public String getError() {
+            return error;
+        }
+    }
+
+    public static Callback<Programm, Observable[]> makeExtractor(){
+        return new Callback<Programm, Observable[]>() {
+            @Override
+            public Observable[] call(Programm programm) {
+                return new Observable[] {programm.nameProperty(), programm.beschreibungProperty(), programm.tageProperty()};
+            }
+        };
+    }
+
+    public Valid getValid() {
+        return valid;
+    }
+
 
     public String getName() {
         return name.get();

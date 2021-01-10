@@ -8,10 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -63,14 +60,25 @@ public class ProgrammController {
     }
 
     public void programmSpeichern(ActionEvent event) {
-        aktuellesProgramm.setName(tmpProgramm.getName());
-        aktuellesProgramm.setBeschreibung(tmpProgramm.getBeschreibung());
-        aktuellesProgramm.setTage(tmpProgramm.getTage());
-        if (isNew) {
-            Main.getProgramme().add(aktuellesProgramm);
+        tmpProgramm.isValid();
+        if (tmpProgramm.getValid().getCode() == 0) {
+            aktuellesProgramm.setName(tmpProgramm.getName());
+            aktuellesProgramm.setBeschreibung(tmpProgramm.getBeschreibung());
+            aktuellesProgramm.setTage(tmpProgramm.getTage());
+            if (isNew) {
+                Main.getProgramme().add(aktuellesProgramm);
+            }
+            Stage stage = (Stage) programmSpeichernBtn.getScene().getWindow();
+            stage.close();
+        } else {
+            Alert a = new Alert(Alert.AlertType.WARNING);
+
+            a.setTitle("Ungültige Eingabe");
+            a.setHeaderText(tmpProgramm.getValid().getError());
+            //TODO contenttext der warung abhängig von wirklich konkretem fehler machen
+            // a.setContentText("");
+            a.showAndWait();
         }
-        Stage stage = (Stage) programmSpeichernBtn.getScene().getWindow();
-        stage.close();
     }
 
     public void programmLoeschen(ActionEvent event) {
@@ -106,7 +114,7 @@ public class ProgrammController {
 
     public void tagBearbeiten(MouseEvent event) throws IOException {
 
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("masse_satz.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("tag.fxml"));
         Parent tagDialog = fxmlloader.load();
 
         Stage stage = new Stage();

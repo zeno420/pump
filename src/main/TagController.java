@@ -67,13 +67,24 @@ public class TagController {
 
 
     public void tagSpeichern(ActionEvent event) {
+        tmpTag.isValid();
+        if(tmpTag.getValid().getCode() == 0){
         aktuellerTag.setName(tmpTag.getName());
         aktuellerTag.setWorkouts(tmpTag.getWorkouts());
         if (isNew) {
             programm.getTage().add(aktuellerTag);
         }
         Stage stage = (Stage) tagSpeichernBtn.getScene().getWindow();
-        stage.close();
+        stage.close();}
+        else {
+            Alert a = new Alert(Alert.AlertType.WARNING);
+
+            a.setTitle("Ungültige Eingabe");
+            a.setHeaderText(tmpTag.getValid().getError());
+            //TODO contenttext der warung abhängig von wirklich konkretem fehler machen
+            // a.setContentText("");
+            a.showAndWait();
+        }
     }
 
     public void tagLoeschen(ActionEvent event) {

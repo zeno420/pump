@@ -9,10 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -72,15 +69,26 @@ public class UebungController {
     }
 
     public void uebungSpeichern(ActionEvent event) {
-        aktuelleUebung.setName(tmpUebung.getName());
-        aktuelleUebung.setBeschreibung(tmpUebung.getBeschreibung());
-        aktuelleUebung.setMasse(tmpUebung.getMasse());
-        aktuelleUebung.setDefi(tmpUebung.getDefi());
-        if (isNew) {
-            Main.getUebungen().add(aktuelleUebung);
+        tmpUebung.isValid();
+        if (tmpUebung.getValid().getCode() == 0) {
+            aktuelleUebung.setName(tmpUebung.getName());
+            aktuelleUebung.setBeschreibung(tmpUebung.getBeschreibung());
+            aktuelleUebung.setMasse(tmpUebung.getMasse());
+            aktuelleUebung.setDefi(tmpUebung.getDefi());
+            if (isNew) {
+                Main.getUebungen().add(aktuelleUebung);
+            }
+            Stage stage = (Stage) uebungSpeichernBtn.getScene().getWindow();
+            stage.close();
+        } else {
+            Alert a = new Alert(Alert.AlertType.WARNING);
+
+            a.setTitle("Ungültige Eingabe");
+            a.setHeaderText(tmpUebung.getValid().getError());
+            //TODO contenttext der warung abhängig von wirklich konkretem fehler machen
+            // a.setContentText("");
+            a.showAndWait();
         }
-        Stage stage = (Stage) uebungSpeichernBtn.getScene().getWindow();
-        stage.close();
     }
 
     public void uebungLoeschen(ActionEvent event) {
@@ -123,7 +131,7 @@ public class UebungController {
 
         SatzController c = fxmlloader.getController();
 
-        Satz satz = (Satz) ((ListView)event.getSource()).getSelectionModel().getSelectedItem();
+        Satz satz = (Satz) ((ListView) event.getSource()).getSelectionModel().getSelectedItem();
 
         c.setUpBinding(satz, satzDialog, tmpUebung);
 
@@ -161,7 +169,7 @@ public class UebungController {
 
         SatzController c = fxmlloader.getController();
 
-        Satz satz = (Satz) ((ListView)event.getSource()).getSelectionModel().getSelectedItem();
+        Satz satz = (Satz) ((ListView) event.getSource()).getSelectionModel().getSelectedItem();
 
         c.setUpBinding(satz, satzDialog, tmpUebung);
 

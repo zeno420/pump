@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -70,14 +71,27 @@ public class WorkoutController {
     }
 
     public void workoutSpeichern(ActionEvent event) {
-        aktuellesWorkout.setName(tmpWorkout.getName());
-        aktuellesWorkout.setBeschreibung(tmpWorkout.getBeschreibung());
-        aktuellesWorkout.setUebungen(tmpWorkout.getUebungen());
-        if (isNew) {
-            Main.getWorkouts().add(aktuellesWorkout);
+        //TODO initial speichern ohne eingabe gibt nullpointer
+        tmpWorkout.isValid();
+        if (tmpWorkout.getValid().getCode() == 0) {
+            aktuellesWorkout.setName(tmpWorkout.getName());
+            aktuellesWorkout.setBeschreibung(tmpWorkout.getBeschreibung());
+            aktuellesWorkout.setUebungen(tmpWorkout.getUebungen());
+            if (isNew) {
+                Main.getWorkouts().add(aktuellesWorkout);
+            }
+            Stage stage = (Stage) workouSpeichernBtn.getScene().getWindow();
+            stage.close();
+        } else {
+            Alert a = new Alert(Alert.AlertType.WARNING);
+
+            a.setTitle("Ungültige Eingabe");
+            a.setHeaderText(tmpWorkout.getValid().getError());
+            //TODO contenttext der warung abhängig von wirklich konkretem fehler machen
+           // a.setContentText("");
+            a.showAndWait();
+
         }
-        Stage stage = (Stage) workouSpeichernBtn.getScene().getWindow();
-        stage.close();
     }
 
     public void workoutLoeschen(ActionEvent event) {

@@ -1,25 +1,70 @@
 package daten;
 
+import javafx.beans.Observable;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import javafx.util.Callback;
 
 public class Uebung {
 
     private StringProperty name = new SimpleStringProperty();
     private StringProperty beschreibung = new SimpleStringProperty();
 
-    private ListProperty<Satz> masse = new SimpleListProperty<>(FXCollections.observableArrayList());
-    private ListProperty<Satz> defi = new SimpleListProperty<>(FXCollections.observableArrayList());
+    private ListProperty<Satz> masse = new SimpleListProperty<>(FXCollections.observableArrayList(Satz.makeExtractor()));
+    private ListProperty<Satz> defi = new SimpleListProperty<>(FXCollections.observableArrayList(Satz.makeExtractor()));
 
+    private Valid valid = Valid.VALID;
+
+    public void isValid() {
+
+        if (name == null || name.get() == null || name.get().equalsIgnoreCase("")) {
+            valid = Valid.NAME;
+        } else if (masse.get().size() < 1) {
+            valid = Valid.MASSE;
+        } else if (defi.get().size() < 1) {
+            valid = Valid.DEFI;
+        } else {
+            valid = Valid.VALID;
+        }
+    }
+
+    public enum Valid {
+
+        VALID(0, ""), NAME(1, "Name ungültig"), MASSE(2, "Massesätze ungültig"), DEFI(3, "Definitionssätze ungültig");
+
+        private int code;
+        private String error;
+
+        Valid(int code, String error) {
+            this.code = code;
+            this.error = error;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        public String getError() {
+            return error;
+        }
+    }
+
+    public static Callback<Uebung, Observable[]> makeExtractor(){
+        return new Callback<Uebung, Observable[]>() {
+            @Override
+            public Observable[] call(Uebung uebung) {
+                return new Observable[] {uebung.nameProperty(), uebung.beschreibungProperty(), uebung.masseProperty(), uebung.defiProperty()};
+            }
+        };
+    }
+
+    public Valid getValid() {
+        return valid;
+    }
 
     public String getName() {
         return name.get();

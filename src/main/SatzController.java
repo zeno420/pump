@@ -6,6 +6,7 @@ import daten.Uebung;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -43,13 +44,24 @@ public class SatzController {
     }
 
     public void masseSatzSpeichern(ActionEvent event) {
-        aktuellerSatz.setWiederholungen(tmpSatz.getWiederholungen());
-        aktuellerSatz.setGewicht(tmpSatz.getGewicht());
-        if (isNew) {
-            uebung.getMasse().add(aktuellerSatz);
+        tmpSatz.isValid();
+        if (tmpSatz.getValid().getCode() == 0) {
+            aktuellerSatz.setWiederholungen(tmpSatz.getWiederholungen());
+            aktuellerSatz.setGewicht(tmpSatz.getGewicht());
+            if (isNew) {
+                uebung.getMasse().add(aktuellerSatz);
+            }
+            Stage stage = (Stage) satzSpeichernBtn.getScene().getWindow();
+            stage.close();
+        } else {
+            Alert a = new Alert(Alert.AlertType.WARNING);
+
+            a.setTitle("Ungültige Eingabe");
+            a.setHeaderText(tmpSatz.getValid().getError());
+            //TODO contenttext der warung abhängig von wirklich konkretem fehler machen
+            // a.setContentText("");
+            a.showAndWait();
         }
-        Stage stage = (Stage) satzSpeichernBtn.getScene().getWindow();
-        stage.close();
     }
 
     public void masseSatzLoeschen(ActionEvent event) {
@@ -60,13 +72,24 @@ public class SatzController {
     }
 
     public void defiSatzSpeichern(ActionEvent event) {
-        aktuellerSatz.setWiederholungen(tmpSatz.getWiederholungen());
-        aktuellerSatz.setGewicht(tmpSatz.getGewicht());
-        if (isNew) {
-            uebung.getDefi().add(aktuellerSatz);
+        tmpSatz.isValid();
+        if (tmpSatz.getValid().getCode() == 0) {
+            aktuellerSatz.setWiederholungen(tmpSatz.getWiederholungen());
+            aktuellerSatz.setGewicht(tmpSatz.getGewicht());
+            if (isNew) {
+                uebung.getDefi().add(aktuellerSatz);
+            }
+            Stage stage = (Stage) satzSpeichernBtn.getScene().getWindow();
+            stage.close();
+        } else {
+            Alert a = new Alert(Alert.AlertType.WARNING);
+
+            a.setTitle("Ungültige Eingabe");
+            a.setHeaderText(tmpSatz.getValid().getError());
+            //TODO contenttext der warung abhängig von wirklich konkretem fehler machen
+            // a.setContentText("");
+            a.showAndWait();
         }
-        Stage stage = (Stage) satzSpeichernBtn.getScene().getWindow();
-        stage.close();
     }
 
     public void defiSatzLoeschen(ActionEvent event) {

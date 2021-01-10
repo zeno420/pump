@@ -7,6 +7,7 @@ import design.ProgrammCell;
 import design.UebungCell;
 import design.WorkoutCell;
 import javafx.application.Application;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -17,12 +18,13 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+//TODO speichern ohne eingaben haben überall unterschiedliches verhalten
 
 public class Main extends Application {
 
-    private static ObservableList<Uebung> Uebungen = FXCollections.observableArrayList();
-    private static ObservableList<Workout> Workouts = FXCollections.observableArrayList();
-    private static ObservableList<Programm> Programme = FXCollections.observableArrayList();
+    private static ObservableList<Uebung> Uebungen = FXCollections.observableArrayList(Uebung.makeExtractor());
+    private static ObservableList<Workout> Workouts = FXCollections.observableArrayList(Workout.makeExtractor());
+    private static ObservableList<Programm> Programme = FXCollections.observableArrayList(Programm.makeExtractor());
 
 
     @Override
@@ -41,6 +43,8 @@ public class Main extends Application {
                                             }
                                         }
         );
+        //uebungenListView.itemsProperty().bind(Uebungen);
+
         ListView<Workout> workoutListView = (ListView) root.lookup("#workoutListView");
         workoutListView.setItems(Workouts);
         workoutListView.setCellFactory(new Callback<ListView<Workout>,
@@ -51,6 +55,7 @@ public class Main extends Application {
                                             }
                                         }
         );
+
         ListView<Programm> programmListView = (ListView) root.lookup("#programmListView");
         programmListView.setItems(Programme);
         programmListView.setCellFactory(new Callback<ListView<Programm>,
