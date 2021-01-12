@@ -8,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -72,10 +71,10 @@ public class WorkoutController {
 
     public void workoutSpeichern(ActionEvent event) {
         //TODO initial speichern ohne eingabe gibt nullpointer
-        tmpWorkout.isValid();
         if (tmpWorkout.getValid().getCode() == 0) {
             aktuellesWorkout.setName(tmpWorkout.getName());
             aktuellesWorkout.setBeschreibung(tmpWorkout.getBeschreibung());
+            //TODO set get uebung erzeugt falsche uebungsobjekte -> änderung in orig uebung kommt nicht in uebung innerhalb workout an
             aktuellesWorkout.setUebungen(tmpWorkout.getUebungen());
             if (isNew) {
                 Main.getWorkouts().add(aktuellesWorkout);
@@ -88,7 +87,7 @@ public class WorkoutController {
             a.setTitle("Ungültige Eingabe");
             a.setHeaderText(tmpWorkout.getValid().getError());
             //TODO contenttext der warung abhängig von wirklich konkretem fehler machen
-           // a.setContentText("");
+            // a.setContentText("");
             a.showAndWait();
 
         }

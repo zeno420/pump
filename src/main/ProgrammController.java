@@ -60,7 +60,6 @@ public class ProgrammController {
     }
 
     public void programmSpeichern(ActionEvent event) {
-        tmpProgramm.isValid();
         if (tmpProgramm.getValid().getCode() == 0) {
             aktuellesProgramm.setName(tmpProgramm.getName());
             aktuellesProgramm.setBeschreibung(tmpProgramm.getBeschreibung());

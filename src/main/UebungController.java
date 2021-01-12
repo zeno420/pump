@@ -69,7 +69,6 @@ public class UebungController {
     }
 
     public void uebungSpeichern(ActionEvent event) {
-        tmpUebung.isValid();
         if (tmpUebung.getValid().getCode() == 0) {
             aktuelleUebung.setName(tmpUebung.getName());
             aktuelleUebung.setBeschreibung(tmpUebung.getBeschreibung());

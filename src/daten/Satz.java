@@ -12,16 +12,6 @@ public class Satz {
 
     private Valid valid = Valid.VALID;
 
-    public void isValid() {
-
-        if (wiederholungen == null || !isValidNumber(wiederholungen.get(), false)) {
-            valid = Valid.WIEDERHOLUNGEN;
-        } else if (gewicht == null || !isValidNumber(gewicht.get(), true)) {
-            valid = Valid.GEWICHT;
-        } else {
-            valid = Valid.VALID;
-        }
-    }
 
     public enum Valid {
 
@@ -54,6 +44,13 @@ public class Satz {
     }
 
     public Valid getValid() {
+        if (wiederholungen == null || !isValidNumber(wiederholungen.get(), false)) {
+            valid = Valid.WIEDERHOLUNGEN;
+        } else if (gewicht == null || !isValidNumber(gewicht.get(), true)) {
+            valid = Valid.GEWICHT;
+        } else {
+            valid = Valid.VALID;
+        }
         return valid;
     }
 

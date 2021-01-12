@@ -17,16 +17,6 @@ public class Tag {
 
     private Valid valid = Valid.VALID;
 
-    public void isValid() {
-
-        if (name == null || name.get() == null || name.get().equalsIgnoreCase("")) {
-            valid = Valid.NAME;
-        } else if (workouts.get().size() < 1) {
-            valid = Valid.WORKOUTS;
-        } else {
-            valid = Valid.VALID;
-        }
-    }
 
     public enum Valid {
 
@@ -59,6 +49,13 @@ public class Tag {
     }
 
     public Valid getValid() {
+        if (name == null || name.get() == null || name.get().equalsIgnoreCase("")) {
+            valid = Valid.NAME;
+        } else if (workouts.get().size() < 1) {
+            valid = Valid.WORKOUTS;
+        } else {
+            valid = Valid.VALID;
+        }
         return valid;
     }
 

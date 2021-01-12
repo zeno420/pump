@@ -67,7 +67,6 @@ public class TagController {
 
 
     public void tagSpeichern(ActionEvent event) {
-        tmpTag.isValid();
         if(tmpTag.getValid().getCode() == 0){
         aktuellerTag.setName(tmpTag.getName());
         aktuellerTag.setWorkouts(tmpTag.getWorkouts());

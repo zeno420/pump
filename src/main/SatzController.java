@@ -44,7 +44,6 @@ public class SatzController {
     }
 
     public void masseSatzSpeichern(ActionEvent event) {
-        tmpSatz.isValid();
         if (tmpSatz.getValid().getCode() == 0) {
             aktuellerSatz.setWiederholungen(tmpSatz.getWiederholungen());
             aktuellerSatz.setGewicht(tmpSatz.getGewicht());
@@ -72,7 +71,6 @@ public class SatzController {
     }
 
     public void defiSatzSpeichern(ActionEvent event) {
-        tmpSatz.isValid();
         if (tmpSatz.getValid().getCode() == 0) {
             aktuellerSatz.setWiederholungen(tmpSatz.getWiederholungen());
             aktuellerSatz.setGewicht(tmpSatz.getGewicht());

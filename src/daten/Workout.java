@@ -18,18 +18,6 @@ public class Workout {
 
     private Valid valid = Valid.VALID;
 
-    public void isValid() {
-
-        if (name == null || name.get() == null) {
-            valid = Valid.NAME;
-        } else if (name.get().equalsIgnoreCase("")) {
-            valid = Valid.NAME;
-        } else if (uebungen.get().size() < 1) {
-            valid = Valid.UEBUNG;
-        } else {
-            valid = Valid.VALID;
-        }
-    }
 
     public enum Valid {
 
@@ -62,6 +50,15 @@ public class Workout {
     }
 
     public Valid getValid() {
+        if (name == null || name.get() == null) {
+            valid = Valid.NAME;
+        } else if (name.get().equalsIgnoreCase("")) {
+            valid = Valid.NAME;
+        } else if (uebungen.get().size() < 1) {
+            valid = Valid.UEBUNG;
+        } else {
+            valid = Valid.VALID;
+        }
         return valid;
     }
 

@@ -18,16 +18,6 @@ public class Programm {
 
     private Valid valid = Valid.VALID;
 
-    public void isValid() {
-
-        if (name == null || name.get() == null || name.get().equalsIgnoreCase("")) {
-            valid = Valid.NAME;
-        } else if (tage.get().size() < 1) {
-            valid = Valid.TAGE;
-        } else {
-            valid = Valid.VALID;
-        }
-    }
 
     public enum Valid {
 
@@ -60,6 +50,13 @@ public class Programm {
     }
 
     public Valid getValid() {
+        if (name == null || name.get() == null || name.get().equalsIgnoreCase("")) {
+            valid = Valid.NAME;
+        } else if (tage.get().size() < 1) {
+            valid = Valid.TAGE;
+        } else {
+            valid = Valid.VALID;
+        }
         return valid;
     }
 

@@ -19,18 +19,6 @@ public class Uebung {
 
     private Valid valid = Valid.VALID;
 
-    public void isValid() {
-
-        if (name == null || name.get() == null || name.get().equalsIgnoreCase("")) {
-            valid = Valid.NAME;
-        } else if (masse.get().size() < 1) {
-            valid = Valid.MASSE;
-        } else if (defi.get().size() < 1) {
-            valid = Valid.DEFI;
-        } else {
-            valid = Valid.VALID;
-        }
-    }
 
     public enum Valid {
 
@@ -62,7 +50,17 @@ public class Uebung {
         };
     }
 
+
     public Valid getValid() {
+        if (name == null || name.get() == null || name.get().equalsIgnoreCase("")) {
+            valid = Valid.NAME;
+        } else if (masse.get().size() < 1) {
+            valid = Valid.MASSE;
+        } else if (defi.get().size() < 1) {
+            valid = Valid.DEFI;
+        } else {
+            valid = Valid.VALID;
+        }
         return valid;
     }
 
