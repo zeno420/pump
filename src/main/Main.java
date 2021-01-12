@@ -1,24 +1,27 @@
 package main;
 
-import daten.Programm;
-import daten.Uebung;
-import daten.Workout;
+import daten.*;
 import design.ProgrammCell;
 import design.UebungCell;
 import design.WorkoutCell;
 import javafx.application.Application;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-//TODO speichern ohne eingaben haben überall unterschiedliches verhalten
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import java.io.File;
+
 
 public class Main extends Application {
 
@@ -26,9 +29,30 @@ public class Main extends Application {
     private static ObservableList<Workout> Workouts = FXCollections.observableArrayList(Workout.makeExtractor());
     private static ObservableList<Programm> Programme = FXCollections.observableArrayList(Programm.makeExtractor());
 
+    private String uebungFilePath = "uebung_datenbank.xml";
+    private File uebungFile;
+    private String workoutFilePath = "workout_datenbank.xml";
+    private File workoutFile;
+    private String programmFilePath = "programm_datenbank.xml";
+    private File programmFile;
+
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+        try {
+            uebungFile = new File(uebungFilePath);
+            uebungFile.createNewFile();
+            workoutFile = new File(workoutFilePath);
+            workoutFile.createNewFile();
+            programmFile = new File(programmFilePath);
+            programmFile.createNewFile();
+        } catch (Exception e) {
+            System.out.println("no file yet!");
+        }
+        loadDatenbank(uebungFile, workoutFile, programmFile);
+
         Parent root = FXMLLoader.load(getClass().getResource("root.fxml"));
         primaryStage.setTitle("pump");
 
@@ -71,6 +95,11 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    @Override
+    public void stop() throws Exception {
+        saveDatenbank(uebungFile, workoutFile, programmFile);
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -85,5 +114,78 @@ public class Main extends Application {
 
     public static ObservableList<Programm> getProgramme() {
         return Programme;
+    }
+
+    /**
+     * Loads person data from the specified file. The current person data will
+     * be replaced.
+     *
+     */
+    public void loadDatenbank(File uebungFile, File workoutFile, File programmFile) throws JAXBException {
+        try {
+            JAXBContext uc = JAXBContext.newInstance(UebungListWrapper.class);
+            Unmarshaller uum = uc.createUnmarshaller();
+            UebungListWrapper uebungWrapper = (UebungListWrapper) uum.unmarshal(uebungFile);
+            Uebungen.clear();
+            Uebungen.addAll(uebungWrapper.getUebungen());
+
+            JAXBContext wc = JAXBContext.newInstance(WorkoutListWrapper.class);
+            Unmarshaller wum = wc.createUnmarshaller();
+            WorkoutListWrapper workoutWrapper = (WorkoutListWrapper) wum.unmarshal(workoutFile);
+            Workouts.clear();
+            Workouts.addAll(workoutWrapper.getWorkouts());
+
+            JAXBContext pc = JAXBContext.newInstance(ProgrammListWrapper.class);
+            Unmarshaller pum = pc.createUnmarshaller();
+            ProgrammListWrapper programmWrapper = (ProgrammListWrapper) pum.unmarshal(programmFile);
+            Programme.clear();
+            Programme.addAll(programmWrapper.getProgramme());
+
+        } catch (Exception e) { // catches ANY exception
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Could not load data");
+           // alert.setContentText("Could not load data from file:\n" + file.getPath());
+            alert.showAndWait();
+        }
+    }
+
+    /**
+     * Saves the current person data to the specified file.
+     *
+     */
+    public void saveDatenbank(File uebungFile, File workoutFile, File programmFile) {
+        try {
+            JAXBContext uc = JAXBContext.newInstance(UebungListWrapper.class);
+            Marshaller um = uc.createMarshaller();
+            um.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            UebungListWrapper uebungWrapper = new UebungListWrapper();
+            uebungWrapper.setUebungen(Uebungen);
+            um.marshal(uebungWrapper, uebungFile);
+
+            JAXBContext wc = JAXBContext.newInstance(WorkoutListWrapper.class);
+            Marshaller wm = wc.createMarshaller();
+            wm.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            WorkoutListWrapper workoutWrapper = new WorkoutListWrapper();
+            workoutWrapper.setWorkouts(Workouts);
+            wm.marshal(workoutWrapper, workoutFile);
+
+            JAXBContext pc = JAXBContext.newInstance(ProgrammListWrapper.class);
+            Marshaller pm = pc.createMarshaller();
+            pm.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            ProgrammListWrapper programmWrapper = new ProgrammListWrapper();
+            programmWrapper.setProgramme(Programme);
+            pm.marshal(programmWrapper, programmFile);
+
+            // Save the file path to the registry.
+           // setPersonFilePath(file);
+        } catch (Exception e) { // catches ANY exception
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Could not save data");
+           // alert.setContentText("Could not save data to file:\n" + file.getPath());
+
+            alert.showAndWait();
+        }
     }
 }
