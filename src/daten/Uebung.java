@@ -41,6 +41,15 @@ public class Uebung {
         }
     }
 
+    public Uebung makeTmpCopy(){
+        Uebung tmpUebung = new Uebung();
+        tmpUebung.setName(name.get());
+        tmpUebung.setBeschreibung(beschreibung.get());
+        tmpUebung.getMasse().addAll(masse.get());
+        tmpUebung.getDefi().addAll(defi.get());
+        return tmpUebung;
+    }
+
     public static Callback<Uebung, Observable[]> makeExtractor(){
         return new Callback<Uebung, Observable[]>() {
             @Override

@@ -39,16 +39,19 @@ public class TagController {
             isNew = true;
         }
         this.programm = programm;
-        tmpTag = (Tag) Methoden.deepCopy(aktuellerTag);
+
+        //tmpTag = (Tag) Methoden.deepCopy(aktuellerTag);
+        tmpTag = aktuellerTag.makeTmpCopy();
+
         programmWorkoutsListView = (ListView) tagDialog.lookup("#programmWorkoutsListView");
         programmWorkoutsListView.setItems(tmpTag.getWorkouts());
         programmWorkoutsListView.setCellFactory(new Callback<ListView<Workout>,
-                                                       ListCell<Workout>>() {
-                                                   @Override
-                                                   public ListCell<Workout> call(ListView<Workout> list) {
-                                                       return new WorkoutCell();
-                                                   }
-                                               }
+                                                        ListCell<Workout>>() {
+                                                    @Override
+                                                    public ListCell<Workout> call(ListView<Workout> list) {
+                                                        return new WorkoutCell();
+                                                    }
+                                                }
         );
 
         tagNameField.textProperty().bindBidirectional(tmpTag.nameProperty());
@@ -56,26 +59,27 @@ public class TagController {
         workoutComboBox = (ComboBox) tagDialog.lookup("#workoutComboBox");
         workoutComboBox.setItems(Main.getWorkouts());
         workoutComboBox.setCellFactory(new Callback<ListView<Workout>,
-                                              ListCell<Workout>>() {
-                                          @Override
-                                          public ListCell<Workout> call(ListView<Workout> list) {
-                                              return new WorkoutCell();
-                                          }
-                                      }
+                                               ListCell<Workout>>() {
+                                           @Override
+                                           public ListCell<Workout> call(ListView<Workout> list) {
+                                               return new WorkoutCell();
+                                           }
+                                       }
         );
     }
 
 
     public void tagSpeichern(ActionEvent event) {
-        if(tmpTag.getValid().getCode() == 0){
-        aktuellerTag.setName(tmpTag.getName());
-        aktuellerTag.setWorkouts(tmpTag.getWorkouts());
-        if (isNew) {
-            programm.getTage().add(aktuellerTag);
-        }
-        Stage stage = (Stage) tagSpeichernBtn.getScene().getWindow();
-        stage.close();}
-        else {
+        if (tmpTag.getValid().getCode() == 0) {
+            aktuellerTag.setName(tmpTag.getName());
+            aktuellerTag.setWorkouts(tmpTag.getWorkouts());
+            if (isNew) {
+                programm.getTage().add(aktuellerTag);
+            }
+            Stage stage = (Stage) tagSpeichernBtn.getScene().getWindow();
+            stage.close();
+            Main.saveDatenbank();
+        } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
 
             a.setTitle("Ungültige Eingabe");

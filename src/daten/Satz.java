@@ -34,6 +34,13 @@ public class Satz {
         }
     }
 
+    public Satz makeTmpCopy(){
+        Satz tmpSatz = new Satz();
+        tmpSatz.setWiederholungen(wiederholungen.get());
+        tmpSatz.setGewicht(gewicht.get());
+        return tmpSatz;
+    }
+
     public static Callback<Satz, Observable[]> makeExtractor(){
         return new Callback<Satz, Observable[]>() {
             @Override

@@ -37,7 +37,10 @@ public class SatzController {
             isNew = true;
         }
         this.uebung = uebung;
-        tmpSatz = (Satz) Methoden.deepCopy(aktuellerSatz);
+
+        //tmpSatz = (Satz) Methoden.deepCopy(aktuellerSatz);
+        tmpSatz = aktuellerSatz.makeTmpCopy();
+
         satzWiederholungenField.textProperty().bindBidirectional(tmpSatz.wiederholungenProperty());
         satzGewichtField.textProperty().bindBidirectional(tmpSatz.gewichtProperty());
 
@@ -52,6 +55,7 @@ public class SatzController {
             }
             Stage stage = (Stage) satzSpeichernBtn.getScene().getWindow();
             stage.close();
+            Main.saveDatenbank();
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
 
@@ -79,6 +83,7 @@ public class SatzController {
             }
             Stage stage = (Stage) satzSpeichernBtn.getScene().getWindow();
             stage.close();
+            Main.saveDatenbank();
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
 

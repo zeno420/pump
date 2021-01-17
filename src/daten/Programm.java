@@ -40,6 +40,14 @@ public class Programm {
         }
     }
 
+    public Programm makeTmpCopy(){
+        Programm tmpProgramm = new Programm();
+        tmpProgramm.setName(name.get());
+        tmpProgramm.setBeschreibung(beschreibung.get());
+        tmpProgramm.getTage().addAll(tage.get());
+        return tmpProgramm;
+    }
+
     public static Callback<Programm, Observable[]> makeExtractor(){
         return new Callback<Programm, Observable[]>() {
             @Override

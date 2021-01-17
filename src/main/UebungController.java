@@ -41,7 +41,8 @@ public class UebungController {
             isNew = true;
         }
 
-        tmpUebung = (Uebung) Methoden.deepCopy(aktuelleUebung);
+        //tmpUebung = (Uebung) Methoden.deepCopy(aktuelleUebung);
+        tmpUebung = aktuelleUebung.makeTmpCopy();
 
         ListView<Satz> masseSatzListView = (ListView) uebungDialog.lookup("#masseSatzListView");
         masseSatzListView.setItems(tmpUebung.getMasse());
@@ -79,6 +80,7 @@ public class UebungController {
             }
             Stage stage = (Stage) uebungSpeichernBtn.getScene().getWindow();
             stage.close();
+            Main.saveDatenbank();
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
 

@@ -30,11 +30,11 @@ public class Main extends Application {
     private static ObservableList<Programm> Programme = FXCollections.observableArrayList(Programm.makeExtractor());
 
     private String uebungFilePath = "uebung_datenbank.xml";
-    private File uebungFile;
+    private static File uebungFile;
     private String workoutFilePath = "workout_datenbank.xml";
-    private File workoutFile;
+    private static File workoutFile;
     private String programmFilePath = "programm_datenbank.xml";
-    private File programmFile;
+    private static File programmFile;
 
 
 
@@ -51,7 +51,7 @@ public class Main extends Application {
         } catch (Exception e) {
             System.out.println("no file yet!");
         }
-        loadDatenbank(uebungFile, workoutFile, programmFile);
+        loadDatenbank();
 
         Parent root = FXMLLoader.load(getClass().getResource("root.fxml"));
         primaryStage.setTitle("pump");
@@ -97,7 +97,7 @@ public class Main extends Application {
 
     @Override
     public void stop() throws Exception {
-        saveDatenbank(uebungFile, workoutFile, programmFile);
+        saveDatenbank();
     }
 
     public static void main(String[] args) {
@@ -121,7 +121,7 @@ public class Main extends Application {
      * be replaced.
      *
      */
-    public void loadDatenbank(File uebungFile, File workoutFile, File programmFile) throws JAXBException {
+    public void loadDatenbank() throws JAXBException {
         try {
             JAXBContext uc = JAXBContext.newInstance(UebungListWrapper.class);
             Unmarshaller uum = uc.createUnmarshaller();
@@ -154,7 +154,7 @@ public class Main extends Application {
      * Saves the current person data to the specified file.
      *
      */
-    public void saveDatenbank(File uebungFile, File workoutFile, File programmFile) {
+    public static void saveDatenbank() {
         try {
             JAXBContext uc = JAXBContext.newInstance(UebungListWrapper.class);
             Marshaller um = uc.createMarshaller();

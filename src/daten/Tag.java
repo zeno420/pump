@@ -39,6 +39,13 @@ public class Tag {
         }
     }
 
+    public Tag makeTmpCopy(){
+        Tag tmpTag = new Tag();
+        tmpTag.setName(name.get());
+        tmpTag.getWorkouts().addAll(workouts.get());
+        return tmpTag;
+    }
+
     public static Callback<Tag, Observable[]> makeExtractor(){
         return new Callback<Tag, Observable[]>() {
             @Override

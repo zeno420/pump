@@ -41,7 +41,8 @@ public class ProgrammController {
             isNew = true;
         }
 
-        tmpProgramm = (Programm) Methoden.deepCopy(aktuellesProgramm);
+        //tmpProgramm = (Programm) Methoden.deepCopy(aktuellesProgramm);
+        tmpProgramm = aktuellesProgramm.makeTmpCopy();
 
         ListView<Tag> tageListView = (ListView) programmDialog.lookup("#tageListView");
         tageListView.setItems(tmpProgramm.getTage());
@@ -69,6 +70,7 @@ public class ProgrammController {
             }
             Stage stage = (Stage) programmSpeichernBtn.getScene().getWindow();
             stage.close();
+            Main.saveDatenbank();
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
 

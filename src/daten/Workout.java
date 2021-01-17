@@ -40,6 +40,14 @@ public class Workout {
         }
     }
 
+    public Workout makeTmpCopy(){
+        Workout tmpWorkout = new Workout();
+        tmpWorkout.setName(name.get());
+        tmpWorkout.setBeschreibung(beschreibung.get());
+        tmpWorkout.getUebungen().addAll(uebungen.get());
+        return tmpWorkout;
+    }
+
     public static Callback<Workout, Observable[]> makeExtractor(){
         return new Callback<Workout, Observable[]>() {
             @Override

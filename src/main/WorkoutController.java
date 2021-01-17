@@ -41,7 +41,8 @@ public class WorkoutController {
             isNew = true;
         }
 
-        tmpWorkout = (Workout) Methoden.deepCopy(aktuellesWorkout);
+        //tmpWorkout = (Workout) Methoden.deepCopy(aktuellesWorkout);
+        tmpWorkout = aktuellesWorkout.makeTmpCopy();
 
         workoutUebungenListView = (ListView) workoutDialog.lookup("#workoutUebungenListView");
         workoutUebungenListView.setItems(tmpWorkout.getUebungen());
@@ -81,6 +82,7 @@ public class WorkoutController {
             }
             Stage stage = (Stage) workouSpeichernBtn.getScene().getWindow();
             stage.close();
+            Main.saveDatenbank();
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
 
