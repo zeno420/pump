@@ -131,6 +131,7 @@ public class RootController {
     public void programmSpielen(Programm programm) throws IOException {
         FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("programm_spielen.fxml"));
         Parent programmDialog = fxmlloader.load();
+        programmDialog.setUserData(fxmlloader.getController());
 
         Stage stage = new Stage();
 

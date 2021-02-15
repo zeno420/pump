@@ -163,29 +163,28 @@ public class ProgrammController {
 
     public void workoutSpielen(Workout workout) throws IOException {
         //TODO
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("programm_spielen.fxml"));
-        Parent programmDialog = fxmlloader.load();
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("workout_spielen.fxml"));
+        Parent workoutDialog = fxmlloader.load();
+        workoutDialog.setUserData(fxmlloader.getController());
 
         Stage stage = new Stage();
 
-        ProgrammController c = fxmlloader.getController();
-        // c.setUpBindingPlay(programm, programmDialog);
+        WorkoutController c = fxmlloader.getController();
+        c.setUpBindingPlay(workout, workoutDialog);
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Programm spielen");
-        stage.setScene(new Scene(programmDialog, 1080, 720));
+        stage.setScene(new Scene(workoutDialog, 1080, 720));
 
         stage.show();
     }
 
     public void nextTag(ActionEvent event) throws IOException {
-        //TODO neu laden und index speichern
         aktuellesProgramm.increaseAktuellerTag();
         setUpBindingPlay(aktuellesProgramm, aktuellerProgrammDialog);
     }
 
     public void previousTag(ActionEvent event) throws IOException {
-        //TODO neu laden
         aktuellesProgramm.decreaseAktuellerTag();
         setUpBindingPlay(aktuellesProgramm, aktuellerProgrammDialog);
     }

@@ -1,8 +1,11 @@
 package main;
 
 import daten.Methoden;
+import daten.Satz;
 import daten.Uebung;
 import daten.Workout;
+import design.PlayWorkoutCell;
+import design.SatzCell;
 import design.UebungCell;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +19,7 @@ import java.io.IOException;
 public class WorkoutController {
 
     private Workout aktuellesWorkout;
+    private Parent aktuellerWorkoutDialog;
     private Workout tmpWorkout;
     private boolean isNew = false;
 
@@ -30,6 +34,14 @@ public class WorkoutController {
     private Button workouSpeichernBtn;
     @FXML
     private Button workoutLoeschenBtn;
+    @FXML
+    private ListView satzListView;
+    @FXML
+    private Label uebungNameLabel;
+    @FXML
+    private Label workoutNameLabel;
+    @FXML
+    private Label indexLabel;
 
     public void setUpBinding(Workout workout, Parent workoutDialog) {
 
@@ -68,6 +80,28 @@ public class WorkoutController {
                                           }
                                       }
         );
+    }
+
+    public void setUpBindingPlay(Workout workout, Parent workoutDialog) {
+
+        //TODO
+        aktuellesWorkout = workout;
+        aktuellerWorkoutDialog = workoutDialog;
+
+        ListView<Satz> satzListView = (ListView) workoutDialog.lookup("#satzListView");
+        //TODO getSaetze abhängig von masse defi toggle
+        satzListView.setItems(workout.getUebungen().get(workout.getCurrentUebungIndex()).getMasse());
+        satzListView.setCellFactory(new Callback<ListView<Satz>,
+                                               ListCell<Satz>>() {
+                                           @Override
+                                           public ListCell<Satz> call(ListView<Satz> list) {
+                                               return new SatzCell();
+                                           }
+                                       }
+        );
+        workoutNameLabel.textProperty().bind(workout.nameProperty());
+        uebungNameLabel.textProperty().bind(workout.getUebungen().get(workout.currentUebungIndexProperty().get()).nameProperty());
+        indexLabel.textProperty().bind(workout.currentUebungIndexProperty().asString());
     }
 
     public void workoutSpeichern(ActionEvent event) {
@@ -117,5 +151,15 @@ public class WorkoutController {
 
     public void uebungEntfernen(ActionEvent event) throws IOException {
         tmpWorkout.getUebungen().remove(workoutUebungenListView.getSelectionModel().getSelectedIndex());
+    }
+
+    public void nextUebung(ActionEvent event) throws IOException {
+        aktuellesWorkout.increaseAktuelleUebung();
+        setUpBindingPlay(aktuellesWorkout, aktuellerWorkoutDialog);
+    }
+
+    public void previousUebung(ActionEvent event) throws IOException {
+        aktuellesWorkout.decreaseAktuelleUebung();
+        setUpBindingPlay(aktuellesWorkout, aktuellerWorkoutDialog);
     }
 }

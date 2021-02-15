@@ -35,13 +35,13 @@ public class PlayWorkoutCell extends ListCell<Workout> {
 
                 @Override
                 public void handle(ActionEvent arg0) {
-                   /* //ProgrammController pc = (ProgrammController) getScene().getRoot().getUserData();
+                   ProgrammController pc = (ProgrammController) getScene().getRoot().getUserData();
                     try {
                         //TODO
-                        //pc.
+                        pc.workoutSpielen(workout);
                     } catch (IOException e) {
                         e.printStackTrace();
-                    }*/
+                    }
                 }
             });
 

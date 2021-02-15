@@ -1,10 +1,7 @@
 package daten;
 
 import javafx.beans.Observable;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Callback;
@@ -15,6 +12,8 @@ public class Workout {
     private StringProperty beschreibung = new SimpleStringProperty();
 
     private ListProperty<Uebung> uebungen = new SimpleListProperty<>(FXCollections.observableArrayList(Uebung.makeExtractor()));
+
+    private IntegerProperty currentUebungIndex = new SimpleIntegerProperty(0);
 
     private Valid valid = Valid.VALID;
 
@@ -104,5 +103,35 @@ public class Workout {
 
     public void setUebungen(ObservableList<Uebung> uebungen) {
         this.uebungen.set(uebungen);
+    }
+
+    public int getCurrentUebungIndex() {
+        return currentUebungIndex.get();
+    }
+
+    public IntegerProperty currentUebungIndexProperty() {
+        return currentUebungIndex;
+    }
+
+    public void setCurrentUebungIndex(int currentUebungIndex) {
+        this.currentUebungIndex.set(currentUebungIndex);
+    }
+
+    public void increaseAktuelleUebung() {
+        setCurrentUebungIndex(currentUebungIndex.get() + 1);
+        validateIndex();
+    }
+
+    public void decreaseAktuelleUebung() {
+        setCurrentUebungIndex(currentUebungIndex.get() - 1);
+        validateIndex();
+    }
+
+    private void validateIndex() {
+        if (currentUebungIndex.get() > uebungen.get().size() - 1) {
+            currentUebungIndex.set(0);
+        } else if (currentUebungIndex.get() < 0) {
+            currentUebungIndex.set(uebungen.get().size() - 1);
+        }
     }
 }

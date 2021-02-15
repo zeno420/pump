@@ -25,6 +25,9 @@ import java.io.File;
 
 public class Main extends Application {
 
+    //TODO gelöschtes workout löscht sich nicht aus tagen
+    //TODO play logik uebung machen
+
     private static ObservableList<Uebung> Uebungen = FXCollections.observableArrayList(Uebung.makeExtractor());
     private static ObservableList<Workout> Workouts = FXCollections.observableArrayList(Workout.makeExtractor());
     private static ObservableList<Programm> Programme = FXCollections.observableArrayList(Programm.makeExtractor());
