@@ -101,7 +101,7 @@ public class RootController {
         Stage stage = new Stage();
 
         ProgrammController c = fxmlloader.getController();
-        c.setUpBinding(null, programmDialog);
+        c.setUpBindingEdit(null, programmDialog);
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Programm erstellen");
@@ -110,7 +110,7 @@ public class RootController {
         stage.show();
     }
 
-    public void programmBearbeiten(MouseEvent event) throws IOException {
+    public void programmBearbeiten(Programm programm) throws IOException {
 
         FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("programm.fxml"));
         Parent programmDialog = fxmlloader.load();
@@ -118,12 +118,27 @@ public class RootController {
         Stage stage = new Stage();
 
         ProgrammController c = fxmlloader.getController();
-        Programm programm = (Programm) ((ListView)event.getSource()).getSelectionModel().getSelectedItem();
-        c.setUpBinding(programm, programmDialog);
-
+        //Programm programm = (Programm) ((ListView)event.getSource()).getSelectionModel().getSelectedItem();
+        c.setUpBindingEdit(programm, programmDialog);
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Programm bearbeiten");
+        stage.setScene(new Scene(programmDialog, 1080, 720));
+
+        stage.show();
+    }
+
+    public void programmSpielen(Programm programm) throws IOException {
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("programm_spielen.fxml"));
+        Parent programmDialog = fxmlloader.load();
+
+        Stage stage = new Stage();
+
+        ProgrammController c = fxmlloader.getController();
+        c.setUpBindingPlay(programm, programmDialog);
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Programm spielen");
         stage.setScene(new Scene(programmDialog, 1080, 720));
 
         stage.show();

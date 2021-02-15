@@ -1,6 +1,7 @@
 package main;
 
 import daten.*;
+import design.PlayWorkoutCell;
 import design.SatzCell;
 import design.TagCell;
 import javafx.event.ActionEvent;
@@ -10,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -24,15 +26,22 @@ public class ProgrammController {
     @FXML
     private TextField programmBeschreibungField;
     @FXML
+    private Label programmNameLabel;
+    @FXML
+    private Label tagNameLabel;
+    @FXML
     private Button programmSpeichernBtn;
     @FXML
     private Button programmLoeschenBtn;
+    @FXML
+    private Label indexLabel;
 
     private Programm aktuellesProgramm;
+    private Parent aktuellerProgrammDialog;
     private Programm tmpProgramm;
     private boolean isNew = false;
 
-    public void setUpBinding(Programm programm, Parent programmDialog) {
+    public void setUpBindingEdit(Programm programm, Parent programmDialog) {
         if (programm != null) {
             aktuellesProgramm = programm;
             isNew = false;
@@ -41,7 +50,6 @@ public class ProgrammController {
             isNew = true;
         }
 
-        //tmpProgramm = (Programm) Methoden.deepCopy(aktuellesProgramm);
         tmpProgramm = aktuellesProgramm.makeTmpCopy();
 
         ListView<Tag> tageListView = (ListView) programmDialog.lookup("#tageListView");
@@ -58,6 +66,26 @@ public class ProgrammController {
 
         programmNameField.textProperty().bindBidirectional(tmpProgramm.nameProperty());
         programmBeschreibungField.textProperty().bindBidirectional(tmpProgramm.beschreibungProperty());
+    }
+
+    public void setUpBindingPlay(Programm programm, Parent programmDialog) {
+        //TODO
+        aktuellesProgramm = programm;
+        aktuellerProgrammDialog = programmDialog;
+
+        ListView<Workout> workoutListView = (ListView) programmDialog.lookup("#workoutListView");
+        workoutListView.setItems(programm.getTage().get(programm.getCurrentTagIndex()).getWorkouts());
+        workoutListView.setCellFactory(new Callback<ListView<Workout>,
+                                               ListCell<Workout>>() {
+                                           @Override
+                                           public ListCell<Workout> call(ListView<Workout> list) {
+                                               return new PlayWorkoutCell();
+                                           }
+                                       }
+        );
+        programmNameLabel.textProperty().bind(programm.nameProperty());
+        tagNameLabel.textProperty().bind(programm.getTage().get(programm.currentTagIndexProperty().get()).nameProperty());
+        indexLabel.textProperty().bind(programm.currentTagIndexProperty().asString());
     }
 
     public void programmSpeichern(ActionEvent event) {
@@ -131,5 +159,34 @@ public class ProgrammController {
         stage.setScene(new Scene(tagDialog, 1080, 720));
 
         stage.show();
+    }
+
+    public void workoutSpielen(Workout workout) throws IOException {
+        //TODO
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("programm_spielen.fxml"));
+        Parent programmDialog = fxmlloader.load();
+
+        Stage stage = new Stage();
+
+        ProgrammController c = fxmlloader.getController();
+        // c.setUpBindingPlay(programm, programmDialog);
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Programm spielen");
+        stage.setScene(new Scene(programmDialog, 1080, 720));
+
+        stage.show();
+    }
+
+    public void nextTag(ActionEvent event) throws IOException {
+        //TODO neu laden und index speichern
+        aktuellesProgramm.increaseAktuellerTag();
+        setUpBindingPlay(aktuellesProgramm, aktuellerProgrammDialog);
+    }
+
+    public void previousTag(ActionEvent event) throws IOException {
+        //TODO neu laden
+        aktuellesProgramm.decreaseAktuellerTag();
+        setUpBindingPlay(aktuellesProgramm, aktuellerProgrammDialog);
     }
 }

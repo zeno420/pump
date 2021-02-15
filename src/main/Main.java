@@ -53,7 +53,12 @@ public class Main extends Application {
         }
         loadDatenbank();
 
-        Parent root = FXMLLoader.load(getClass().getResource("root.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("root.fxml"));
+        Parent root = loader.load();
+
+        root.setUserData(loader.getController());
+
+
         primaryStage.setTitle("pump");
 
 

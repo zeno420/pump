@@ -1,10 +1,7 @@
 package daten;
 
 import javafx.beans.Observable;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Callback;
@@ -17,7 +14,7 @@ public class Programm {
     private ListProperty<Tag> tage = new SimpleListProperty<>(FXCollections.observableArrayList(Tag.makeExtractor()));
 
     private Valid valid = Valid.VALID;
-
+    private IntegerProperty currentTagIndex = new SimpleIntegerProperty(0);
 
     public enum Valid {
 
@@ -103,5 +100,35 @@ public class Programm {
 
     public void setTage(ObservableList<Tag> tage) {
         this.tage.set(tage);
+    }
+
+    public int getCurrentTagIndex() {
+        return currentTagIndex.get();
+    }
+
+    public IntegerProperty currentTagIndexProperty() {
+        return currentTagIndex;
+    }
+
+    public void setCurrentTagIndex(int currentTagIndex) {
+        this.currentTagIndex.set(currentTagIndex);
+    }
+
+    public void increaseAktuellerTag() {
+        setCurrentTagIndex(currentTagIndex.get() + 1);
+        validateIndex();
+    }
+
+    public void decreaseAktuellerTag() {
+        setCurrentTagIndex(currentTagIndex.get() - 1);
+        validateIndex();
+    }
+
+    private void validateIndex() {
+        if (currentTagIndex.get() > tage.get().size() - 1) {
+            currentTagIndex.set(0);
+        } else if (currentTagIndex.get() < 0) {
+            currentTagIndex.set(tage.get().size() - 1);
+        }
     }
 }
