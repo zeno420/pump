@@ -3,46 +3,23 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane minHeight="480.0" minWidth="640.0" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.272" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.RootController">
+<AnchorPane minHeight="480.0" minWidth="640.0" prefHeight="720.0" prefWidth="1080.0"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="main.RootController">
     <children>
-        <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <TabPane layoutY="36.0" prefHeight="684.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE"
+                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                 AnchorPane.topAnchor="36.0">
             <tabs>
-                <Tab text="Home">
-                    <content>
-                        <AnchorPane minHeight="480.0" minWidth="640.0">
-                            <children>
-
-
-                                <ToggleButton fx:id="masseBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Masse" textAlignment="CENTER">
-                                    <toggleGroup>
-                                        <ToggleGroup fx:id="massedefiTG" />
-                                    </toggleGroup>
-                                </ToggleButton>
-                                <ToggleButton fx:id="defiBtn" layoutX="73.0" layoutY="14.0" mnemonicParsing="false" text="Definition" textAlignment="CENTER" toggleGroup="$massedefiTG" />
-                                <ToggleButton fx:id="playBtn" layoutX="14.0" layoutY="327.0" mnemonicParsing="false" text="Play" textAlignment="CENTER" AnchorPane.bottomAnchor="10.0">
-                                    <toggleGroup>
-                                        <ToggleGroup fx:id="playpauseTG" />
-                                    </toggleGroup>
-                                </ToggleButton>
-                                <ToggleButton fx:id="pauseBtn" layoutX="61.0" layoutY="327.0" mnemonicParsing="false" text="Pause" textAlignment="CENTER" toggleGroup="$playpauseTG" AnchorPane.bottomAnchor="10.0" />
-                                <ScrollPane layoutX="49.0" layoutY="84.0" prefHeight="200.0" prefWidth="480.0">
-                                    <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-                                    </content>
-                                </ScrollPane>
-
-
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </Tab>
                 <Tab text="Programm">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <Button fx:id="neuesProgrammBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#programmErstellen" text="Programm erstellen" textAlignment="CENTER" />
+                                <Button fx:id="neuesProgrammBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false"
+                                        onAction="#programmErstellen" text="Programm erstellen" textAlignment="CENTER"/>
                                 <!--<ListView fx:id="programmListView" layoutX="18.0" layoutY="54.0" onMouseClicked="#programmBearbeiten" prefHeight="606.0" prefWidth="1040.0" />-->
-                                <ListView fx:id="programmListView" layoutX="18.0" layoutY="54.0" prefHeight="606.0" prefWidth="1040.0" />
+                                <ListView fx:id="programmListView" layoutX="18.0" layoutY="54.0" prefHeight="606.0"
+                                          prefWidth="1040.0"/>
                             </children>
                         </AnchorPane>
                     </content>
@@ -51,8 +28,10 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <Button fx:id="neuesWorkoutBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#workoutErstellen" text="Workout erstellen" textAlignment="CENTER" />
-                                <ListView fx:id="workoutListView" layoutX="18.0" layoutY="54.0" onMouseClicked="#workoutBearbeiten" prefHeight="606.0" prefWidth="1040.0" />
+                                <Button fx:id="neuesWorkoutBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false"
+                                        onAction="#workoutErstellen" text="Workout erstellen" textAlignment="CENTER"/>
+                                <ListView fx:id="workoutListView" layoutX="18.0" layoutY="54.0"
+                                          onMouseClicked="#workoutBearbeiten" prefHeight="606.0" prefWidth="1040.0"/>
                             </children>
                         </AnchorPane>
                     </content>
@@ -61,13 +40,20 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <Button fx:id="neueUebungBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#uebungErstellen" text="Übung erstellen" textAlignment="CENTER" />
-                                <ListView fx:id="uebungenListView" layoutX="18.0" layoutY="54.0" onMouseClicked="#uebungBearbeiten" prefHeight="606.0" prefWidth="1040.0" />
+                                <Button fx:id="neueUebungBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false"
+                                        onAction="#uebungErstellen" text="Übung erstellen" textAlignment="CENTER"/>
+                                <ListView fx:id="uebungenListView" layoutX="18.0" layoutY="54.0"
+                                          onMouseClicked="#uebungBearbeiten" prefHeight="606.0" prefWidth="1040.0"/>
                             </children>
                         </AnchorPane>
                     </content>
                 </Tab>
             </tabs>
         </TabPane>
+        <fx:define>
+            <ToggleGroup fx:id="group" />
+        </fx:define>
+        <RadioButton layoutX="287.0" layoutY="14.0" mnemonicParsing="false" text="Masse"  toggleGroup="$group" />
+        <RadioButton layoutX="400.0" layoutY="14.0" mnemonicParsing="false" text="Definition"  toggleGroup="$group" />
     </children>
 </AnchorPane>

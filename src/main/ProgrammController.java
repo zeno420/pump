@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProgrammController {
 
@@ -162,14 +164,22 @@ public class ProgrammController {
     }
 
     public void workoutSpielen(Workout workout) throws IOException {
-        //TODO
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("workout_spielen.fxml"));
-        Parent workoutDialog = fxmlloader.load();
-        workoutDialog.setUserData(fxmlloader.getController());
+        //TODO satz bearbeiten wirkt nur auf den satz, wieder ine referenz kaputt
+        FXMLLoader workoutFxmlloader = new FXMLLoader(getClass().getResource("workout_spielen.fxml"));
+        Parent workoutDialog = workoutFxmlloader.load();
+
+        FXMLLoader uebungFxmlloader = new FXMLLoader(getClass().getResource("uebung.fxml"));
+        Parent uebungDialog = uebungFxmlloader.load();
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("workout", workoutFxmlloader.getController());
+        map.put("uebung", uebungFxmlloader.getController());
+
+        workoutDialog.setUserData(map);
 
         Stage stage = new Stage();
 
-        WorkoutController c = fxmlloader.getController();
+        WorkoutController c = workoutFxmlloader.getController();
         c.setUpBindingPlay(workout, workoutDialog);
 
         stage.initModality(Modality.APPLICATION_MODAL);

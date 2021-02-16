@@ -4,6 +4,8 @@ import daten.Programm;
 import daten.Satz;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -12,6 +14,7 @@ import main.RootController;
 import main.UebungController;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class SatzCell extends ListCell<Satz> {
 
@@ -33,7 +36,12 @@ public class SatzCell extends ListCell<Satz> {
 
                 @Override
                 public void handle(ActionEvent arg0) {
-                    UebungController uc = (UebungController) getScene().getRoot().getUserData();
+                    UebungController uc;
+                    if(getScene().getRoot().getUserData() instanceof UebungController){
+                        uc = (UebungController) getScene().getRoot().getUserData();
+                    } else {
+                        uc = (UebungController) ((Map) getScene().getRoot().getUserData()).get("uebung");
+                    }
                     try {
                         //TODO masse defi switch
                         uc.masseSatzBearbeiten(satz);
