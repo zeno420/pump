@@ -1,10 +1,8 @@
 package design;
 
 import daten.Programm;
-import daten.Tag;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;

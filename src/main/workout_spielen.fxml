@@ -3,11 +3,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.WorkoutController">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.WorkoutController">
     <children>
         <ListView fx:id="satzListView" layoutX="356.0" layoutY="83.0" prefHeight="200.0" prefWidth="200.0" />
-        <Button fx:id="previousBtn" layoutX="402.0" layoutY="334.0" mnemonicParsing="false" text="&lt;&lt;" />
-        <Button fx:id="nextBtn" layoutX="502.0" layoutY="334.0" mnemonicParsing="false" text="&gt;&gt;" />
+        <Button fx:id="previousBtn" layoutX="402.0" layoutY="334.0" mnemonicParsing="false" onAction="#previousUebung" text="&lt;&lt;" />
+        <Button fx:id="nextBtn" layoutX="502.0" layoutY="334.0" mnemonicParsing="false" onAction="#nextUebung" text="&gt;&gt;" />
         <Label fx:id="workoutNameLabel" layoutX="282.0" layoutY="14.0" text="Label" />
         <Label fx:id="uebungNameLabel" layoutX="156.0" layoutY="209.0" text="Label" />
         <Label fx:id="indexLabel" layoutX="109.0" layoutY="209.0" text="Label" />

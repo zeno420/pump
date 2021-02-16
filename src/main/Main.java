@@ -25,8 +25,10 @@ import java.io.File;
 
 public class Main extends Application {
 
-    //TODO gelöschtes workout löscht sich nicht aus tagen
     //TODO play logik uebung machen
+
+    //TODO referenzen auf bestandteile stimmen nach neu laden der datenbank nicht: bsp. workout mit uebungen erstellen,
+    // programm beenden, wieder starten, name von uebung ändeern, bleibt in workout alt...
 
     private static ObservableList<Uebung> Uebungen = FXCollections.observableArrayList(Uebung.makeExtractor());
     private static ObservableList<Workout> Workouts = FXCollections.observableArrayList(Workout.makeExtractor());

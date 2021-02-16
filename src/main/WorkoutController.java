@@ -84,7 +84,6 @@ public class WorkoutController {
 
     public void setUpBindingPlay(Workout workout, Parent workoutDialog) {
 
-        //TODO
         aktuellesWorkout = workout;
         aktuellerWorkoutDialog = workoutDialog;
 
@@ -162,4 +161,5 @@ public class WorkoutController {
         aktuellesWorkout.decreaseAktuelleUebung();
         setUpBindingPlay(aktuellesWorkout, aktuellerWorkoutDialog);
     }
+
 }

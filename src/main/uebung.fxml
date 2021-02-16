@@ -17,7 +17,7 @@
                 <Button fx:id="uebungSpeichernBtn" mnemonicParsing="false" onAction="#uebungSpeichern" text="Speichern" />
             </buttons>
         </ButtonBar>
-      <ListView fx:id="masseSatzListView" layoutX="84.0" layoutY="200.0" onMouseClicked="#masseSatzBearbeiten" prefHeight="142.0" prefWidth="200.0" />
+      <ListView fx:id="masseSatzListView" layoutX="84.0" layoutY="200.0" prefHeight="142.0" prefWidth="200.0" />
       <ListView fx:id="defiSatzListView" layoutX="386.0" layoutY="204.0" onMouseClicked="#defiSatzBearbeiten" prefHeight="142.0" prefWidth="200.0" />
       <Label layoutX="84.0" layoutY="168.0" text="Masse" />
       <Label layoutX="386.0" layoutY="168.0" text="Definition" />

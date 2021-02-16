@@ -1,6 +1,7 @@
 package main;
 
 import daten.Methoden;
+import daten.Programm;
 import daten.Satz;
 import daten.Uebung;
 import design.SatzCell;
@@ -123,7 +124,7 @@ public class UebungController {
         stage.show();
     }
 
-    public void masseSatzBearbeiten(MouseEvent event) throws IOException {
+    public void masseSatzBearbeiten(Satz satz) throws IOException {
 
         FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("masse_satz.fxml"));
         Parent satzDialog = fxmlloader.load();
@@ -132,13 +133,29 @@ public class UebungController {
 
         SatzController c = fxmlloader.getController();
 
-        Satz satz = (Satz) ((ListView) event.getSource()).getSelectionModel().getSelectedItem();
-
         c.setUpBinding(satz, satzDialog, tmpUebung);
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Satz erstellen");
         stage.setScene(new Scene(satzDialog, 1080, 720));
+
+        stage.show();
+    }
+
+    public void programmBearbeiten(Programm programm) throws IOException {
+
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("programm.fxml"));
+        Parent programmDialog = fxmlloader.load();
+
+        Stage stage = new Stage();
+
+        ProgrammController c = fxmlloader.getController();
+        //Programm programm = (Programm) ((ListView)event.getSource()).getSelectionModel().getSelectedItem();
+        c.setUpBindingEdit(programm, programmDialog);
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Programm bearbeiten");
+        stage.setScene(new Scene(programmDialog, 1080, 720));
 
         stage.show();
     }

@@ -25,6 +25,7 @@ public class RootController {
 
         FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("uebung.fxml"));
         Parent uebungDialog = fxmlloader.load();
+        uebungDialog.setUserData(fxmlloader.getController());
 
         Stage stage = new Stage();
 
@@ -42,6 +43,7 @@ public class RootController {
 
         FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("uebung.fxml"));
         Parent uebungDialog = fxmlloader.load();
+        uebungDialog.setUserData(fxmlloader.getController());
 
         Stage stage = new Stage();
 
