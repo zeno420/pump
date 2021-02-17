@@ -6,6 +6,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Callback;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlIDREF;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Programm {
 
     private StringProperty name = new SimpleStringProperty();
@@ -15,6 +21,24 @@ public class Programm {
 
     private Valid valid = Valid.VALID;
     private IntegerProperty currentTagIndex = new SimpleIntegerProperty(0);
+
+    //static id generator shared among all instances of Coordinates
+    //private static final AtomicInteger idGenerator = new AtomicInteger(1000);
+
+    @XmlAttribute
+    @XmlID
+    private final String pid;
+
+    public Programm() {
+        //assign unique id to an instance variable
+        pid = "p-" + UUID.randomUUID().toString();
+    }
+
+    public String getId() {
+        //return instance variable
+        return pid;
+    }
+
 
     public enum Valid {
 

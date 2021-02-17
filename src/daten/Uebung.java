@@ -9,6 +9,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Callback;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlID;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Uebung {
 
     private StringProperty name = new SimpleStringProperty();
@@ -18,6 +23,23 @@ public class Uebung {
     private ListProperty<Satz> defi = new SimpleListProperty<>(FXCollections.observableArrayList(Satz.makeExtractor()));
 
     private Valid valid = Valid.VALID;
+
+    //static id generator shared among all instances of Coordinates
+    //private static final AtomicInteger idGenerator = new AtomicInteger(1000);
+
+    @XmlAttribute
+    @XmlID
+    private final String uid;
+
+    public Uebung() {
+        //assign unique id to an instance variable
+        uid = "u-" + UUID.randomUUID().toString();
+    }
+
+    public String getId() {
+        //return instance variable
+        return uid;
+    }
 
 
     public enum Valid {

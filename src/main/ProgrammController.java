@@ -2,7 +2,6 @@ package main;
 
 import daten.*;
 import design.PlayWorkoutCell;
-import design.SatzCell;
 import design.TagCell;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -21,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProgrammController {
-
 
     @FXML
     private TextField programmNameField;
@@ -164,7 +161,6 @@ public class ProgrammController {
     }
 
     public void workoutSpielen(Workout workout) throws IOException {
-        //TODO satz bearbeiten wirkt nur auf den satz, wieder ine referenz kaputt
         FXMLLoader workoutFxmlloader = new FXMLLoader(getClass().getResource("workout_spielen.fxml"));
         Parent workoutDialog = workoutFxmlloader.load();
 

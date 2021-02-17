@@ -25,34 +25,19 @@ import java.io.File;
 
 public class Main extends Application {
 
-    //TODO play logik uebung machen
-
-    //TODO referenzen auf bestandteile stimmen nach neu laden der datenbank nicht: bsp. workout mit uebungen erstellen,
-    // programm beenden, wieder starten, name von uebung ändeern, bleibt in workout alt...
-
     private static ObservableList<Uebung> Uebungen = FXCollections.observableArrayList(Uebung.makeExtractor());
     private static ObservableList<Workout> Workouts = FXCollections.observableArrayList(Workout.makeExtractor());
     private static ObservableList<Programm> Programme = FXCollections.observableArrayList(Programm.makeExtractor());
 
-    private String uebungFilePath = "uebung_datenbank.xml";
-    private static File uebungFile;
-    private String workoutFilePath = "workout_datenbank.xml";
-    private static File workoutFile;
-    private String programmFilePath = "programm_datenbank.xml";
-    private static File programmFile;
-
-
+    private String dataFilePath = "datenbank.xml";
+    private static File datenbank;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         try {
-            uebungFile = new File(uebungFilePath);
-            uebungFile.createNewFile();
-            workoutFile = new File(workoutFilePath);
-            workoutFile.createNewFile();
-            programmFile = new File(programmFilePath);
-            programmFile.createNewFile();
+            datenbank = new File(dataFilePath);
+            datenbank.createNewFile();
         } catch (Exception e) {
             System.out.println("no file yet!");
         }
@@ -82,23 +67,23 @@ public class Main extends Application {
         ListView<Workout> workoutListView = (ListView) root.lookup("#workoutListView");
         workoutListView.setItems(Workouts);
         workoutListView.setCellFactory(new Callback<ListView<Workout>,
-                                                ListCell<Workout>>() {
-                                            @Override
-                                            public ListCell<Workout> call(ListView<Workout> list) {
-                                                return new WorkoutCell();
-                                            }
-                                        }
+                                               ListCell<Workout>>() {
+                                           @Override
+                                           public ListCell<Workout> call(ListView<Workout> list) {
+                                               return new WorkoutCell();
+                                           }
+                                       }
         );
 
         ListView<Programm> programmListView = (ListView) root.lookup("#programmListView");
         programmListView.setItems(Programme);
         programmListView.setCellFactory(new Callback<ListView<Programm>,
-                                               ListCell<Programm>>() {
-                                           @Override
-                                           public ListCell<Programm> call(ListView<Programm> list) {
-                                               return new ProgrammCell();
-                                           }
-                                       }
+                                                ListCell<Programm>>() {
+                                            @Override
+                                            public ListCell<Programm> call(ListView<Programm> list) {
+                                                return new ProgrammCell();
+                                            }
+                                        }
         );
 
         primaryStage.setScene(new Scene(root, 1080, 720));
@@ -129,72 +114,51 @@ public class Main extends Application {
     /**
      * Loads person data from the specified file. The current person data will
      * be replaced.
-     *
      */
     public void loadDatenbank() throws JAXBException {
         try {
-            JAXBContext uc = JAXBContext.newInstance(UebungListWrapper.class);
-            Unmarshaller uum = uc.createUnmarshaller();
-            UebungListWrapper uebungWrapper = (UebungListWrapper) uum.unmarshal(uebungFile);
-            Uebungen.clear();
-            Uebungen.addAll(uebungWrapper.getUebungen());
-
-            JAXBContext wc = JAXBContext.newInstance(WorkoutListWrapper.class);
-            Unmarshaller wum = wc.createUnmarshaller();
-            WorkoutListWrapper workoutWrapper = (WorkoutListWrapper) wum.unmarshal(workoutFile);
-            Workouts.clear();
-            Workouts.addAll(workoutWrapper.getWorkouts());
-
-            JAXBContext pc = JAXBContext.newInstance(ProgrammListWrapper.class);
-            Unmarshaller pum = pc.createUnmarshaller();
-            ProgrammListWrapper programmWrapper = (ProgrammListWrapper) pum.unmarshal(programmFile);
+            JAXBContext c = JAXBContext.newInstance(DataWrapper.class);
+            Unmarshaller um = c.createUnmarshaller();
+            DataWrapper dw = (DataWrapper) um.unmarshal(datenbank);
             Programme.clear();
-            Programme.addAll(programmWrapper.getProgramme());
+            Programme.addAll(dw.getProgramme());
+            Workouts.clear();
+            Workouts.addAll(dw.getWorkouts());
+            Uebungen.clear();
+            Uebungen.addAll(dw.getUebungen());
 
         } catch (Exception e) { // catches ANY exception
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Could not load data");
-           // alert.setContentText("Could not load data from file:\n" + file.getPath());
+            // alert.setContentText("Could not load data from file:\n" + file.getPath());
+            e.printStackTrace(System.out);
             alert.showAndWait();
         }
     }
 
     /**
      * Saves the current person data to the specified file.
-     *
      */
     public static void saveDatenbank() {
         try {
-            JAXBContext uc = JAXBContext.newInstance(UebungListWrapper.class);
-            Marshaller um = uc.createMarshaller();
-            um.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            UebungListWrapper uebungWrapper = new UebungListWrapper();
-            uebungWrapper.setUebungen(Uebungen);
-            um.marshal(uebungWrapper, uebungFile);
-
-            JAXBContext wc = JAXBContext.newInstance(WorkoutListWrapper.class);
-            Marshaller wm = wc.createMarshaller();
-            wm.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            WorkoutListWrapper workoutWrapper = new WorkoutListWrapper();
-            workoutWrapper.setWorkouts(Workouts);
-            wm.marshal(workoutWrapper, workoutFile);
-
-            JAXBContext pc = JAXBContext.newInstance(ProgrammListWrapper.class);
-            Marshaller pm = pc.createMarshaller();
-            pm.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            ProgrammListWrapper programmWrapper = new ProgrammListWrapper();
-            programmWrapper.setProgramme(Programme);
-            pm.marshal(programmWrapper, programmFile);
+            JAXBContext c = JAXBContext.newInstance(DataWrapper.class);
+            Marshaller m = c.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            DataWrapper dw = new DataWrapper();
+            dw.setProgramme(Programme);
+            dw.setWorkouts(Workouts);
+            dw.setUebungen(Uebungen);
+            m.marshal(dw, datenbank);
 
             // Save the file path to the registry.
-           // setPersonFilePath(file);
+            // setPersonFilePath(file);
         } catch (Exception e) { // catches ANY exception
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Could not save data");
-           // alert.setContentText("Could not save data to file:\n" + file.getPath());
-
+            //alert.setContentText();
+            e.printStackTrace(System.out);
             alert.showAndWait();
         }
     }

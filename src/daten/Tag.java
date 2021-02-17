@@ -9,6 +9,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Callback;
 
+import javax.xml.bind.annotation.XmlIDREF;
+
 public class Tag {
 
     private StringProperty name = new SimpleStringProperty();
@@ -78,6 +80,7 @@ public class Tag {
         this.name.set(name);
     }
 
+    @XmlIDREF
     public ObservableList<Workout> getWorkouts() {
         return workouts.get();
     }

@@ -6,6 +6,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Callback;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlIDREF;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Workout {
 
     private StringProperty name = new SimpleStringProperty();
@@ -16,6 +22,24 @@ public class Workout {
     private IntegerProperty currentUebungIndex = new SimpleIntegerProperty(0);
 
     private Valid valid = Valid.VALID;
+
+    //static id generator shared among all instances of Coordinates
+    //private static final AtomicInteger idGenerator = new AtomicInteger(1000);
+
+    @XmlAttribute
+    @XmlID
+    private final String wid;
+
+    public Workout() {
+        //assign unique id to an instance variable
+        wid = "w-" + UUID.randomUUID().toString();
+    }
+
+    public String getId() {
+        //return instance variable
+        return wid;
+    }
+
 
 
     public enum Valid {
@@ -93,6 +117,7 @@ public class Workout {
         this.beschreibung.set(beschreibung);
     }
 
+    @XmlIDREF
     public ObservableList<Uebung> getUebungen() {
         return uebungen.get();
     }
