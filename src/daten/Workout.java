@@ -80,6 +80,7 @@ public class Workout {
         };
     }
 
+    //TODO name nur einmal zulassen
     public Valid getValid() {
         if (name == null || name.get() == null) {
             valid = Valid.NAME;

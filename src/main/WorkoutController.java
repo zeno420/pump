@@ -4,6 +4,7 @@ import daten.Satz;
 import daten.Uebung;
 import daten.Workout;
 import design.SatzCell;
+import design.SatzSpielenCell;
 import design.UebungAnzeigenCell;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class WorkoutController {
 
@@ -49,7 +51,6 @@ public class WorkoutController {
             isNew = true;
         }
 
-        //tmpWorkout = (Workout) Methoden.deepCopy(aktuellesWorkout);
         tmpWorkout = aktuellesWorkout.makeTmpCopy();
 
         workoutUebungenListView = (ListView) workoutDialog.lookup("#workoutUebungenListView");
@@ -85,15 +86,16 @@ public class WorkoutController {
 
         ListView<Satz> satzListView = (ListView) workoutDialog.lookup("#satzListView");
         //TODO getSaetze abhängig von masse defi toggle
-        satzListView.setItems(workout.getUebungen().get(workout.getCurrentUebungIndex()).getMasse());
+        satzListView.setItems(workout.getUebungen().get(workout.getCurrentUebungIndex()).getSaetze());
         satzListView.setCellFactory(new Callback<ListView<Satz>,
                                             ListCell<Satz>>() {
                                         @Override
                                         public ListCell<Satz> call(ListView<Satz> list) {
-                                            return new SatzCell();
+                                            return new SatzSpielenCell();
                                         }
                                     }
         );
+
         workoutNameLabel.textProperty().bind(workout.nameProperty());
         uebungNameLabel.textProperty().bind(workout.getUebungen().get(workout.currentUebungIndexProperty().get()).nameProperty());
         indexLabel.textProperty().bind(workout.currentUebungIndexProperty().asString());
@@ -104,7 +106,6 @@ public class WorkoutController {
         if (tmpWorkout.getValid().getCode() == 0) {
             aktuellesWorkout.setName(tmpWorkout.getName());
             aktuellesWorkout.setBeschreibung(tmpWorkout.getBeschreibung());
-            //TODO set get uebung erzeugt falsche uebungsobjekte -> änderung in orig uebung kommt nicht in uebung innerhalb workout an
             aktuellesWorkout.setUebungen(tmpWorkout.getUebungen());
             if (isNew) {
                 Main.getWorkouts().add(aktuellesWorkout);
@@ -131,7 +132,7 @@ public class WorkoutController {
 
     public void uebungZuWorkoutHinzufuegen(ActionEvent event) {
         //TODO add mit index vll dann kann manned nur hinten anfügen
-        Uebung uebung = (Uebung) uebungComboBox.getSelectionModel().getSelectedItem();
+        Uebung uebung = uebungComboBox.getSelectionModel().getSelectedItem();
         tmpWorkout.getUebungen().add(uebung);
     }
 

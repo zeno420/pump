@@ -9,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -164,8 +163,8 @@ public class ProgrammController {
         Parent uebungDialog = uebungFxmlloader.load();
 
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("workout", workoutFxmlloader.getController());
-        map.put("uebung", uebungFxmlloader.getController());
+        map.put("workoutController", workoutFxmlloader.getController());
+        map.put("uebungController", uebungFxmlloader.getController());
 
         workoutDialog.setUserData(map);
 

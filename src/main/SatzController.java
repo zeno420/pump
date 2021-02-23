@@ -18,26 +18,24 @@ public class SatzController {
     private TextField satzGewichtField;
     @FXML
     private Button satzSpeichernBtn;
-    @FXML
-    private Button satzLoeschenBtn;
 
     private Satz aktuellerSatz;
     private Satz tmpSatz;
     private boolean isNew = false;
     private Uebung uebung;
 
-    public void setUpBinding(Satz satz, Parent satzDialog, Uebung uebung) {
+    public void setUpBinding(Boolean masse, Satz satz, Parent satzDialog, Uebung uebung) {
 
         if (satz != null) {
             aktuellerSatz = satz;
             isNew = false;
         } else {
             aktuellerSatz = new Satz();
+            aktuellerSatz.setMasse(masse);
             isNew = true;
         }
         this.uebung = uebung;
 
-        //tmpSatz = (Satz) Methoden.deepCopy(aktuellerSatz);
         tmpSatz = aktuellerSatz.makeTmpCopy();
 
         satzWiederholungenField.textProperty().bindBidirectional(tmpSatz.wiederholungenProperty());
@@ -45,12 +43,17 @@ public class SatzController {
 
     }
 
-    public void masseSatzSpeichern(ActionEvent event) {
+    public void satzSpeichern(ActionEvent event) {
+        //TODO
         if (tmpSatz.getValid().getCode() == 0) {
             aktuellerSatz.setWiederholungen(tmpSatz.getWiederholungen());
             aktuellerSatz.setGewicht(tmpSatz.getGewicht());
             if (isNew) {
-                uebung.getMasse().add(aktuellerSatz);
+                if(tmpSatz.isMasse()) {
+                    uebung.getMasse().add(aktuellerSatz);
+                } else {
+                    uebung.getDefi().add(aktuellerSatz);
+                }
             }
             Stage stage = (Stage) satzSpeichernBtn.getScene().getWindow();
             stage.close();
@@ -64,45 +67,10 @@ public class SatzController {
             // a.setContentText("");
             a.showAndWait();
         }
-    }
-
-    public void masseSatzLoeschen(ActionEvent event) {
-
-        uebung.getMasse().remove(aktuellerSatz);
-        Stage stage = (Stage) satzSpeichernBtn.getScene().getWindow();
-        stage.close();
-    }
-
-    public void defiSatzSpeichern(ActionEvent event) {
-        if (tmpSatz.getValid().getCode() == 0) {
-            aktuellerSatz.setWiederholungen(tmpSatz.getWiederholungen());
-            aktuellerSatz.setGewicht(tmpSatz.getGewicht());
-            if (isNew) {
-                uebung.getDefi().add(aktuellerSatz);
-            }
-            Stage stage = (Stage) satzSpeichernBtn.getScene().getWindow();
-            stage.close();
-            Main.saveDatenbank();
-        } else {
-            Alert a = new Alert(Alert.AlertType.WARNING);
-
-            a.setTitle("Ungültige Eingabe");
-            a.setHeaderText(tmpSatz.getValid().getError());
-            //TODO contenttext der warung abhängig von wirklich konkretem fehler machen
-            // a.setContentText("");
-            a.showAndWait();
-        }
-    }
-
-    public void defiSatzLoeschen(ActionEvent event) {
-
-        uebung.getDefi().remove(aktuellerSatz);
-        Stage stage = (Stage) satzSpeichernBtn.getScene().getWindow();
-        stage.close();
     }
 
     public void satzAbbrechen(ActionEvent event) {
-        Stage stage = (Stage) satzLoeschenBtn.getScene().getWindow();
+        Stage stage = (Stage) satzSpeichernBtn.getScene().getWindow();
         stage.close();
     }
 }

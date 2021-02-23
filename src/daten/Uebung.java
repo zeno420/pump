@@ -8,6 +8,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Callback;
+import main.Main;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -63,7 +64,7 @@ public class Uebung {
         }
     }
 
-    public Uebung makeTmpCopy(){
+    public Uebung makeTmpCopy() {
         Uebung tmpUebung = new Uebung();
         tmpUebung.setName(name.get());
         tmpUebung.setBeschreibung(beschreibung.get());
@@ -72,16 +73,16 @@ public class Uebung {
         return tmpUebung;
     }
 
-    public static Callback<Uebung, Observable[]> makeExtractor(){
+    public static Callback<Uebung, Observable[]> makeExtractor() {
         return new Callback<Uebung, Observable[]>() {
             @Override
             public Observable[] call(Uebung uebung) {
-                return new Observable[] {uebung.nameProperty(), uebung.beschreibungProperty(), uebung.masseProperty(), uebung.defiProperty()};
+                return new Observable[]{uebung.nameProperty(), uebung.beschreibungProperty(), uebung.masseProperty(), uebung.defiProperty()};
             }
         };
     }
 
-
+    //TODO name nur einmal zulassen
     public Valid getValid() {
         if (name == null || name.get() == null || name.get().equalsIgnoreCase("")) {
             valid = Valid.NAME;
@@ -142,4 +143,14 @@ public class Uebung {
     public void setDefi(ObservableList<Satz> defi) {
         this.defi.set(defi);
     }
+
+    public ObservableList<Satz> getSaetze() {
+        if (Main.getPhase().isMasse()) {
+            return masse.get();
+
+        } else {
+            return defi.get();
+        }
+    }
+
 }

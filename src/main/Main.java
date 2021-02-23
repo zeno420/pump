@@ -125,6 +125,10 @@ public class Main extends Application {
         return Programme;
     }
 
+    public static Phase getPhase() {
+        return phase;
+    }
+
     /**
      * Loads person data from the specified file. The current person data will
      * be replaced.

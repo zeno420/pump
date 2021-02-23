@@ -14,7 +14,7 @@ import main.UebungController;
 import java.io.IOException;
 import java.util.Map;
 
-public class SatzCell extends ListCell<Satz> {
+public class SatzSpielenCell extends ListCell<Satz> {
 
 
     @Override
@@ -30,7 +30,6 @@ public class SatzCell extends ListCell<Satz> {
 
             Label wiederholungenMalGewicht = new Label(satz.getWiederholungen() + " x " + satz.getGewicht());
             Button bearbeiten = new Button("bearbeiten");
-            Button loeschen = new Button("löschen");
 
             bearbeiten.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -51,27 +50,9 @@ public class SatzCell extends ListCell<Satz> {
                 }
             });
 
-            loeschen.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent arg0) {
-                    UebungController uc;
-                    if (getScene().getRoot().getUserData() instanceof UebungController) {
-                        uc = (UebungController) getScene().getRoot().getUserData();
-                    } else {
-                        uc = (UebungController) ((Map) getScene().getRoot().getUserData()).get("uebungController");
-                    }
-                    try {
-                        //TODO masse defi switch
-                        uc.satzLoeschen(satz);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
 
             leftBox.getChildren().addAll(wiederholungenMalGewicht);
-            rightBox.getChildren().addAll(bearbeiten, loeschen);
+            rightBox.getChildren().addAll(bearbeiten);
             rightBox.setAlignment(Pos.BASELINE_RIGHT);
             rightBox.setSpacing(5);
             topBox.getChildren().addAll(leftBox, rightBox);

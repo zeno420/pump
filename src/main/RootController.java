@@ -9,17 +9,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class RootController {
-
-    private static ObservableList<Satz> masseSaetze;
-    private static ObservableList<Satz> defiSaetze;
 
     public void uebungErstellen(ActionEvent event) throws IOException {
 

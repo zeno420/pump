@@ -17,8 +17,6 @@ public class TagController {
     private TextField tagNameField;
     @FXML
     private Button tagSpeichernBtn;
-    @FXML
-    private Button tagLoeschenBtn;
 
     public ComboBox<Workout> workoutComboBox;
     public ListView<Workout> programmWorkoutsListView;
@@ -39,7 +37,6 @@ public class TagController {
         }
         this.programm = programm;
 
-        //tmpTag = (Tag) Methoden.deepCopy(aktuellerTag);
         tmpTag = aktuellerTag.makeTmpCopy();
 
         programmWorkoutsListView = (ListView) tagDialog.lookup("#programmWorkoutsListView");
@@ -67,7 +64,6 @@ public class TagController {
         );
     }
 
-
     public void tagSpeichern(ActionEvent event) {
         if (tmpTag.getValid().getCode() == 0) {
             aktuellerTag.setName(tmpTag.getName());
@@ -89,21 +85,14 @@ public class TagController {
         }
     }
 
-    public void tagLoeschen(ActionEvent event) {
-
-        programm.getTage().remove(aktuellerTag);
-        Stage stage = (Stage) tagSpeichernBtn.getScene().getWindow();
-        stage.close();
-    }
-
     public void tagAbbrechen(ActionEvent event) {
-        Stage stage = (Stage) tagLoeschenBtn.getScene().getWindow();
+        Stage stage = (Stage) tagSpeichernBtn.getScene().getWindow();
         stage.close();
     }
 
     public void workoutZuTagHinzufuegen(ActionEvent event) {
         //TODO add mit index vll dann kann manned nur hinten anfügen
-        Workout workout = (Workout) workoutComboBox.getSelectionModel().getSelectedItem();
+        Workout workout = workoutComboBox.getSelectionModel().getSelectedItem();
         tmpTag.getWorkouts().add(workout);
     }
 

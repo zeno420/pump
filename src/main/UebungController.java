@@ -10,7 +10,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -94,15 +93,17 @@ public class UebungController {
         stage.close();
     }
 
-    public void masseSatzErstellen(ActionEvent event) throws IOException {
-
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("masse_satz.fxml"));
+    public void satzErstellen(ActionEvent event) throws IOException {
+        //TODO
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("satz.fxml"));
         Parent satzDialog = fxmlloader.load();
 
         Stage stage = new Stage();
 
+        Boolean masse = ((Button) event.getSource()).getId().equalsIgnoreCase("masseSatzBtn");
+
         SatzController c = fxmlloader.getController();
-        c.setUpBinding(null, satzDialog, tmpUebung);
+        c.setUpBinding(masse, null, satzDialog, tmpUebung);
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Satz erstellen");
@@ -111,16 +112,16 @@ public class UebungController {
         stage.show();
     }
 
-    public void masseSatzBearbeiten(Satz satz) throws IOException {
-
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("masse_satz.fxml"));
+    public void satzBearbeiten(Satz satz) throws IOException {
+        //TODO
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("satz.fxml"));
         Parent satzDialog = fxmlloader.load();
 
         Stage stage = new Stage();
 
         SatzController c = fxmlloader.getController();
 
-        c.setUpBinding(satz, satzDialog, tmpUebung);
+        c.setUpBinding(null, satz, satzDialog, tmpUebung);
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Satz erstellen");
@@ -129,59 +130,12 @@ public class UebungController {
         stage.show();
     }
 
-    public void programmBearbeiten(Programm programm) throws IOException {
-
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("programm.fxml"));
-        Parent programmDialog = fxmlloader.load();
-
-        Stage stage = new Stage();
-
-        ProgrammController c = fxmlloader.getController();
-        //Programm programm = (Programm) ((ListView)event.getSource()).getSelectionModel().getSelectedItem();
-        c.setUpBindingEdit(programm, programmDialog);
-
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Programm bearbeiten");
-        stage.setScene(new Scene(programmDialog, 1080, 720));
-
-        stage.show();
-    }
-
-
-    public void defiSatzErstellen(ActionEvent event) throws IOException {
-
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("defi_satz.fxml"));
-        Parent satzDialog = fxmlloader.load();
-
-        Stage stage = new Stage();
-
-        SatzController c = fxmlloader.getController();
-        c.setUpBinding(null, satzDialog, tmpUebung);
-
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Satz für die Massephase erstellen");
-        stage.setScene(new Scene(satzDialog, 1080, 720));
-
-        stage.show();
-    }
-
-    public void defiSatzBearbeiten(MouseEvent event) throws IOException {
-
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("defi_satz.fxml"));
-        Parent satzDialog = fxmlloader.load();
-
-        Stage stage = new Stage();
-
-        SatzController c = fxmlloader.getController();
-
-        Satz satz = (Satz) ((ListView) event.getSource()).getSelectionModel().getSelectedItem();
-
-        c.setUpBinding(satz, satzDialog, tmpUebung);
-
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Satz für die Definitionsphase erstellen");
-        stage.setScene(new Scene(satzDialog, 1080, 720));
-
-        stage.show();
+    public void satzLoeschen(Satz satz) throws IOException {
+        //TODO
+        if(satz.isMasse()) {
+            tmpUebung.getMasse().remove(satz);
+        } else {
+            tmpUebung.getDefi().remove(satz);
+        }
     }
 }

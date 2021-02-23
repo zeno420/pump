@@ -1,6 +1,8 @@
 package daten;
 
 import javafx.beans.Observable;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.util.Callback;
@@ -9,6 +11,7 @@ public class Satz {
 
     private StringProperty wiederholungen = new SimpleStringProperty();
     private StringProperty gewicht = new SimpleStringProperty();
+    private BooleanProperty masse = new SimpleBooleanProperty();
 
     private Valid valid = Valid.VALID;
 
@@ -38,6 +41,7 @@ public class Satz {
         Satz tmpSatz = new Satz();
         tmpSatz.setWiederholungen(wiederholungen.get());
         tmpSatz.setGewicht(gewicht.get());
+        tmpSatz.setMasse(masse.get());
         return tmpSatz;
     }
 
@@ -83,6 +87,18 @@ public class Satz {
 
     public void setGewicht(String gewicht) {
         this.gewicht.set(gewicht);
+    }
+
+    public boolean isMasse() {
+        return masse.get();
+    }
+
+    public BooleanProperty masseProperty() {
+        return masse;
+    }
+
+    public void setMasse(boolean masse) {
+        this.masse.set(masse);
     }
 
     public static boolean isValidNumber(String strNum, boolean pointAllowed) {

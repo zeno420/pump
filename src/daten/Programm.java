@@ -78,6 +78,7 @@ public class Programm {
         };
     }
 
+    //TODO name nur einmal zulassen
     public Valid getValid() {
         if (name == null || name.get() == null || name.get().equalsIgnoreCase("")) {
             valid = Valid.NAME;
