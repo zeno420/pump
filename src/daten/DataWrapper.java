@@ -40,4 +40,14 @@ public class DataWrapper {
         this.uebungen = uebungen;
     }
 
+    private Phase phase;
+
+    @XmlElement(name = "phase")
+    public Phase getPhase() {
+        return phase;
+    }
+
+    public void setPhase(Phase phase) {
+        this.phase = phase;
+    }
 }

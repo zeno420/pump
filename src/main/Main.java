@@ -3,14 +3,14 @@ package main;
 import daten.*;
 import design.*;
 import javafx.application.Application;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -26,6 +26,8 @@ public class Main extends Application {
     private static ObservableList<Uebung> Uebungen = FXCollections.observableArrayList(Uebung.makeExtractor());
     private static ObservableList<Workout> Workouts = FXCollections.observableArrayList(Workout.makeExtractor());
     private static ObservableList<Programm> Programme = FXCollections.observableArrayList(Programm.makeExtractor());
+
+    private static Phase phase = new Phase();
 
     private String dataFilePath = "datenbank.xml";
     private static File datenbank;
@@ -48,6 +50,20 @@ public class Main extends Application {
 
 
         primaryStage.setTitle("pump");
+
+
+        RadioButton masseToggleBtn = (RadioButton) root.lookup("#masseToggleBtn");
+        RadioButton defiToggleBtn = (RadioButton) root.lookup("#defiToggleBtn");
+        ToggleGroup masseDefiToggleGroup = new ToggleGroup();
+
+        masseToggleBtn.setToggleGroup(masseDefiToggleGroup);
+        defiToggleBtn.setToggleGroup(masseDefiToggleGroup);
+        masseToggleBtn.setSelected(phase.isMasse());
+        defiToggleBtn.setSelected(!phase.isMasse());
+
+        masseDefiToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            phase.setMasse(((RadioButton) newValue).getId().equalsIgnoreCase("masseToggleBtn"));
+        });
 
 
         ListView<Uebung> uebungenListView = (ListView) root.lookup("#uebungenListView");
@@ -124,6 +140,9 @@ public class Main extends Application {
             Workouts.addAll(dw.getWorkouts());
             Uebungen.clear();
             Uebungen.addAll(dw.getUebungen());
+            if (dw.getPhase() != null) {
+                phase = dw.getPhase();
+            }
 
         } catch (Exception e) { // catches ANY exception
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -147,6 +166,7 @@ public class Main extends Application {
             dw.setProgramme(Programme);
             dw.setWorkouts(Workouts);
             dw.setUebungen(Uebungen);
+            dw.setPhase(phase);
             m.marshal(dw, datenbank);
 
             // Save the file path to the registry.

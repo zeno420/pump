@@ -49,10 +49,7 @@
                 </Tab>
             </tabs>
         </TabPane>
-        <fx:define>
-            <ToggleGroup fx:id="group" />
-        </fx:define>
-        <RadioButton layoutX="287.0" layoutY="14.0" mnemonicParsing="false" text="Masse"  toggleGroup="$group" />
-        <RadioButton layoutX="400.0" layoutY="14.0" mnemonicParsing="false" text="Definition"  toggleGroup="$group" />
+        <RadioButton fx:id="masseToggleBtn" layoutX="287.0" layoutY="14.0" mnemonicParsing="false" text="Masse"/>
+        <RadioButton fx:id="defiToggleBtn" layoutX="400.0" layoutY="14.0" mnemonicParsing="false" text="Definition"/>
     </children>
 </AnchorPane>
