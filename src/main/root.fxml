@@ -17,7 +17,6 @@
                             <children>
                                 <Button fx:id="neuesProgrammBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false"
                                         onAction="#programmErstellen" text="Programm erstellen" textAlignment="CENTER"/>
-                                <!--<ListView fx:id="programmListView" layoutX="18.0" layoutY="54.0" onMouseClicked="#programmBearbeiten" prefHeight="606.0" prefWidth="1040.0" />-->
                                 <ListView fx:id="programmListView" layoutX="18.0" layoutY="54.0" prefHeight="606.0"
                                           prefWidth="1040.0"/>
                             </children>
@@ -31,7 +30,7 @@
                                 <Button fx:id="neuesWorkoutBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false"
                                         onAction="#workoutErstellen" text="Workout erstellen" textAlignment="CENTER"/>
                                 <ListView fx:id="workoutListView" layoutX="18.0" layoutY="54.0"
-                                          onMouseClicked="#workoutBearbeiten" prefHeight="606.0" prefWidth="1040.0"/>
+                                          prefHeight="606.0" prefWidth="1040.0"/>
                             </children>
                         </AnchorPane>
                     </content>
@@ -43,7 +42,7 @@
                                 <Button fx:id="neueUebungBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false"
                                         onAction="#uebungErstellen" text="Übung erstellen" textAlignment="CENTER"/>
                                 <ListView fx:id="uebungenListView" layoutX="18.0" layoutY="54.0"
-                                          onMouseClicked="#uebungBearbeiten" prefHeight="606.0" prefWidth="1040.0"/>
+                                          prefHeight="606.0" prefWidth="1040.0"/>
                             </children>
                         </AnchorPane>
                     </content>

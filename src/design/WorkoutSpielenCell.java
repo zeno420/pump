@@ -5,17 +5,19 @@ import daten.Tag;
 import daten.Workout;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import main.ProgrammController;
 import main.RootController;
 
 import java.io.IOException;
 
-public class PlayWorkoutCell extends ListCell<Workout> {
+public class WorkoutSpielenCell extends ListCell<Workout> {
 
 
 
@@ -26,7 +28,10 @@ public class PlayWorkoutCell extends ListCell<Workout> {
             setText(null);
             setGraphic(null);
         } else {
-            HBox box = new HBox();
+            HBox topBox = new HBox();
+            HBox leftBox = new HBox();
+            HBox rightBox = new HBox();
+
             Label name = new Label(workout.getName());
 
             Button start = new Button("start");
@@ -45,8 +50,15 @@ public class PlayWorkoutCell extends ListCell<Workout> {
                 }
             });
 
-            box.getChildren().addAll(name, start);
-            setGraphic(box);
+            leftBox.getChildren().addAll(name);
+            rightBox.getChildren().addAll(start);
+            rightBox.setAlignment(Pos.BASELINE_RIGHT);
+            rightBox.setSpacing(5);
+            topBox.getChildren().addAll(leftBox, rightBox);
+            HBox.setHgrow(leftBox, Priority.ALWAYS);
+            HBox.setHgrow(rightBox, Priority.ALWAYS);
+
+            setGraphic(topBox);
         }
     }
 }

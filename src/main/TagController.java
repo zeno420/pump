@@ -1,8 +1,7 @@
 package main;
 
 import daten.*;
-import design.UebungCell;
-import design.WorkoutCell;
+import design.WorkoutAnzeigenCell;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -49,7 +48,7 @@ public class TagController {
                                                         ListCell<Workout>>() {
                                                     @Override
                                                     public ListCell<Workout> call(ListView<Workout> list) {
-                                                        return new WorkoutCell();
+                                                        return new WorkoutAnzeigenCell();
                                                     }
                                                 }
         );
@@ -62,7 +61,7 @@ public class TagController {
                                                ListCell<Workout>>() {
                                            @Override
                                            public ListCell<Workout> call(ListView<Workout> list) {
-                                               return new WorkoutCell();
+                                               return new WorkoutAnzeigenCell();
                                            }
                                        }
         );

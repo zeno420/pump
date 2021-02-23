@@ -1,9 +1,7 @@
 package main;
 
 import daten.*;
-import design.ProgrammCell;
-import design.UebungCell;
-import design.WorkoutCell;
+import design.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -58,7 +56,7 @@ public class Main extends Application {
                                                 ListCell<Uebung>>() {
                                             @Override
                                             public ListCell<Uebung> call(ListView<Uebung> list) {
-                                                return new UebungCell();
+                                                return new UebungBearbeitenCell();
                                             }
                                         }
         );
@@ -70,7 +68,7 @@ public class Main extends Application {
                                                ListCell<Workout>>() {
                                            @Override
                                            public ListCell<Workout> call(ListView<Workout> list) {
-                                               return new WorkoutCell();
+                                               return new WorkoutBearbeitenCell();
                                            }
                                        }
         );

@@ -10,7 +10,6 @@
         <Label layoutX="39.0" layoutY="133.0" text="Workouts:" />
         <ButtonBar layoutX="386.0" layoutY="346.0" prefHeight="40.0" prefWidth="200.0">
             <buttons>
-                <Button fx:id="tagLoeschenBtn" mnemonicParsing="false" onAction="#tagLoeschen" text="Löschen" />
                 <Button fx:id="tagAbbrechenBtn" mnemonicParsing="false" onAction="#tagAbbrechen" text="Abbrechen" />
                 <Button fx:id="tagSpeichernBtn" mnemonicParsing="false" onAction="#tagSpeichern" text="Speichern" />
             </buttons>

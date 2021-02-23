@@ -5,11 +5,13 @@ import daten.Satz;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import main.RootController;
 import main.UebungController;
 
@@ -27,9 +29,11 @@ public class SatzCell extends ListCell<Satz> {
             setText(null);
             setGraphic(null);
         } else {
-            HBox box = new HBox();
-            Label wdh = new Label(satz.getWiederholungen() + " x ");
-            Label gew = new Label(satz.getGewicht());
+            HBox topBox = new HBox();
+            HBox leftBox = new HBox();
+            HBox rightBox = new HBox();
+
+            Label wiederholungenMalGewicht = new Label(satz.getWiederholungen() + " x " + satz.getGewicht());
             Button bearbeiten = new Button("bearbeiten");
 
             bearbeiten.setOnAction(new EventHandler<ActionEvent>() {
@@ -51,10 +55,15 @@ public class SatzCell extends ListCell<Satz> {
                 }
             });
 
-            box.getChildren().addAll(wdh, gew, bearbeiten);
+            leftBox.getChildren().addAll(wiederholungenMalGewicht);
+            rightBox.getChildren().addAll(bearbeiten);
+            rightBox.setAlignment(Pos.BASELINE_RIGHT);
+            rightBox.setSpacing(5);
+            topBox.getChildren().addAll(leftBox, rightBox);
+            HBox.setHgrow(leftBox, Priority.ALWAYS);
+            HBox.setHgrow(rightBox, Priority.ALWAYS);
 
-            //setText(programm.getName());
-            setGraphic(box);
+            setGraphic(topBox);
         }
     }
 }

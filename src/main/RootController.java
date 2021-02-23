@@ -39,7 +39,7 @@ public class RootController {
         stage.show();
     }
 
-    public void uebungBearbeiten(MouseEvent event) throws IOException {
+    public void uebungBearbeiten(Uebung uebung) throws IOException {
 
         FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("uebung.fxml"));
         Parent uebungDialog = fxmlloader.load();
@@ -48,7 +48,6 @@ public class RootController {
         Stage stage = new Stage();
 
         UebungController c = fxmlloader.getController();
-        Uebung uebung = (Uebung)((ListView)event.getSource()).getSelectionModel().getSelectedItem();
         c.setUpBinding(uebung, uebungDialog);
 
 
@@ -57,6 +56,13 @@ public class RootController {
         stage.setScene(new Scene(uebungDialog, 1080, 720));
 
         stage.show();
+    }
+
+    public void uebungLoeschen(Uebung uebung) {
+        //TODO warndialog
+
+        Main.getUebungen().remove(uebung);
+
     }
 
     public void workoutErstellen(ActionEvent event) throws IOException {
@@ -76,23 +82,31 @@ public class RootController {
         stage.show();
     }
 
-    public void workoutBearbeiten(MouseEvent event) throws IOException {
+    public void workoutBearbeiten(Workout workout) throws IOException {
 
         FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("workout.fxml"));
         Parent workoutDialog = fxmlloader.load();
+        workoutDialog.setUserData(fxmlloader.getController());
 
         Stage stage = new Stage();
 
         WorkoutController c = fxmlloader.getController();
-        Workout workout = (Workout) ((ListView)event.getSource()).getSelectionModel().getSelectedItem();
         c.setUpBinding(workout, workoutDialog);
 
 
+
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Workout bearbeiten");
+        stage.setTitle("Übung bearbeiten");
         stage.setScene(new Scene(workoutDialog, 1080, 720));
 
         stage.show();
+    }
+
+    public void workoutLoeschen(Workout workout) {
+        //TODO warndialog
+
+        Main.getWorkouts().remove(workout);
+
     }
 
     public void programmErstellen(ActionEvent event) throws IOException {
@@ -116,6 +130,7 @@ public class RootController {
 
         FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("programm.fxml"));
         Parent programmDialog = fxmlloader.load();
+        programmDialog.setUserData(fxmlloader.getController());
 
         Stage stage = new Stage();
 
@@ -128,6 +143,13 @@ public class RootController {
         stage.setScene(new Scene(programmDialog, 1080, 720));
 
         stage.show();
+    }
+
+    public void programmLoeschen(Programm programm) {
+        //TODO warndialog
+
+        Main.getProgramme().remove(programm);
+
     }
 
     public void programmSpielen(Programm programm) throws IOException {

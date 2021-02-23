@@ -1,8 +1,10 @@
+
 package design;
 
-import daten.Programm;
+import daten.Uebung;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,13 +15,10 @@ import main.RootController;
 
 import java.io.IOException;
 
-public class ProgrammCell extends ListCell<Programm> {
-
-
-
+public class UebungBearbeitenCell extends ListCell<Uebung> {
     @Override
-    public void updateItem(Programm programm, boolean empty) {
-        super.updateItem(programm, empty);
+    public void updateItem(Uebung uebung, boolean empty) {
+        super.updateItem(uebung, empty);
         if (empty) {
             setText(null);
             setGraphic(null);
@@ -28,23 +27,9 @@ public class ProgrammCell extends ListCell<Programm> {
             HBox leftBox = new HBox();
             HBox rightBox = new HBox();
 
-            Label name = new Label(programm.getName());
+            Label name = new Label(uebung.getName());
             Button bearbeiten = new Button("bearbeiten");
-            Button start = new Button("start");
             Button loeschen = new Button("löschen");
-
-            start.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent arg0) {
-                    RootController rc = (RootController) getScene().getRoot().getUserData();
-                    try {
-                        rc.programmSpielen(programm);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
 
             bearbeiten.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -52,7 +37,7 @@ public class ProgrammCell extends ListCell<Programm> {
                 public void handle(ActionEvent arg0) {
                     RootController rc = (RootController) getScene().getRoot().getUserData();
                     try {
-                        rc.programmBearbeiten(programm);
+                        rc.uebungBearbeiten(uebung);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -64,12 +49,12 @@ public class ProgrammCell extends ListCell<Programm> {
                 @Override
                 public void handle(ActionEvent arg0) {
                     RootController rc = (RootController) getScene().getRoot().getUserData();
-                    rc.programmLoeschen(programm);
+                    rc.uebungLoeschen(uebung);
                 }
             });
 
             leftBox.getChildren().addAll(name);
-            rightBox.getChildren().addAll(start, bearbeiten, loeschen);
+            rightBox.getChildren().addAll(bearbeiten, loeschen);
             rightBox.setAlignment(Pos.BASELINE_RIGHT);
             rightBox.setSpacing(5);
             topBox.getChildren().addAll(leftBox, rightBox);

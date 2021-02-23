@@ -1,12 +1,10 @@
 package main;
 
-import daten.Methoden;
 import daten.Satz;
 import daten.Uebung;
 import daten.Workout;
-import design.PlayWorkoutCell;
 import design.SatzCell;
-import design.UebungCell;
+import design.UebungAnzeigenCell;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -32,8 +30,6 @@ public class WorkoutController {
     private TextField workoutBeschreibungField;
     @FXML
     private Button workouSpeichernBtn;
-    @FXML
-    private Button workoutLoeschenBtn;
     @FXML
     private ListView satzListView;
     @FXML
@@ -62,7 +58,7 @@ public class WorkoutController {
                                                        ListCell<Uebung>>() {
                                                    @Override
                                                    public ListCell<Uebung> call(ListView<Uebung> list) {
-                                                       return new UebungCell();
+                                                       return new UebungAnzeigenCell();
                                                    }
                                                }
         );
@@ -76,7 +72,7 @@ public class WorkoutController {
                                               ListCell<Uebung>>() {
                                           @Override
                                           public ListCell<Uebung> call(ListView<Uebung> list) {
-                                              return new UebungCell();
+                                              return new UebungAnzeigenCell();
                                           }
                                       }
         );
@@ -91,12 +87,12 @@ public class WorkoutController {
         //TODO getSaetze abhängig von masse defi toggle
         satzListView.setItems(workout.getUebungen().get(workout.getCurrentUebungIndex()).getMasse());
         satzListView.setCellFactory(new Callback<ListView<Satz>,
-                                               ListCell<Satz>>() {
-                                           @Override
-                                           public ListCell<Satz> call(ListView<Satz> list) {
-                                               return new SatzCell();
-                                           }
-                                       }
+                                            ListCell<Satz>>() {
+                                        @Override
+                                        public ListCell<Satz> call(ListView<Satz> list) {
+                                            return new SatzCell();
+                                        }
+                                    }
         );
         workoutNameLabel.textProperty().bind(workout.nameProperty());
         uebungNameLabel.textProperty().bind(workout.getUebungen().get(workout.currentUebungIndexProperty().get()).nameProperty());
@@ -128,17 +124,8 @@ public class WorkoutController {
         }
     }
 
-    public void workoutLoeschen(ActionEvent event) {
-        //TODO warndialog
-
-        Main.getWorkouts().remove(aktuellesWorkout);
-
-        Stage stage = (Stage) workoutLoeschenBtn.getScene().getWindow();
-        stage.close();
-    }
-
     public void workoutAbbrechen(ActionEvent event) {
-        Stage stage = (Stage) workoutLoeschenBtn.getScene().getWindow();
+        Stage stage = (Stage) workouSpeichernBtn.getScene().getWindow();
         stage.close();
     }
 
@@ -161,5 +148,4 @@ public class WorkoutController {
         aktuellesWorkout.decreaseAktuelleUebung();
         setUpBindingPlay(aktuellesWorkout, aktuellerWorkoutDialog);
     }
-
 }

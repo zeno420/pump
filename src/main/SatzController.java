@@ -1,6 +1,5 @@
 package main;
 
-import daten.Methoden;
 import daten.Satz;
 import daten.Uebung;
 import javafx.event.ActionEvent;

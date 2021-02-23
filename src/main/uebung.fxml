@@ -12,13 +12,12 @@
         <Label layoutX="39.0" layoutY="133.0" text="Sätze:" />
         <ButtonBar layoutX="386.0" layoutY="346.0" prefHeight="40.0" prefWidth="200.0">
             <buttons>
-                <Button fx:id="uebungLoeschenBtn" mnemonicParsing="false" onAction="#uebungLoeschen" text="Löschen" />
                 <Button fx:id="uebungAbbrechenBtn" mnemonicParsing="false" onAction="#uebungAbbrechen" text="Abbrechen" />
                 <Button fx:id="uebungSpeichernBtn" mnemonicParsing="false" onAction="#uebungSpeichern" text="Speichern" />
             </buttons>
         </ButtonBar>
       <ListView fx:id="masseSatzListView" layoutX="84.0" layoutY="200.0" prefHeight="142.0" prefWidth="200.0" />
-      <ListView fx:id="defiSatzListView" layoutX="386.0" layoutY="204.0" onMouseClicked="#defiSatzBearbeiten" prefHeight="142.0" prefWidth="200.0" />
+      <ListView fx:id="defiSatzListView" layoutX="386.0" layoutY="204.0" prefHeight="142.0" prefWidth="200.0" />
       <Label layoutX="84.0" layoutY="168.0" text="Masse" />
       <Label layoutX="386.0" layoutY="168.0" text="Definition" />
       <Button fx:id="masseSatzBtn" layoutX="193.0" layoutY="163.0" mnemonicParsing="false" onAction="#masseSatzErstellen" text="hinzufügen" />

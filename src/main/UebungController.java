@@ -1,6 +1,5 @@
 package main;
 
-import daten.Methoden;
 import daten.Programm;
 import daten.Satz;
 import daten.Uebung;
@@ -26,8 +25,6 @@ public class UebungController {
     private TextField uebungBeschreibungField;
     @FXML
     private Button uebungSpeichernBtn;
-    @FXML
-    private Button uebungLoeschenBtn;
 
     private Uebung aktuelleUebung;
     private Uebung tmpUebung;
@@ -42,7 +39,6 @@ public class UebungController {
             isNew = true;
         }
 
-        //tmpUebung = (Uebung) Methoden.deepCopy(aktuelleUebung);
         tmpUebung = aktuelleUebung.makeTmpCopy();
 
         ListView<Satz> masseSatzListView = (ListView) uebungDialog.lookup("#masseSatzListView");
@@ -93,17 +89,8 @@ public class UebungController {
         }
     }
 
-    public void uebungLoeschen(ActionEvent event) {
-        //TODO warndialog
-
-        Main.getUebungen().remove(aktuelleUebung);
-
-        Stage stage = (Stage) uebungLoeschenBtn.getScene().getWindow();
-        stage.close();
-    }
-
     public void uebungAbbrechen(ActionEvent event) {
-        Stage stage = (Stage) uebungLoeschenBtn.getScene().getWindow();
+        Stage stage = (Stage) uebungSpeichernBtn.getScene().getWindow();
         stage.close();
     }
 

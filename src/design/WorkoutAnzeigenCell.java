@@ -3,7 +3,7 @@ package design;
 import daten.Workout;
 import javafx.scene.control.ListCell;
 
-public class WorkoutCell extends ListCell<Workout> {
+public class WorkoutAnzeigenCell extends ListCell<Workout> {
     @Override
     public void updateItem(Workout workout, boolean empty) {
         super.updateItem(workout, empty);
@@ -11,7 +11,7 @@ public class WorkoutCell extends ListCell<Workout> {
             setText(null);
             setGraphic(null);
         } else {
-            setText(workout.getName() + " (" + workout.getBeschreibung() + " )");
+            setText(workout.getName());
             setGraphic(null);
         }
     }

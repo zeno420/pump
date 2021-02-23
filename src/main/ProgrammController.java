@@ -1,7 +1,7 @@
 package main;
 
 import daten.*;
-import design.PlayWorkoutCell;
+import design.WorkoutSpielenCell;
 import design.TagCell;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,8 +30,6 @@ public class ProgrammController {
     private Label tagNameLabel;
     @FXML
     private Button programmSpeichernBtn;
-    @FXML
-    private Button programmLoeschenBtn;
     @FXML
     private Label indexLabel;
 
@@ -78,7 +76,7 @@ public class ProgrammController {
                                                ListCell<Workout>>() {
                                            @Override
                                            public ListCell<Workout> call(ListView<Workout> list) {
-                                               return new PlayWorkoutCell();
+                                               return new WorkoutSpielenCell();
                                            }
                                        }
         );
@@ -109,17 +107,8 @@ public class ProgrammController {
         }
     }
 
-    public void programmLoeschen(ActionEvent event) {
-        //TODO warndialog
-
-        Main.getProgramme().remove(aktuellesProgramm);
-
-        Stage stage = (Stage) programmLoeschenBtn.getScene().getWindow();
-        stage.close();
-    }
-
     public void programmAbbrechen(ActionEvent event) {
-        Stage stage = (Stage) programmLoeschenBtn.getScene().getWindow();
+        Stage stage = (Stage) programmSpeichernBtn.getScene().getWindow();
         stage.close();
     }
 
@@ -140,24 +129,31 @@ public class ProgrammController {
         stage.show();
     }
 
-    public void tagBearbeiten(MouseEvent event) throws IOException {
+    public void tagBearbeiten(Tag tag) throws IOException {
+
 
         FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("tag.fxml"));
         Parent tagDialog = fxmlloader.load();
+        tagDialog.setUserData(fxmlloader.getController());
 
         Stage stage = new Stage();
 
         TagController c = fxmlloader.getController();
-
-        Tag tag = (Tag) ((ListView) event.getSource()).getSelectionModel().getSelectedItem();
-
         c.setUpBinding(tag, tagDialog, tmpProgramm);
 
+
+
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Tag erstellen");
+        stage.setTitle("Tag bearbeiten");
         stage.setScene(new Scene(tagDialog, 1080, 720));
 
         stage.show();
+    }
+
+    public void tagLoeschen(Tag tag) {
+        //TODO warndialog
+        tmpProgramm.getTage().remove(tag);
+
     }
 
     public void workoutSpielen(Workout workout) throws IOException {
