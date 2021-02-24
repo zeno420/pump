@@ -3,17 +3,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="720" prefWidth="1080" xmlns="http://javafx.com/javafx/8.0.272" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.SatzController">
+<AnchorPane prefHeight="160.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.SatzController">
     <children>
-        <Label layoutX="39.0" layoutY="59.0" text="Wiederholugen:" />
-        <Label layoutX="39.0" layoutY="94.0" text="Gewicht:" />
-        <TextField fx:id="satzWiederholungenField" layoutX="178.0" layoutY="54.0" />
-        <TextField fx:id="satzGewichtField" layoutX="178.0" layoutY="89.0" />
-        <ButtonBar layoutX="386.0" layoutY="346.0" prefHeight="40.0" prefWidth="200.0">
-            <buttons>
-                <Button fx:id="satzAbbrechenBtn" mnemonicParsing="false" onAction="#satzAbbrechen" text="Abbrechen" />
-                <Button fx:id="satzSpeichernBtn" mnemonicParsing="false" onAction="#satzSpeichern" text="Speichern" />
-            </buttons>
-        </ButtonBar>
+        <Label text="Wiederholugen:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+        <Label layoutX="39.0" layoutY="94.0" text="Gewicht:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0" />
+        <TextField fx:id="satzWiederholungenField" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+        <TextField fx:id="satzGewichtField" layoutX="178.0" layoutY="89.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0" />
+          <Button fx:id="satzAbbrechenBtn" mnemonicParsing="false" onAction="#satzAbbrechen" text="Abbrechen" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="115.0" />
+          <Button fx:id="satzSpeichernBtn" mnemonicParsing="false" onAction="#satzSpeichern" text="Speichern" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
     </children>
 </AnchorPane>

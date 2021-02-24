@@ -24,6 +24,8 @@ import java.io.File;
 public class Main extends Application {
 
     //TODO dynamischere fenster, enchorpane abstände, orientieren an programm.fxml
+    //TODO uebung.fxml spacing zwischen anchorpanes dynamisch machen
+    //TODO fullscreen problem beheben
     private static ObservableList<Uebung> Uebungen = FXCollections.observableArrayList(Uebung.makeExtractor());
     private static ObservableList<Workout> Workouts = FXCollections.observableArrayList(Workout.makeExtractor());
     private static ObservableList<Programm> Programme = FXCollections.observableArrayList(Programm.makeExtractor());

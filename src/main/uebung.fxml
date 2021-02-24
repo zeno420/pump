@@ -3,24 +3,27 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="780" prefWidth="1080" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.UebungController">
+<AnchorPane prefHeight="780" prefWidth="1080" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.UebungController">
     <children>
-        <Label layoutX="39.0" layoutY="59.0" text="Name:" />
-        <Label layoutX="39.0" layoutY="94.0" text="Beschreibung:" />
-        <TextField fx:id="uebungNameField" layoutX="178.0" layoutY="54.0" />
-        <TextField fx:id="uebungBeschreibungField" layoutX="178.0" layoutY="89.0" />
-        <Label layoutX="39.0" layoutY="133.0" text="Sätze:" />
-        <ButtonBar layoutX="386.0" layoutY="346.0" prefHeight="40.0" prefWidth="200.0">
-            <buttons>
-                <Button fx:id="uebungAbbrechenBtn" mnemonicParsing="false" onAction="#uebungAbbrechen" text="Abbrechen" />
-                <Button fx:id="uebungSpeichernBtn" mnemonicParsing="false" onAction="#uebungSpeichern" text="Speichern" />
-            </buttons>
-        </ButtonBar>
-      <ListView fx:id="masseSatzListView" layoutX="84.0" layoutY="200.0" prefHeight="142.0" prefWidth="200.0" />
-      <ListView fx:id="defiSatzListView" layoutX="386.0" layoutY="204.0" prefHeight="142.0" prefWidth="200.0" />
-      <Label layoutX="84.0" layoutY="168.0" text="Masse" />
-      <Label layoutX="386.0" layoutY="168.0" text="Definition" />
-      <Button fx:id="masseSatzBtn" layoutX="193.0" layoutY="163.0" mnemonicParsing="false" onAction="#satzErstellen" text="hinzufügen" />
-      <Button fx:id="defiSatzBtn" layoutX="495.0" layoutY="163.0" mnemonicParsing="false" onAction="#satzErstellen" text="hinzufügen" />
+        <Label text="Name:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+        <Label text="Beschreibung:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0" />
+        <TextField fx:id="uebungNameField" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="20.0" />
+        <TextField fx:id="uebungBeschreibungField" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="50.0" />
+          <Button fx:id="uebungAbbrechenBtn" mnemonicParsing="false" onAction="#uebungAbbrechen" text="Abbrechen" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="115.0" />
+          <Button fx:id="uebungSpeichernBtn" mnemonicParsing="false" onAction="#uebungSpeichern" text="Speichern" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+      <AnchorPane AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="550.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <Label text="Masse" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+            <ListView fx:id="masseSatzListView" prefWidth="500.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0" />
+            <Button fx:id="masseSatzBtn" mnemonicParsing="false" onAction="#satzErstellen" text="hinzufügen" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="550.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <Label text="Definition" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+            <ListView fx:id="defiSatzListView" prefHeight="142.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0" />
+            <Button fx:id="defiSatzBtn" mnemonicParsing="false" onAction="#satzErstellen" text="hinzufügen" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>

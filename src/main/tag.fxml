@@ -3,20 +3,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="720" prefWidth="1080" xmlns="http://javafx.com/javafx/8.0.272" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.TagController">
+<AnchorPane prefHeight="720" prefWidth="1080" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.TagController">
     <children>
-        <Label layoutX="39.0" layoutY="59.0" text="Name:" />
-        <TextField fx:id="tagNameField" layoutX="178.0" layoutY="54.0" />
-        <Label layoutX="39.0" layoutY="133.0" text="Workouts:" />
-        <ButtonBar layoutX="386.0" layoutY="346.0" prefHeight="40.0" prefWidth="200.0">
-            <buttons>
-                <Button fx:id="tagAbbrechenBtn" mnemonicParsing="false" onAction="#tagAbbrechen" text="Abbrechen" />
-                <Button fx:id="tagSpeichernBtn" mnemonicParsing="false" onAction="#tagSpeichern" text="Speichern" />
-            </buttons>
-        </ButtonBar>
-        <ListView fx:id="programmWorkoutsListView" layoutX="84.0" layoutY="179.0" prefHeight="163.0" prefWidth="200.0" />
-        <Button fx:id="workoutHinzufuegenBtn" layoutX="488.0" layoutY="187.0" mnemonicParsing="false" onAction="#workoutZuTagHinzufuegen" text="hinzufügen" />
-        <ComboBox fx:id="workoutComboBox" layoutX="301.0" layoutY="187.0" prefWidth="150.0" />
-        <Button fx:id="workoutEntfernenBtn" layoutX="301.0" layoutY="316.0" mnemonicParsing="false" onAction="#workoutEntfernen" text="Ausgewähltes Workout löschen" />
+        <Label text="Name:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+        <TextField fx:id="tagNameField" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="20.0" />
+        <Label text="Workouts:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0" />
+        <ListView fx:id="programmWorkoutsListView" prefHeight="163.0" prefWidth="200.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="140.0" />
+        <Button fx:id="workoutHinzufuegenBtn" mnemonicParsing="false" onAction="#workoutZuTagHinzufuegen" text="hinzufügen" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="50.0" />
+        <ComboBox fx:id="workoutComboBox" prefHeight="26.0" prefWidth="171.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="50.0" />
+        <Button fx:id="workoutEntfernenBtn" mnemonicParsing="false" onAction="#workoutEntfernen" text="Ausgewähltes Workout löschen" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
+          <Button fx:id="tagAbbrechenBtn" mnemonicParsing="false" onAction="#tagAbbrechen" text="Abbrechen" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="115.0" />
+          <Button fx:id="tagSpeichernBtn" mnemonicParsing="false" onAction="#tagSpeichern" text="Speichern" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
     </children>
 </AnchorPane>
