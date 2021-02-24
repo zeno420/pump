@@ -24,8 +24,6 @@ public class ProgrammController {
     @FXML
     private TextField programmBeschreibungField;
     @FXML
-    private Label programmNameLabel;
-    @FXML
     private Label tagNameLabel;
     @FXML
     private Button programmSpeichernBtn;
@@ -79,9 +77,10 @@ public class ProgrammController {
                                            }
                                        }
         );
-        programmNameLabel.textProperty().bind(programm.nameProperty());
         tagNameLabel.textProperty().bind(programm.getTage().get(programm.currentTagIndexProperty().get()).nameProperty());
-        indexLabel.textProperty().bind(programm.currentTagIndexProperty().asString());
+        int currentTag =  programm.getCurrentTagIndex() + 1;
+        String bla = "Tag " + currentTag + " von " + programm.getTage().size();
+        indexLabel.setText(bla);
     }
 
     public void programmSpeichern(ActionEvent event) {
@@ -123,7 +122,7 @@ public class ProgrammController {
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Tag erstellen");
-        stage.setScene(new Scene(tagDialog, 1080, 720));
+        stage.setScene(new Scene(tagDialog));
 
         stage.show();
     }
@@ -144,7 +143,7 @@ public class ProgrammController {
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Tag bearbeiten");
-        stage.setScene(new Scene(tagDialog, 1080, 720));
+        stage.setScene(new Scene(tagDialog));
 
         stage.show();
     }
@@ -174,8 +173,8 @@ public class ProgrammController {
         c.setUpBindingPlay(workout, workoutDialog);
 
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Programm spielen");
-        stage.setScene(new Scene(workoutDialog, 1080, 720));
+        stage.setTitle(workout.getName());
+        stage.setScene(new Scene(workoutDialog));
 
         stage.show();
     }

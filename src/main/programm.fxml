@@ -3,20 +3,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.272" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ProgrammController">
+<AnchorPane prefHeight="720" prefWidth="1080" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ProgrammController">
     <children>
-        <Label layoutX="39.0" layoutY="59.0" text="Name:" />
-        <Label layoutX="39.0" layoutY="94.0" text="Beschreibung:" />
-        <TextField fx:id="programmNameField" layoutX="178.0" layoutY="54.0" />
-        <TextField fx:id="programmBeschreibungField" layoutX="178.0" layoutY="89.0" />
-        <Label layoutX="39.0" layoutY="133.0" text="Tage:" />
-        <ButtonBar layoutX="386.0" layoutY="346.0" prefHeight="40.0" prefWidth="200.0">
-            <buttons>
-                <Button fx:id="programmAbbrechenBtn" mnemonicParsing="false" onAction="#programmAbbrechen" text="Abbrechen" />
-                <Button fx:id="programmSpeichernBtn" mnemonicParsing="false" onAction="#programmSpeichern" text="Speichern" />
-            </buttons>
-        </ButtonBar>
-        <ListView fx:id="tageListView" layoutX="84.0" layoutY="200.0" prefHeight="142.0" prefWidth="200.0" />
-        <Button fx:id="tagHinzufuegenBtn" layoutX="193.0" layoutY="163.0" mnemonicParsing="false" onAction="#tagErstellen" text="hinzufügen" />
+        <Label text="Name:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0" />
+        <Label text="Beschreibung:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="50.0" />
+        <TextField fx:id="programmNameField" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="20.0" />
+        <TextField fx:id="programmBeschreibungField" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="50.0" />
+        <Label text="Tage:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="100.0" />
+        <ListView fx:id="tageListView" prefHeight="456.0" prefWidth="881.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="140.0" />
+        <Button fx:id="tagHinzufuegenBtn" layoutX="178.0" layoutY="128.0" mnemonicParsing="false" onAction="#tagErstellen" text="hinzufügen" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="100.0" />
+          <Button fx:id="programmAbbrechenBtn" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#programmAbbrechen" text="Abbrechen" textAlignment="CENTER" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="115.0" />
+          <Button fx:id="programmSpeichernBtn" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#programmSpeichern" text="Speichern" textAlignment="CENTER" textOverrun="CLIP" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
     </children>
 </AnchorPane>

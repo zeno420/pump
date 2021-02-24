@@ -23,6 +23,7 @@ import java.io.File;
 
 public class Main extends Application {
 
+    //TODO dynamischere fenster, enchorpane abstände, orientieren an programm.fxml
     private static ObservableList<Uebung> Uebungen = FXCollections.observableArrayList(Uebung.makeExtractor());
     private static ObservableList<Workout> Workouts = FXCollections.observableArrayList(Workout.makeExtractor());
     private static ObservableList<Programm> Programme = FXCollections.observableArrayList(Programm.makeExtractor());
@@ -65,7 +66,6 @@ public class Main extends Application {
             phase.setMasse(((RadioButton) newValue).getId().equalsIgnoreCase("masseToggleBtn"));
         });
 
-
         ListView<Uebung> uebungenListView = (ListView) root.lookup("#uebungenListView");
         uebungenListView.setItems(Uebungen);
         uebungenListView.setCellFactory(new Callback<ListView<Uebung>,
@@ -76,7 +76,6 @@ public class Main extends Application {
                                             }
                                         }
         );
-        //uebungenListView.itemsProperty().bind(Uebungen);
 
         ListView<Workout> workoutListView = (ListView) root.lookup("#workoutListView");
         workoutListView.setItems(Workouts);
@@ -100,7 +99,7 @@ public class Main extends Application {
                                         }
         );
 
-        primaryStage.setScene(new Scene(root, 1080, 720));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 

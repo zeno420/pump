@@ -33,11 +33,9 @@ public class WorkoutController {
     @FXML
     private Button workouSpeichernBtn;
     @FXML
-    private ListView satzListView;
+    private ListView<Satz> satzListView;
     @FXML
     private Label uebungNameLabel;
-    @FXML
-    private Label workoutNameLabel;
     @FXML
     private Label indexLabel;
 
@@ -84,7 +82,7 @@ public class WorkoutController {
         aktuellesWorkout = workout;
         aktuellerWorkoutDialog = workoutDialog;
 
-        ListView<Satz> satzListView = (ListView) workoutDialog.lookup("#satzListView");
+        //ListView<Satz> satzListView = (ListView) workoutDialog.lookup("#satzListView");
         //TODO getSaetze abhängig von masse defi toggle
         satzListView.setItems(workout.getUebungen().get(workout.getCurrentUebungIndex()).getSaetze());
         satzListView.setCellFactory(new Callback<ListView<Satz>,
@@ -96,9 +94,10 @@ public class WorkoutController {
                                     }
         );
 
-        workoutNameLabel.textProperty().bind(workout.nameProperty());
         uebungNameLabel.textProperty().bind(workout.getUebungen().get(workout.currentUebungIndexProperty().get()).nameProperty());
-        indexLabel.textProperty().bind(workout.currentUebungIndexProperty().asString());
+        int currentUebung =  workout.getCurrentUebungIndex() + 1;
+        String bla = "Übung " + currentUebung + " von " + workout.getUebungen().size();
+        indexLabel.setText(bla);
     }
 
     public void workoutSpeichern(ActionEvent event) {

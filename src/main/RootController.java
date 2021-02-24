@@ -1,10 +1,8 @@
 package main;
 
 import daten.Programm;
-import daten.Satz;
 import daten.Uebung;
 import daten.Workout;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,7 +27,7 @@ public class RootController {
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Übung erstellen");
-        stage.setScene(new Scene(uebungDialog, 1080, 720));
+        stage.setScene(new Scene(uebungDialog));
 
         stage.show();
     }
@@ -48,7 +46,7 @@ public class RootController {
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Übung bearbeiten");
-        stage.setScene(new Scene(uebungDialog, 1080, 720));
+        stage.setScene(new Scene(uebungDialog));
 
         stage.show();
     }
@@ -72,7 +70,7 @@ public class RootController {
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Workout erstellen");
-        stage.setScene(new Scene(workoutDialog, 1080, 720));
+        stage.setScene(new Scene(workoutDialog));
 
         stage.show();
     }
@@ -92,7 +90,7 @@ public class RootController {
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Übung bearbeiten");
-        stage.setScene(new Scene(workoutDialog, 1080, 720));
+        stage.setScene(new Scene(workoutDialog));
 
         stage.show();
     }
@@ -116,7 +114,7 @@ public class RootController {
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Programm erstellen");
-        stage.setScene(new Scene(programmDialog, 1080, 720));
+        stage.setScene(new Scene(programmDialog));
 
         stage.show();
     }
@@ -135,7 +133,7 @@ public class RootController {
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Programm bearbeiten");
-        stage.setScene(new Scene(programmDialog, 1080, 720));
+        stage.setScene(new Scene(programmDialog));
 
         stage.show();
     }
@@ -158,8 +156,8 @@ public class RootController {
         c.setUpBindingPlay(programm, programmDialog);
 
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Programm spielen");
-        stage.setScene(new Scene(programmDialog, 1080, 720));
+        stage.setTitle(programm.getName());
+        stage.setScene(new Scene(programmDialog));
 
         stage.show();
     }

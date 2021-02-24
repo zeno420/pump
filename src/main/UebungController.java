@@ -107,7 +107,7 @@ public class UebungController {
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Satz erstellen");
-        stage.setScene(new Scene(satzDialog, 1080, 720));
+        stage.setScene(new Scene(satzDialog));
 
         stage.show();
     }
@@ -125,7 +125,7 @@ public class UebungController {
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Satz erstellen");
-        stage.setScene(new Scene(satzDialog, 1080, 720));
+        stage.setScene(new Scene(satzDialog));
 
         stage.show();
     }

@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.272" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.UebungController">
+<AnchorPane prefHeight="780" prefWidth="1080" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.UebungController">
     <children>
         <Label layoutX="39.0" layoutY="59.0" text="Name:" />
         <Label layoutX="39.0" layoutY="94.0" text="Beschreibung:" />
@@ -20,7 +20,7 @@
       <ListView fx:id="defiSatzListView" layoutX="386.0" layoutY="204.0" prefHeight="142.0" prefWidth="200.0" />
       <Label layoutX="84.0" layoutY="168.0" text="Masse" />
       <Label layoutX="386.0" layoutY="168.0" text="Definition" />
-      <Button fx:id="masseSatzBtn" layoutX="193.0" layoutY="163.0" mnemonicParsing="false" onAction="#masseSatzErstellen" text="hinzufügen" />
-      <Button fx:id="defiSatzBtn" layoutX="495.0" layoutY="163.0" mnemonicParsing="false" onAction="#defiSatzErstellen" text="hinzufügen" />
+      <Button fx:id="masseSatzBtn" layoutX="193.0" layoutY="163.0" mnemonicParsing="false" onAction="#satzErstellen" text="hinzufügen" />
+      <Button fx:id="defiSatzBtn" layoutX="495.0" layoutY="163.0" mnemonicParsing="false" onAction="#satzErstellen" text="hinzufügen" />
     </children>
 </AnchorPane>
