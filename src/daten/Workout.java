@@ -89,7 +89,8 @@ public class Workout {
     public Valid getValid() {
 
         List<String> exisitngNamesList = Main.getWorkouts().stream().map(Workout::getName).collect(Collectors.toList());
-        if(exisitngNamesList.contains(name.get())){
+        boolean containsSearchStr = exisitngNamesList.stream().anyMatch(name.get()::equalsIgnoreCase);
+        if(containsSearchStr){
             valid = Valid.NAME;
         } else if (name == null || name.get() == null) {
             valid = Valid.NONAME;
