@@ -140,7 +140,7 @@ public class RootController {
         for (Programm p : programmList) {
             for (Tag t : p.getTage()) {
                 if (t.getWorkouts().contains(workout)) {
-                    if(!containingProgrammList.contains(p)){
+                    if (!containingProgrammList.contains(p)) {
                         containingProgrammList.add(p);
                         warnung.append(p.getName());
                         warnung.append("\n");
@@ -208,10 +208,21 @@ public class RootController {
     }
 
     public void programmLoeschen(Programm programm) {
-        //TODO warndialog
 
-        Main.getProgramme().remove(programm);
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        a.setTitle("Achtung: wirklich löschen?");
+        a.setHeaderText("Das Programm wird dauerhaft gelöscht!");
+        Button lb = (Button) a.getDialogPane().lookupButton(ButtonType.OK);
+        lb.setText("löschen");
+        lb.setDefaultButton(false);
+        Button cb = (Button) a.getDialogPane().lookupButton(ButtonType.CANCEL);
+        cb.setText("abbrechen");
+        cb.setDefaultButton(true);
 
+        Optional<ButtonType> result = a.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            Main.getProgramme().remove(programm);
+        }
     }
 
     public void programmSpielen(Programm programm) throws IOException {
