@@ -46,7 +46,6 @@ public class Workout {
 
 
     public enum Valid {
-        //TODO sinvollere fehlermeldungen
         VALID(0, ""), NONAME(1, "Name ungültig"), UEBUNG(2, "Übungen ungültig"),
         NAME(3, "Ein Workout mit diesem Name existiert bereits");
 
@@ -84,7 +83,6 @@ public class Workout {
         };
     }
 
-    //TODO name nur einmal zulassen !!! bei bearbeiten zulassen
     public Valid getValid(List<String> existingNamesList) {
 
         boolean containsSearchStr = existingNamesList.stream().anyMatch(name.get()::equalsIgnoreCase);

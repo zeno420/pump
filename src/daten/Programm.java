@@ -42,7 +42,6 @@ public class Programm {
 
 
     public enum Valid {
-//TODO namen einmaligkeit
         VALID(0, ""), NONAME(1, "Name ungültig"), TAGE(2, "Tage ungültig"),
         NAME(3, "Ein Programm mit diesem Name existiert bereits");
 
@@ -80,7 +79,6 @@ public class Programm {
         };
     }
 
-    //TODO name nur einmal zulassen
     public Valid getValid(List<String> existingNamesList) {
         boolean containsSearchStr = existingNamesList.stream().anyMatch(name.get()::equalsIgnoreCase);
         if(containsSearchStr){

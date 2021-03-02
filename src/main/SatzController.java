@@ -44,7 +44,6 @@ public class SatzController {
     }
 
     public void satzSpeichern(ActionEvent event) {
-        //TODO
         if (tmpSatz.getValid().getCode() == 0) {
             aktuellerSatz.setWiederholungen(tmpSatz.getWiederholungen());
             aktuellerSatz.setGewicht(tmpSatz.getGewicht());

@@ -24,8 +24,14 @@ import java.io.File;
 public class Main extends Application {
 
     //TODO workout/uebung loeschen: verhalten falls containing object will be empty, also letzte uebung aus workout löschen
+
     //TODO uebung.fxml spacing zwischen anchorpanes dynamisch machen
     //TODO fullscreen problem beheben
+
+    //TODO add (uebung in workout/workout in tag/tage in programm) mit dragndrop sortierbar machen
+
+    //TODO sinvollere fehlermeldungen in Valids
+
     private static ObservableList<Uebung> Uebungen = FXCollections.observableArrayList(Uebung.makeExtractor());
     private static ObservableList<Workout> Workouts = FXCollections.observableArrayList(Workout.makeExtractor());
     private static ObservableList<Programm> Programme = FXCollections.observableArrayList(Programm.makeExtractor());

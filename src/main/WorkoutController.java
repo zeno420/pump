@@ -93,8 +93,6 @@ public class WorkoutController {
         aktuellesWorkout = workout;
         aktuellerWorkoutDialog = workoutDialog;
 
-        //ListView<Satz> satzListView = (ListView) workoutDialog.lookup("#satzListView");
-        //TODO getSaetze abhängig von masse defi toggle
         satzListView.setItems(workout.getUebungen().get(workout.getCurrentUebungIndex()).getSaetze());
         satzListView.setCellFactory(new Callback<ListView<Satz>,
                                             ListCell<Satz>>() {
@@ -112,7 +110,6 @@ public class WorkoutController {
     }
 
     public void workoutSpeichern(ActionEvent event) {
-        //TODO initial speichern ohne eingabe gibt nullpointer
         if (tmpWorkout.getValid(exisitngNamesList).getCode() == 0) {
             aktuellesWorkout.setName(tmpWorkout.getName());
             aktuellesWorkout.setBeschreibung(tmpWorkout.getBeschreibung());
@@ -141,7 +138,6 @@ public class WorkoutController {
     }
 
     public void uebungZuWorkoutHinzufuegen(ActionEvent event) {
-        //TODO add mit index vll dann kann manned nur hinten anfügen
         Uebung uebung = uebungComboBox.getSelectionModel().getSelectedItem();
         tmpWorkout.getUebungen().add(uebung);
     }

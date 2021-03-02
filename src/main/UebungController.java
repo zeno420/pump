@@ -19,8 +19,6 @@ import java.util.stream.Collectors;
 
 public class UebungController {
 
-    //TODO gelöschte uebung bleibt in workout
-
     @FXML
     private TextField uebungNameField;
     @FXML
@@ -104,7 +102,6 @@ public class UebungController {
     }
 
     public void satzErstellen(ActionEvent event) throws IOException {
-        //TODO
         FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("satz.fxml"));
         Parent satzDialog = fxmlloader.load();
 
@@ -123,7 +120,6 @@ public class UebungController {
     }
 
     public void satzBearbeiten(Satz satz) throws IOException {
-        //TODO
         FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("satz.fxml"));
         Parent satzDialog = fxmlloader.load();
 
@@ -141,7 +137,6 @@ public class UebungController {
     }
 
     public void satzLoeschen(Satz satz) throws IOException {
-        //TODO
         if(satz.isMasse()) {
             tmpUebung.getMasse().remove(satz);
         } else {

@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ProgrammController {
@@ -74,7 +75,6 @@ public class ProgrammController {
     }
 
     public void setUpBindingPlay(Programm programm, Parent programmDialog) {
-        //TODO
         aktuellesProgramm = programm;
         aktuellerProgrammDialog = programmDialog;
 
@@ -160,9 +160,20 @@ public class ProgrammController {
     }
 
     public void tagLoeschen(Tag tag) {
-        //TODO warndialog
-        tmpProgramm.getTage().remove(tag);
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        a.setTitle("Achtung: wirklich löschen?");
+        a.setHeaderText("Der Tag wird dauerhaft gelöscht!");
+        Button lb = (Button) a.getDialogPane().lookupButton(ButtonType.OK);
+        lb.setText("löschen");
+        lb.setDefaultButton(false);
+        Button cb = (Button) a.getDialogPane().lookupButton(ButtonType.CANCEL);
+        cb.setText("abbrechen");
+        cb.setDefaultButton(true);
 
+        Optional<ButtonType> result = a.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            tmpProgramm.getTage().remove(tag);
+        }
     }
 
     public void workoutSpielen(Workout workout) throws IOException {

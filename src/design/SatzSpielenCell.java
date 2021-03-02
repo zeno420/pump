@@ -42,7 +42,6 @@ public class SatzSpielenCell extends ListCell<Satz> {
                         uc = (UebungController) ((Map) getScene().getRoot().getUserData()).get("uebungController");
                     }
                     try {
-                        //TODO masse defi switch
                         uc.satzBearbeiten(satz);
                     } catch (IOException e) {
                         e.printStackTrace();

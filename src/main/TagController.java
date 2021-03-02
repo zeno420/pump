@@ -91,7 +91,6 @@ public class TagController {
     }
 
     public void workoutZuTagHinzufuegen(ActionEvent event) {
-        //TODO add mit index vll dann kann manned nur hinten anfügen
         Workout workout = workoutComboBox.getSelectionModel().getSelectedItem();
         tmpTag.getWorkouts().add(workout);
     }

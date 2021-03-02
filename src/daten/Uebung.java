@@ -86,7 +86,6 @@ public class Uebung {
         };
     }
 
-    //TODO name nur einmal zulassen
     public Valid getValid(List<String> existingNamesList) {
         boolean containsSearchStr = existingNamesList.stream().anyMatch(name.get()::equalsIgnoreCase);
         if(containsSearchStr){

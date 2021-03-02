@@ -36,7 +36,6 @@ public class TagCell  extends ListCell<Tag> {
                 public void handle(ActionEvent arg0) {
                     ProgrammController pc = (ProgrammController) getScene().getRoot().getUserData();
                     try {
-                        //TODO
                         pc.tagBearbeiten(tag);
                     } catch (IOException e) {
                         e.printStackTrace();
