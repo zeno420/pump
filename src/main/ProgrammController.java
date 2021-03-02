@@ -29,6 +29,9 @@ public class ProgrammController {
     private Button programmSpeichernBtn;
     @FXML
     private Label indexLabel;
+    @FXML
+    private Button fertigBtn;
+
 
     private Programm aktuellesProgramm;
     private Parent aktuellerProgrammDialog;
@@ -187,5 +190,10 @@ public class ProgrammController {
     public void previousTag(ActionEvent event) throws IOException {
         aktuellesProgramm.decreaseAktuellerTag();
         setUpBindingPlay(aktuellesProgramm, aktuellerProgrammDialog);
+    }
+
+    public void fertig(ActionEvent event) {
+        Stage stage = (Stage) fertigBtn.getScene().getWindow();
+        stage.close();
     }
 }

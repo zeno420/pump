@@ -89,7 +89,7 @@ public class RootController {
 
 
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Übung bearbeiten");
+        stage.setTitle("Workout bearbeiten");
         stage.setScene(new Scene(workoutDialog));
 
         stage.show();

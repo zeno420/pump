@@ -38,6 +38,8 @@ public class WorkoutController {
     private Label uebungNameLabel;
     @FXML
     private Label indexLabel;
+    @FXML
+    private Button fertigBtn;
 
     public void setUpBinding(Workout workout, Parent workoutDialog) {
 
@@ -147,5 +149,10 @@ public class WorkoutController {
     public void previousUebung(ActionEvent event) throws IOException {
         aktuellesWorkout.decreaseAktuelleUebung();
         setUpBindingPlay(aktuellesWorkout, aktuellerWorkoutDialog);
+    }
+
+    public void fertig(ActionEvent event) {
+        Stage stage = (Stage) fertigBtn.getScene().getWindow();
+        stage.close();
     }
 }

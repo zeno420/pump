@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="780" prefWidth="1080" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.UebungController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="720" prefWidth="1080" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.UebungController">
     <children>
         <Label text="Name:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
         <Label text="Beschreibung:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0" />
