@@ -12,8 +12,10 @@ import main.Main;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class Uebung {
 
@@ -45,7 +47,9 @@ public class Uebung {
 
     public enum Valid {
 
-        VALID(0, ""), NAME(1, "Name ungültig"), MASSE(2, "Massesätze ungültig"), DEFI(3, "Definitionssätze ungültig");
+        VALID(0, ""), NONAME(1, "Name ungültig"),
+        NAME(2, "Eine Übung mit diesem Name existiert bereits"),
+        MASSE(3, "Massesätze ungültig"), DEFI(4, "Definitionssätze ungültig");
 
         private int code;
         private String error;
@@ -84,8 +88,11 @@ public class Uebung {
 
     //TODO name nur einmal zulassen
     public Valid getValid() {
-        if (name == null || name.get() == null || name.get().equalsIgnoreCase("")) {
+        List<String> exisitngNamesList = Main.getUebungen().stream().map(Uebung::getName).collect(Collectors.toList());
+        if(exisitngNamesList.contains(name.get())){
             valid = Valid.NAME;
+        } else if (name == null || name.get() == null || name.get().equalsIgnoreCase("")) {
+            valid = Valid.NONAME;
         } else if (masse.get().size() < 1) {
             valid = Valid.MASSE;
         } else if (defi.get().size() < 1) {

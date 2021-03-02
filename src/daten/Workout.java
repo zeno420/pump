@@ -5,12 +5,16 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Callback;
+import main.Main;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
+import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+
 
 public class Workout {
 
@@ -43,8 +47,9 @@ public class Workout {
 
 
     public enum Valid {
-
-        VALID(0, ""), NAME(1, "Name ungültig"), UEBUNG(2, "Übungen ungültig");
+        //TODO sinvollere fehlermeldungen
+        VALID(0, ""), NONAME(1, "Name ungültig"), UEBUNG(2, "Übungen ungültig"),
+        NAME(3, "Ein Workout mit diesem Name existiert bereits");
 
         private int code;
         private String error;
@@ -82,10 +87,14 @@ public class Workout {
 
     //TODO name nur einmal zulassen
     public Valid getValid() {
-        if (name == null || name.get() == null) {
+
+        List<String> exisitngNamesList = Main.getWorkouts().stream().map(Workout::getName).collect(Collectors.toList());
+        if(exisitngNamesList.contains(name.get())){
             valid = Valid.NAME;
+        } else if (name == null || name.get() == null) {
+            valid = Valid.NONAME;
         } else if (name.get().equalsIgnoreCase("")) {
-            valid = Valid.NAME;
+            valid = Valid.NONAME;
         } else if (uebungen.get().size() < 1) {
             valid = Valid.UEBUNG;
         } else {
