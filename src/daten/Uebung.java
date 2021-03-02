@@ -87,9 +87,8 @@ public class Uebung {
     }
 
     //TODO name nur einmal zulassen
-    public Valid getValid() {
-        List<String> exisitngNamesList = Main.getUebungen().stream().map(Uebung::getName).collect(Collectors.toList());
-        boolean containsSearchStr = exisitngNamesList.stream().anyMatch(name.get()::equalsIgnoreCase);
+    public Valid getValid(List<String> existingNamesList) {
+        boolean containsSearchStr = existingNamesList.stream().anyMatch(name.get()::equalsIgnoreCase);
         if(containsSearchStr){
             valid = Valid.NAME;
         } else if (name == null || name.get() == null || name.get().equalsIgnoreCase("")) {

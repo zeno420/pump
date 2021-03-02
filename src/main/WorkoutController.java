@@ -14,7 +14,9 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class WorkoutController {
 
@@ -41,6 +43,8 @@ public class WorkoutController {
     @FXML
     private Button fertigBtn;
 
+    List<String> exisitngNamesList;
+
     public void setUpBinding(Workout workout, Parent workoutDialog) {
 
         if (workout != null) {
@@ -49,6 +53,11 @@ public class WorkoutController {
         } else {
             aktuellesWorkout = new Workout();
             isNew = true;
+        }
+
+        exisitngNamesList = Main.getWorkouts().stream().map(Workout::getName).collect(Collectors.toList());
+        if (!isNew) {
+            exisitngNamesList.remove(workout.getName());
         }
 
         tmpWorkout = aktuellesWorkout.makeTmpCopy();
@@ -104,7 +113,7 @@ public class WorkoutController {
 
     public void workoutSpeichern(ActionEvent event) {
         //TODO initial speichern ohne eingabe gibt nullpointer
-        if (tmpWorkout.getValid().getCode() == 0) {
+        if (tmpWorkout.getValid(exisitngNamesList).getCode() == 0) {
             aktuellesWorkout.setName(tmpWorkout.getName());
             aktuellesWorkout.setBeschreibung(tmpWorkout.getBeschreibung());
             aktuellesWorkout.setUebungen(tmpWorkout.getUebungen());
@@ -118,7 +127,7 @@ public class WorkoutController {
             Alert a = new Alert(Alert.AlertType.WARNING);
 
             a.setTitle("Ungültige Eingabe");
-            a.setHeaderText(tmpWorkout.getValid().getError());
+            a.setHeaderText(tmpWorkout.getValid(exisitngNamesList).getError());
             //TODO contenttext der warung abhängig von wirklich konkretem fehler machen
             // a.setContentText("");
             a.showAndWait();

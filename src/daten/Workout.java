@@ -45,7 +45,6 @@ public class Workout {
     }
 
 
-
     public enum Valid {
         //TODO sinvollere fehlermeldungen
         VALID(0, ""), NONAME(1, "Name ungültig"), UEBUNG(2, "Übungen ungültig"),
@@ -68,7 +67,7 @@ public class Workout {
         }
     }
 
-    public Workout makeTmpCopy(){
+    public Workout makeTmpCopy() {
         Workout tmpWorkout = new Workout();
         tmpWorkout.setName(name.get());
         tmpWorkout.setBeschreibung(beschreibung.get());
@@ -76,21 +75,20 @@ public class Workout {
         return tmpWorkout;
     }
 
-    public static Callback<Workout, Observable[]> makeExtractor(){
+    public static Callback<Workout, Observable[]> makeExtractor() {
         return new Callback<Workout, Observable[]>() {
             @Override
             public Observable[] call(Workout workout) {
-                return new Observable[] {workout.nameProperty(), workout.beschreibungProperty(), workout.uebungenProperty()};
+                return new Observable[]{workout.nameProperty(), workout.beschreibungProperty(), workout.uebungenProperty()};
             }
         };
     }
 
-    //TODO name nur einmal zulassen
-    public Valid getValid() {
+    //TODO name nur einmal zulassen !!! bei bearbeiten zulassen
+    public Valid getValid(List<String> existingNamesList) {
 
-        List<String> exisitngNamesList = Main.getWorkouts().stream().map(Workout::getName).collect(Collectors.toList());
-        boolean containsSearchStr = exisitngNamesList.stream().anyMatch(name.get()::equalsIgnoreCase);
-        if(containsSearchStr){
+        boolean containsSearchStr = existingNamesList.stream().anyMatch(name.get()::equalsIgnoreCase);
+        if (containsSearchStr) {
             valid = Valid.NAME;
         } else if (name == null || name.get() == null) {
             valid = Valid.NONAME;

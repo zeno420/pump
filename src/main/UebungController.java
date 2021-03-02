@@ -1,6 +1,5 @@
 package main;
 
-import daten.Programm;
 import daten.Satz;
 import daten.Uebung;
 import design.SatzCell;
@@ -15,8 +14,12 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class UebungController {
+
+    //TODO gelöschte uebung bleibt in workout
 
     @FXML
     private TextField uebungNameField;
@@ -29,6 +32,8 @@ public class UebungController {
     private Uebung tmpUebung;
     private boolean isNew = false;
 
+    List<String> exisitngNamesList;
+
     public void setUpBinding(Uebung uebung, Parent uebungDialog) {
         if (uebung != null) {
             aktuelleUebung = uebung;
@@ -36,6 +41,11 @@ public class UebungController {
         } else {
             aktuelleUebung = new Uebung();
             isNew = true;
+        }
+
+        exisitngNamesList = Main.getUebungen().stream().map(Uebung::getName).collect(Collectors.toList());
+        if (!isNew) {
+            exisitngNamesList.remove(uebung.getName());
         }
 
         tmpUebung = aktuelleUebung.makeTmpCopy();
@@ -66,7 +76,7 @@ public class UebungController {
     }
 
     public void uebungSpeichern(ActionEvent event) {
-        if (tmpUebung.getValid().getCode() == 0) {
+        if (tmpUebung.getValid(exisitngNamesList).getCode() == 0) {
             aktuelleUebung.setName(tmpUebung.getName());
             aktuelleUebung.setBeschreibung(tmpUebung.getBeschreibung());
             aktuelleUebung.setMasse(tmpUebung.getMasse());
@@ -81,7 +91,7 @@ public class UebungController {
             Alert a = new Alert(Alert.AlertType.WARNING);
 
             a.setTitle("Ungültige Eingabe");
-            a.setHeaderText(tmpUebung.getValid().getError());
+            a.setHeaderText(tmpUebung.getValid(exisitngNamesList).getError());
             //TODO contenttext der warung abhängig von wirklich konkretem fehler machen
             // a.setContentText("");
             a.showAndWait();
