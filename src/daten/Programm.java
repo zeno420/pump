@@ -9,6 +9,7 @@ import javafx.util.Callback;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -42,7 +43,8 @@ public class Programm {
 
     public enum Valid {
 //TODO namen einmaligkeit
-        VALID(0, ""), NAME(1, "Name ungültig"), TAGE(2, "Tage ungültig");
+        VALID(0, ""), NONAME(1, "Name ungültig"), TAGE(2, "Tage ungültig"),
+        NAME(3, "Ein Programm mit diesem Name existiert bereits");
 
         private int code;
         private String error;
@@ -79,9 +81,12 @@ public class Programm {
     }
 
     //TODO name nur einmal zulassen
-    public Valid getValid() {
-        if (name == null || name.get() == null || name.get().equalsIgnoreCase("")) {
+    public Valid getValid(List<String> existingNamesList) {
+        boolean containsSearchStr = existingNamesList.stream().anyMatch(name.get()::equalsIgnoreCase);
+        if(containsSearchStr){
             valid = Valid.NAME;
+        } else if (name == null || name.get() == null || name.get().equalsIgnoreCase("")) {
+            valid = Valid.NONAME;
         } else if (tage.get().size() < 1) {
             valid = Valid.TAGE;
         } else {

@@ -15,7 +15,9 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ProgrammController {
 
@@ -32,11 +34,12 @@ public class ProgrammController {
     @FXML
     private Button fertigBtn;
 
-
     private Programm aktuellesProgramm;
     private Parent aktuellerProgrammDialog;
     private Programm tmpProgramm;
     private boolean isNew = false;
+
+    List<String> exisitngNamesList;
 
     public void setUpBindingEdit(Programm programm, Parent programmDialog) {
         if (programm != null) {
@@ -45,6 +48,11 @@ public class ProgrammController {
         } else {
             aktuellesProgramm = new Programm();
             isNew = true;
+        }
+
+        exisitngNamesList = Main.getProgramme().stream().map(Programm::getName).collect(Collectors.toList());
+        if (!isNew) {
+            exisitngNamesList.remove(programm.getName());
         }
 
         tmpProgramm = aktuellesProgramm.makeTmpCopy();
@@ -87,7 +95,7 @@ public class ProgrammController {
     }
 
     public void programmSpeichern(ActionEvent event) {
-        if (tmpProgramm.getValid().getCode() == 0) {
+        if (tmpProgramm.getValid(exisitngNamesList).getCode() == 0) {
             aktuellesProgramm.setName(tmpProgramm.getName());
             aktuellesProgramm.setBeschreibung(tmpProgramm.getBeschreibung());
             aktuellesProgramm.setTage(tmpProgramm.getTage());
@@ -101,7 +109,7 @@ public class ProgrammController {
             Alert a = new Alert(Alert.AlertType.WARNING);
 
             a.setTitle("Ungültige Eingabe");
-            a.setHeaderText(tmpProgramm.getValid().getError());
+            a.setHeaderText(tmpProgramm.getValid(exisitngNamesList).getError());
             //TODO contenttext der warung abhängig von wirklich konkretem fehler machen
             // a.setContentText("");
             a.showAndWait();
