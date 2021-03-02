@@ -1,16 +1,26 @@
 package main;
 
 import daten.Programm;
+import daten.Tag;
 import daten.Uebung;
 import daten.Workout;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class RootController {
 
@@ -52,10 +62,37 @@ public class RootController {
     }
 
     public void uebungLoeschen(Uebung uebung) {
-        //TODO warndialog
+        List<Workout> workoutList = Main.getWorkouts();
+        List<Workout> containingWorkoutList = new ArrayList<>();
+        StringBuilder warnung = new StringBuilder();
 
-        Main.getUebungen().remove(uebung);
+        for (Workout w : workoutList) {
+            if (w.getUebungen().contains(uebung)) {
+                containingWorkoutList.add(w);
+                warnung.append(w.getName());
+                warnung.append("\n");
+            }
+        }
 
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        a.setTitle("Achtung: wirklich löschen?");
+        a.setHeaderText(containingWorkoutList.size() + " Workouts enthalten diese Übung:");
+        a.setContentText(warnung.toString());
+        Button lb = (Button) a.getDialogPane().lookupButton(ButtonType.OK);
+        lb.setText("löschen");
+        lb.setDefaultButton(false);
+        Button cb = (Button) a.getDialogPane().lookupButton(ButtonType.CANCEL);
+        cb.setText("abbrechen");
+        cb.setDefaultButton(true);
+
+
+        Optional<ButtonType> result = a.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            Main.getUebungen().remove(uebung);
+            for (Workout w : containingWorkoutList) {
+                w.getUebungen().remove(uebung);
+            }
+        }
     }
 
     public void workoutErstellen(ActionEvent event) throws IOException {
@@ -87,7 +124,6 @@ public class RootController {
         c.setUpBinding(workout, workoutDialog);
 
 
-
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Workout bearbeiten");
         stage.setScene(new Scene(workoutDialog));
@@ -96,10 +132,43 @@ public class RootController {
     }
 
     public void workoutLoeschen(Workout workout) {
-        //TODO warndialog
+        List<Programm> programmList = Main.getProgramme();
+        List<Programm> containingProgrammList = new ArrayList<>();
+        List<Tag> containingTagList = new ArrayList<>();
+        StringBuilder warnung = new StringBuilder();
 
-        Main.getWorkouts().remove(workout);
+        for (Programm p : programmList) {
+            for (Tag t : p.getTage()) {
+                if (t.getWorkouts().contains(workout)) {
+                    if(!containingProgrammList.contains(p)){
+                        containingProgrammList.add(p);
+                        warnung.append(p.getName());
+                        warnung.append("\n");
+                    }
+                    containingTagList.add(t);
+                }
+            }
+        }
 
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        a.setTitle("Achtung: wirklich löschen?");
+        a.setHeaderText(containingProgrammList.size() + " Programme enthalten dieses Workout an " + containingTagList.size() + " Tagen:");
+        a.setContentText(warnung.toString());
+        Button lb = (Button) a.getDialogPane().lookupButton(ButtonType.OK);
+        lb.setText("löschen");
+        lb.setDefaultButton(false);
+        Button cb = (Button) a.getDialogPane().lookupButton(ButtonType.CANCEL);
+        cb.setText("abbrechen");
+        cb.setDefaultButton(true);
+
+
+        Optional<ButtonType> result = a.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            Main.getWorkouts().remove(workout);
+            for (Tag t : containingTagList) {
+                t.getWorkouts().remove(workout);
+            }
+        }
     }
 
     public void programmErstellen(ActionEvent event) throws IOException {

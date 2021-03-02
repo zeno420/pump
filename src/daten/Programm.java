@@ -41,7 +41,7 @@ public class Programm {
 
 
     public enum Valid {
-
+//TODO namen einmaligkeit
         VALID(0, ""), NAME(1, "Name ungültig"), TAGE(2, "Tage ungültig");
 
         private int code;
