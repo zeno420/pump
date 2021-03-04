@@ -1,6 +1,7 @@
 package design;
 
 import daten.Satz;
+import daten.Tag;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -31,6 +32,8 @@ public class SatzCell extends ListCell<Satz> {
             Label wiederholungenMalGewicht = new Label(satz.getWiederholungen() + " x " + satz.getGewicht());
             Button bearbeiten = new Button("bearbeiten");
             Button loeschen = new Button("löschen");
+            Button up = new Button("move up");
+            Button down = new Button("move down");
 
             bearbeiten.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -68,8 +71,42 @@ public class SatzCell extends ListCell<Satz> {
                 }
             });
 
+            up.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent arg0) {
+                    int index = getListView().getItems().indexOf(getItem());
+
+                    if (index > 0) {
+
+                        Satz s1 = getItem();
+                        Satz s2 = getListView().getItems().get(index - 1);
+
+                        getListView().getItems().set(index, s2);
+                        getListView().getItems().set(index - 1, s1);
+                    }
+                }
+            });
+
+            down.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent arg0) {
+                    int index = getListView().getItems().indexOf(getItem());
+
+                    if (index < getListView().getItems().size()) {
+
+                        Satz s1 = getItem();
+                        Satz s2 = getListView().getItems().get(index + 1);
+
+                        getListView().getItems().set(index, s2);
+                        getListView().getItems().set(index + 1, s1);
+                    }
+                }
+            });
+
             leftBox.getChildren().addAll(wiederholungenMalGewicht);
-            rightBox.getChildren().addAll(bearbeiten, loeschen);
+            rightBox.getChildren().addAll(up, down, bearbeiten, loeschen);
             rightBox.setAlignment(Pos.BASELINE_RIGHT);
             rightBox.setSpacing(5);
             topBox.getChildren().addAll(leftBox, rightBox);

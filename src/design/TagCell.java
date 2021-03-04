@@ -14,7 +14,7 @@ import main.RootController;
 
 import java.io.IOException;
 
-public class TagCell  extends ListCell<Tag> {
+public class TagCell extends ListCell<Tag> {
     @Override
     public void updateItem(Tag tag, boolean empty) {
         super.updateItem(tag, empty);
@@ -29,6 +29,8 @@ public class TagCell  extends ListCell<Tag> {
             Label name = new Label(tag.getName());
             Button bearbeiten = new Button("bearbeiten");
             Button loeschen = new Button("löschen");
+            Button up = new Button("move up");
+            Button down = new Button("move down");
 
             bearbeiten.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -52,8 +54,42 @@ public class TagCell  extends ListCell<Tag> {
                 }
             });
 
+            up.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent arg0) {
+                    int index = getListView().getItems().indexOf(getItem());
+
+                    if (index > 0) {
+
+                        Tag t1 = getItem();
+                        Tag t2 = getListView().getItems().get(index - 1);
+
+                        getListView().getItems().set(index, t2);
+                        getListView().getItems().set(index - 1, t1);
+                    }
+                }
+            });
+
+            down.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent arg0) {
+                    int index = getListView().getItems().indexOf(getItem());
+
+                    if (index < getListView().getItems().size()) {
+
+                        Tag t1 = getItem();
+                        Tag t2 = getListView().getItems().get(index + 1);
+
+                        getListView().getItems().set(index, t2);
+                        getListView().getItems().set(index + 1, t1);
+                    }
+                }
+            });
+
             leftBox.getChildren().addAll(name);
-            rightBox.getChildren().addAll(bearbeiten, loeschen);
+            rightBox.getChildren().addAll(up, down, bearbeiten, loeschen);
             rightBox.setAlignment(Pos.BASELINE_RIGHT);
             rightBox.setSpacing(5);
             topBox.getChildren().addAll(leftBox, rightBox);
