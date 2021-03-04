@@ -6,6 +6,7 @@ import daten.Workout;
 import design.SatzCell;
 import design.SatzSpielenCell;
 import design.UebungAnzeigenCell;
+import design.UebungCell;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -82,7 +83,7 @@ public class WorkoutController {
                                               ListCell<Uebung>>() {
                                           @Override
                                           public ListCell<Uebung> call(ListView<Uebung> list) {
-                                              return new UebungAnzeigenCell();
+                                              return new UebungCell();
                                           }
                                       }
         );
@@ -104,7 +105,7 @@ public class WorkoutController {
         );
 
         uebungNameLabel.textProperty().bind(workout.getUebungen().get(workout.currentUebungIndexProperty().get()).nameProperty());
-        int currentUebung =  workout.getCurrentUebungIndex() + 1;
+        int currentUebung = workout.getCurrentUebungIndex() + 1;
         String bla = "Übung " + currentUebung + " von " + workout.getUebungen().size();
         indexLabel.setText(bla);
     }
@@ -139,11 +140,16 @@ public class WorkoutController {
 
     public void uebungZuWorkoutHinzufuegen(ActionEvent event) {
         Uebung uebung = uebungComboBox.getSelectionModel().getSelectedItem();
+        if (uebung == null) {
+            return;
+        }
         tmpWorkout.getUebungen().add(uebung);
     }
 
     public void uebungEntfernen(ActionEvent event) throws IOException {
-        tmpWorkout.getUebungen().remove(workoutUebungenListView.getSelectionModel().getSelectedIndex());
+        if (workoutUebungenListView.getSelectionModel().getSelectedIndex() >= 0) {
+            tmpWorkout.getUebungen().remove(workoutUebungenListView.getSelectionModel().getSelectedIndex());
+        }
     }
 
     public void nextUebung(ActionEvent event) throws IOException {

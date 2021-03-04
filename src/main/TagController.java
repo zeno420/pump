@@ -2,6 +2,7 @@ package main;
 
 import daten.*;
 import design.WorkoutAnzeigenCell;
+import design.WourkoutCell;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -58,7 +59,7 @@ public class TagController {
                                                ListCell<Workout>>() {
                                            @Override
                                            public ListCell<Workout> call(ListView<Workout> list) {
-                                               return new WorkoutAnzeigenCell();
+                                               return new WourkoutCell();
                                            }
                                        }
         );
@@ -92,10 +93,15 @@ public class TagController {
 
     public void workoutZuTagHinzufuegen(ActionEvent event) {
         Workout workout = workoutComboBox.getSelectionModel().getSelectedItem();
+        if (workout == null) {
+            return;
+        }
         tmpTag.getWorkouts().add(workout);
     }
 
     public void workoutEntfernen(ActionEvent event) throws IOException {
-        tmpTag.getWorkouts().remove(programmWorkoutsListView.getSelectionModel().getSelectedIndex());
+        if (programmWorkoutsListView.getSelectionModel().getSelectedIndex() >= 0) {
+            tmpTag.getWorkouts().remove(programmWorkoutsListView.getSelectionModel().getSelectedIndex());
+        }
     }
 }
