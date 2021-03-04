@@ -28,8 +28,6 @@ public class Main extends Application {
     //TODO uebung.fxml spacing zwischen anchorpanes dynamisch machen
     //TODO fullscreen problem beheben
 
-    //TODO add (uebung in workout/workout in tag/tage in programm) mit dragndrop sortierbar machen
-
     //TODO sinvollere fehlermeldungen in Valids
 
     private static ObservableList<Uebung> Uebungen = FXCollections.observableArrayList(Uebung.makeExtractor());
