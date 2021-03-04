@@ -3,8 +3,6 @@ package main;
 import daten.*;
 import design.*;
 import javafx.application.Application;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;

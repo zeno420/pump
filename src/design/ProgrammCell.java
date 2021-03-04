@@ -15,8 +15,6 @@ import java.io.IOException;
 
 public class ProgrammCell extends ListCell<Programm> {
 
-
-
     @Override
     public void updateItem(Programm programm, boolean empty) {
         super.updateItem(programm, empty);
