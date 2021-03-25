@@ -64,19 +64,26 @@ public class RootController {
     public void uebungLoeschen(Uebung uebung) {
         List<Workout> workoutList = Main.getWorkouts();
         List<Workout> containingWorkoutList = new ArrayList<>();
+        List<Workout> emptyAfterDeletionWorkoutList = new ArrayList<>();
+
         StringBuilder warnung = new StringBuilder();
 
         for (Workout w : workoutList) {
             if (w.getUebungen().contains(uebung)) {
                 containingWorkoutList.add(w);
-                warnung.append(w.getName());
+                if (w.getUebungen().size() == 1) {
+                    emptyAfterDeletionWorkoutList.add(w);
+                    warnung.append(w.getName()).append(": will be empty after deleting this Übung.");
+                } else {
+                    warnung.append(w.getName()).append(": contains this Übung.");
+                }
                 warnung.append("\n");
             }
         }
 
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         a.setTitle("Achtung: wirklich löschen?");
-        a.setHeaderText(containingWorkoutList.size() + " Workouts enthalten diese Übung:");
+        a.setHeaderText(emptyAfterDeletionWorkoutList.size() + " Workouts enthalten NUR diese Übung, " + (containingWorkoutList.size() - emptyAfterDeletionWorkoutList.size()) + " weitere Workouts enthalten diese Übung.");
         a.setContentText(warnung.toString());
         Button lb = (Button) a.getDialogPane().lookupButton(ButtonType.OK);
         lb.setText("löschen");

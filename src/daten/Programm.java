@@ -20,7 +20,7 @@ public class Programm {
 
     private ListProperty<Tag> tage = new SimpleListProperty<>(FXCollections.observableArrayList(Tag.makeExtractor()));
 
-    private Valid valid = Valid.VALID;
+    private Valid valid = Valid.NONAME;
     private IntegerProperty currentTagIndex = new SimpleIntegerProperty(0);
 
     //static id generator shared among all instances of Coordinates
@@ -33,6 +33,8 @@ public class Programm {
     public Programm() {
         //assign unique id to an instance variable
         pid = "p-" + UUID.randomUUID().toString();
+        name.set("");
+        beschreibung.set("");
     }
 
     public String getId() {
@@ -93,6 +95,9 @@ public class Programm {
         return valid;
     }
 
+    public void setValid(Valid valid) {
+        this.valid = valid;
+    }
 
     public String getName() {
         return name.get();

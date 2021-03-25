@@ -62,8 +62,6 @@ public class SatzController {
 
             a.setTitle("Ungültige Eingabe");
             a.setHeaderText(tmpSatz.getValid().getError());
-            //TODO contenttext der warung abhängig von wirklich konkretem fehler machen
-            // a.setContentText("");
             a.showAndWait();
         }
     }

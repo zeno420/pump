@@ -25,7 +25,7 @@ public class Workout {
 
     private IntegerProperty currentUebungIndex = new SimpleIntegerProperty(0);
 
-    private Valid valid = Valid.VALID;
+    private Valid valid = Valid.NONAME;
 
     //static id generator shared among all instances of Coordinates
     //private static final AtomicInteger idGenerator = new AtomicInteger(1000);
@@ -37,6 +37,8 @@ public class Workout {
     public Workout() {
         //assign unique id to an instance variable
         wid = "w-" + UUID.randomUUID().toString();
+        name.set("");
+        beschreibung.set("");
     }
 
     public String getId() {
@@ -98,6 +100,10 @@ public class Workout {
             valid = Valid.VALID;
         }
         return valid;
+    }
+
+    public void setValid(Valid valid) {
+        this.valid = valid;
     }
 
     public String getName() {

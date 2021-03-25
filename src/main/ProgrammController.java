@@ -110,8 +110,6 @@ public class ProgrammController {
 
             a.setTitle("Ungültige Eingabe");
             a.setHeaderText(tmpProgramm.getValid(exisitngNamesList).getError());
-            //TODO contenttext der warung abhängig von wirklich konkretem fehler machen
-            // a.setContentText("");
             a.showAndWait();
         }
     }

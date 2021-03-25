@@ -20,7 +20,6 @@ import java.io.File;
 
 
 public class Main extends Application {
-    //TODO workout/uebung loeschen: verhalten falls containing object will be empty, also letzte uebung aus workout löschen
 
     //TODO uebung.fxml spacing zwischen anchorpanes dynamisch machen
     //TODO fullscreen problem beheben

@@ -80,8 +80,6 @@ public class TagController {
 
             a.setTitle("Ungültige Eingabe");
             a.setHeaderText(tmpTag.getValid().getError());
-            //TODO contenttext der warung abhängig von wirklich konkretem fehler machen
-            // a.setContentText("");
             a.showAndWait();
         }
     }

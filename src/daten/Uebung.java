@@ -25,7 +25,7 @@ public class Uebung {
     private ListProperty<Satz> masse = new SimpleListProperty<>(FXCollections.observableArrayList(Satz.makeExtractor()));
     private ListProperty<Satz> defi = new SimpleListProperty<>(FXCollections.observableArrayList(Satz.makeExtractor()));
 
-    private Valid valid = Valid.VALID;
+    private Valid valid = Valid.NONAME;
 
     //static id generator shared among all instances of Coordinates
     //private static final AtomicInteger idGenerator = new AtomicInteger(1000);
@@ -37,6 +37,8 @@ public class Uebung {
     public Uebung() {
         //assign unique id to an instance variable
         uid = "u-" + UUID.randomUUID().toString();
+        name.set("");
+        beschreibung.set("");
     }
 
     public String getId() {
@@ -74,6 +76,7 @@ public class Uebung {
         tmpUebung.setBeschreibung(beschreibung.get());
         tmpUebung.getMasse().addAll(masse.get());
         tmpUebung.getDefi().addAll(defi.get());
+        tmpUebung.setValid(valid);
         return tmpUebung;
     }
 
@@ -100,6 +103,10 @@ public class Uebung {
             valid = Valid.VALID;
         }
         return valid;
+    }
+
+    private void setValid(Valid valid) {
+        this.valid = valid;
     }
 
     public String getName() {
