@@ -30,6 +30,9 @@ public class Main extends Application {
     private static ObservableList<Workout> Workouts = FXCollections.observableArrayList(Workout.makeExtractor());
     private static ObservableList<Programm> Programme = FXCollections.observableArrayList(Programm.makeExtractor());
 
+    private static ObservableList<LogEintrag> UebungLogs = FXCollections.observableArrayList(LogEintrag.makeExtractor());
+    private static ObservableList<LogEintrag> ProgrammLogs = FXCollections.observableArrayList(LogEintrag.makeExtractor());
+
     private static Phase phase = new Phase();
 
     private String dataFilePath = "datenbank.xml";
@@ -130,6 +133,14 @@ public class Main extends Application {
         return phase;
     }
 
+    public static ObservableList<LogEintrag> getUebungLogs() {
+        return UebungLogs;
+    }
+
+    public static ObservableList<LogEintrag> getProgrammLogs() {
+        return ProgrammLogs;
+    }
+
     /**
      * Loads person data from the specified file. The current person data will
      * be replaced.
@@ -148,6 +159,10 @@ public class Main extends Application {
             if (dw.getPhase() != null) {
                 phase = dw.getPhase();
             }
+            UebungLogs.clear();
+            UebungLogs.addAll(dw.getUebungLog());
+            ProgrammLogs.clear();
+            ProgrammLogs.addAll(dw.getProgrammLog());
 
         } catch (Exception e) { // catches ANY exception
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -172,10 +187,10 @@ public class Main extends Application {
             dw.setWorkouts(Workouts);
             dw.setUebungen(Uebungen);
             dw.setPhase(phase);
+            dw.setUebungLog(UebungLogs);
+            dw.setProgrammLog(ProgrammLogs);
             m.marshal(dw, datenbank);
 
-            // Save the file path to the registry.
-            // setPersonFilePath(file);
         } catch (Exception e) { // catches ANY exception
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");

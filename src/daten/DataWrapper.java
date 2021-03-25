@@ -50,4 +50,26 @@ public class DataWrapper {
     public void setPhase(Phase phase) {
         this.phase = phase;
     }
+
+    private List<LogEintrag> uebungLog;
+
+    @XmlElement(name = "uebung_log")
+    public List<LogEintrag> getUebungLog() {
+        return uebungLog;
+    }
+
+    public void setUebungLog(List<LogEintrag> uebungLog) {
+        this.uebungLog = uebungLog;
+    }
+
+    private List<LogEintrag> programmLog;
+
+    @XmlElement(name = "programm_log")
+    public List<LogEintrag> getProgrammLog() {
+        return programmLog;
+    }
+
+    public void setProgrammLog(List<LogEintrag> programmLog) {
+        this.programmLog = programmLog;
+    }
 }
