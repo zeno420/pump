@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
@@ -245,6 +246,24 @@ public class RootController {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle(programm.getName());
         stage.setScene(new Scene(programmDialog));
+
+        stage.show();
+    }
+
+    public void statistikOeffnen() throws IOException {
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("statistik.fxml"));
+        Parent statistikDialog = fxmlloader.load();
+        statistikDialog.setUserData(fxmlloader.getController());
+
+        Stage stage = new Stage();
+
+        StatistikController c = fxmlloader.getController();
+        c.setUpBindingPlay();
+
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Statistik");
+        stage.setScene(new Scene(statistikDialog));
 
         stage.show();
     }

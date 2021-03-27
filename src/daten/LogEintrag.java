@@ -7,6 +7,8 @@ import javafx.util.Callback;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Map;
 
 
 public class LogEintrag {
@@ -15,7 +17,7 @@ public class LogEintrag {
     private StringProperty beschreibung = new SimpleStringProperty();
     private StringProperty date = new SimpleStringProperty();
 
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd HH:mm:ss.SSSSSS Z");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
     public LogEintrag() {
     }
@@ -79,4 +81,6 @@ public class LogEintrag {
     private String _2String(ZonedDateTime currentDateTime) {
         return currentDateTime.format(formatter);
     }
+
+
 }

@@ -17,6 +17,9 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 public class Main extends Application {
@@ -32,6 +35,7 @@ public class Main extends Application {
 
     private static ObservableList<LogEintrag> UebungLogs = FXCollections.observableArrayList(LogEintrag.makeExtractor());
     private static ObservableList<LogEintrag> WorkoutLogs = FXCollections.observableArrayList(LogEintrag.makeExtractor());
+
 
     private static Phase phase = new Phase();
 
@@ -104,6 +108,11 @@ public class Main extends Application {
                                         }
         );
 
+
+
+
+
+
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
@@ -137,9 +146,46 @@ public class Main extends Application {
         return UebungLogs;
     }
 
-    public static ObservableList<LogEintrag> getProgrammLogs() {
+    public static ObservableList<LogEintrag> getWorkoutLogs() {
         return WorkoutLogs;
     }
+
+    public static List<EintragCount> getLogsByName(ObservableList<LogEintrag> list){
+        HashMap<String, List<LogEintrag>> map = new HashMap<>();
+
+        for (LogEintrag logEintrag : list) {
+            List<LogEintrag> itemsWithSameName = map.get(logEintrag.getName());
+            if (itemsWithSameName == null) { //does not exist in map yet
+                itemsWithSameName = new ArrayList<LogEintrag>();
+                map.put(logEintrag.getName(), itemsWithSameName);
+            }
+            itemsWithSameName.add(logEintrag); //now add the item to the list for this key
+        }
+
+        List<EintragCount> resultList = new ArrayList<>();
+        map.forEach((n, l) -> resultList.add(new EintragCount(n, l.size())));
+
+        return resultList;
+    }
+
+    public static List<EintragCount> getLogsByDate(ObservableList<LogEintrag> list){
+        HashMap<String, List<LogEintrag>> map = new HashMap<>();
+
+        for (LogEintrag logEintrag : list) {
+            List<LogEintrag> itemsWithSameName = map.get(logEintrag.getDate());
+            if (itemsWithSameName == null) { //does not exist in map yet
+                itemsWithSameName = new ArrayList<LogEintrag>();
+                map.put(logEintrag.getDate(), itemsWithSameName);
+            }
+            itemsWithSameName.add(logEintrag); //now add the item to the list for this key
+        }
+
+        List<EintragCount> resultList = new ArrayList<>();
+        map.forEach((n, l) -> resultList.add(new EintragCount(n, l.size())));
+
+        return resultList;
+    }
+
 
     /**
      * Loads person data from the specified file. The current person data will

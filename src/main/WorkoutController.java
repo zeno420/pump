@@ -1,7 +1,6 @@
 package main;
 
 import daten.*;
-import design.SatzCell;
 import design.SatzSpielenCell;
 import design.UebungAnzeigenCell;
 import design.UebungCell;
@@ -159,7 +158,7 @@ public class WorkoutController {
     }
 
     public void fertig(ActionEvent event) {
-        Main.getProgrammLogs().add(new LogEintrag(aktuellesWorkout.getName(), aktuellesWorkout.getBeschreibung()));
+        Main.getWorkoutLogs().add(new LogEintrag(aktuellesWorkout.getName(), aktuellesWorkout.getBeschreibung()));
         Stage stage = (Stage) fertigBtn.getScene().getWindow();
         stage.close();
     }

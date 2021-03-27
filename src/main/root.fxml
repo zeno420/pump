@@ -41,5 +41,6 @@
         </TabPane>
         <RadioButton fx:id="masseToggleBtn" mnemonicParsing="false" text="Masse" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0" />
         <RadioButton fx:id="defiToggleBtn" mnemonicParsing="false" text="Definition" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="10.0" />
+        <Button fx:id="statistikLadenBtn" onAction="#statistikOeffnen" mnemonicParsing="false" text="Statistik" textAlignment="CENTER" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0" />
     </children>
 </AnchorPane>
