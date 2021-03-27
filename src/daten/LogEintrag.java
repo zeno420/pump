@@ -5,26 +5,32 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.util.Callback;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 public class LogEintrag {
 
     private StringProperty name = new SimpleStringProperty();
     private StringProperty beschreibung = new SimpleStringProperty();
-    //TODO date als property
-    private LocalDateTime date;
+    private StringProperty date = new SimpleStringProperty();
 
-    public LogEintrag(String name, String beschreibung) {
-        this.name.set(name);
-        this.beschreibung.set(beschreibung);
-        this.date = LocalDateTime.now();
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd HH:mm:ss.SSSSSS Z");
+
+    public LogEintrag() {
     }
 
-    public static Callback<LogEintrag, Observable[]> makeExtractor(){
+    public LogEintrag(String name, String beschreibung) {
+        setName(name);
+        setBeschreibung(beschreibung);
+        setDate(_2String(ZonedDateTime.now()));
+    }
+
+    public static Callback<LogEintrag, Observable[]> makeExtractor() {
         return new Callback<LogEintrag, Observable[]>() {
             @Override
             public Observable[] call(LogEintrag logEintrag) {
-                return new Observable[] {logEintrag.nameProperty(), logEintrag.beschreibungProperty()};
+                return new Observable[]{logEintrag.nameProperty(), logEintrag.beschreibungProperty(), logEintrag.dateProperty()};
             }
         };
     }
@@ -53,11 +59,24 @@ public class LogEintrag {
         this.beschreibung.set(beschreibung);
     }
 
-    public LocalDateTime getDate() {
+    public String getDate() {
+        return date.get();
+    }
+
+    public void setDate(String date) {
+        this.date.set(date);
+    }
+
+    public StringProperty dateProperty() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    private ZonedDateTime getDateAsDate(String dateString) {
+        ZonedDateTime dateTime = ZonedDateTime.parse(dateString, formatter);
+        return dateTime;
+    }
+
+    private String _2String(ZonedDateTime currentDateTime) {
+        return currentDateTime.format(formatter);
     }
 }

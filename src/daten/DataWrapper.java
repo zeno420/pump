@@ -62,14 +62,14 @@ public class DataWrapper {
         this.uebungLog = uebungLog;
     }
 
-    private List<LogEintrag> programmLog;
+    private List<LogEintrag> workoutLog;
 
-    @XmlElement(name = "programm_log")
-    public List<LogEintrag> getProgrammLog() {
-        return programmLog;
+    @XmlElement(name = "workout_log")
+    public List<LogEintrag> getWorkoutLog() {
+        return workoutLog;
     }
 
-    public void setProgrammLog(List<LogEintrag> programmLog) {
-        this.programmLog = programmLog;
+    public void setWorkoutLog(List<LogEintrag> programmLog) {
+        this.workoutLog = programmLog;
     }
 }

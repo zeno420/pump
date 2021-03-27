@@ -31,7 +31,7 @@ public class Main extends Application {
     private static ObservableList<Programm> Programme = FXCollections.observableArrayList(Programm.makeExtractor());
 
     private static ObservableList<LogEintrag> UebungLogs = FXCollections.observableArrayList(LogEintrag.makeExtractor());
-    private static ObservableList<LogEintrag> ProgrammLogs = FXCollections.observableArrayList(LogEintrag.makeExtractor());
+    private static ObservableList<LogEintrag> WorkoutLogs = FXCollections.observableArrayList(LogEintrag.makeExtractor());
 
     private static Phase phase = new Phase();
 
@@ -138,7 +138,7 @@ public class Main extends Application {
     }
 
     public static ObservableList<LogEintrag> getProgrammLogs() {
-        return ProgrammLogs;
+        return WorkoutLogs;
     }
 
     /**
@@ -160,9 +160,13 @@ public class Main extends Application {
                 phase = dw.getPhase();
             }
             UebungLogs.clear();
-            UebungLogs.addAll(dw.getUebungLog());
-            ProgrammLogs.clear();
-            ProgrammLogs.addAll(dw.getProgrammLog());
+            if (dw.getUebungLog() != null && dw.getUebungLog().size() != 0) {
+                UebungLogs.addAll(dw.getUebungLog());
+            }
+            WorkoutLogs.clear();
+            if (dw.getWorkoutLog() != null && dw.getWorkoutLog().size() != 0) {
+                WorkoutLogs.addAll(dw.getWorkoutLog());
+            }
 
         } catch (Exception e) { // catches ANY exception
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -188,7 +192,7 @@ public class Main extends Application {
             dw.setUebungen(Uebungen);
             dw.setPhase(phase);
             dw.setUebungLog(UebungLogs);
-            dw.setProgrammLog(ProgrammLogs);
+            dw.setWorkoutLog(WorkoutLogs);
             m.marshal(dw, datenbank);
 
         } catch (Exception e) { // catches ANY exception
