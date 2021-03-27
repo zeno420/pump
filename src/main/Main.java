@@ -150,19 +150,31 @@ public class Main extends Application {
             JAXBContext c = JAXBContext.newInstance(DataWrapper.class);
             Unmarshaller um = c.createUnmarshaller();
             DataWrapper dw = (DataWrapper) um.unmarshal(datenbank);
+
             Programme.clear();
-            Programme.addAll(dw.getProgramme());
+            if (dw.getProgramme() != null && dw.getProgramme().size() != 0) {
+                Programme.addAll(dw.getProgramme());
+            }
+
             Workouts.clear();
-            Workouts.addAll(dw.getWorkouts());
+            if (dw.getWorkouts() != null && dw.getWorkouts().size() != 0) {
+                Workouts.addAll(dw.getWorkouts());
+            }
+
             Uebungen.clear();
-            Uebungen.addAll(dw.getUebungen());
+            if (dw.getUebungen() != null && dw.getUebungen().size() != 0) {
+                Uebungen.addAll(dw.getUebungen());
+            }
+
             if (dw.getPhase() != null) {
                 phase = dw.getPhase();
             }
+
             UebungLogs.clear();
             if (dw.getUebungLog() != null && dw.getUebungLog().size() != 0) {
                 UebungLogs.addAll(dw.getUebungLog());
             }
+
             WorkoutLogs.clear();
             if (dw.getWorkoutLog() != null && dw.getWorkoutLog().size() != 0) {
                 WorkoutLogs.addAll(dw.getWorkoutLog());
