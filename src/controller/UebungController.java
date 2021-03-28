@@ -101,7 +101,7 @@ public class UebungController {
     }
 
     public void satzErstellen(ActionEvent event) throws IOException {
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("satz.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/satz.fxml"));
         Parent satzDialog = fxmlloader.load();
 
         Stage stage = new Stage();
@@ -119,7 +119,7 @@ public class UebungController {
     }
 
     public void satzBearbeiten(Satz satz) throws IOException {
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("satz.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/satz.fxml"));
         Parent satzDialog = fxmlloader.load();
 
         Stage stage = new Stage();

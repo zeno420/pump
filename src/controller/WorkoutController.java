@@ -152,6 +152,13 @@ public class WorkoutController {
         setUpBindingPlay(aktuellesWorkout, aktuellerWorkoutDialog);
     }
 
+    public void nextUebungDone(ActionEvent event) throws IOException {
+        Uebung uebung = aktuellesWorkout.getUebungen().get(aktuellesWorkout.currentUebungIndexProperty().get());
+        Pump.getUebungLogs().add(new LogEintrag(uebung.getName(), uebung.getBeschreibung()));
+        aktuellesWorkout.increaseAktuelleUebung();
+        setUpBindingPlay(aktuellesWorkout, aktuellerWorkoutDialog);
+    }
+
     public void previousUebung(ActionEvent event) throws IOException {
         aktuellesWorkout.decreaseAktuelleUebung();
         setUpBindingPlay(aktuellesWorkout, aktuellerWorkoutDialog);

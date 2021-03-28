@@ -122,7 +122,7 @@ public class ProgrammController {
 
     public void tagErstellen(ActionEvent event) throws IOException {
 
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("tag.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/tag.fxml"));
         Parent tagDialog = fxmlloader.load();
 
         Stage stage = new Stage();
@@ -140,7 +140,7 @@ public class ProgrammController {
     public void tagBearbeiten(Tag tag) throws IOException {
 
 
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("tag.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/tag.fxml"));
         Parent tagDialog = fxmlloader.load();
         tagDialog.setUserData(fxmlloader.getController());
 
@@ -176,10 +176,10 @@ public class ProgrammController {
     }
 
     public void workoutSpielen(Workout workout) throws IOException {
-        FXMLLoader workoutFxmlloader = new FXMLLoader(getClass().getResource("workout_spielen.fxml"));
+        FXMLLoader workoutFxmlloader = new FXMLLoader(getClass().getResource("../fxml/workout_spielen.fxml"));
         Parent workoutDialog = workoutFxmlloader.load();
 
-        FXMLLoader uebungFxmlloader = new FXMLLoader(getClass().getResource("uebung.fxml"));
+        FXMLLoader uebungFxmlloader = new FXMLLoader(getClass().getResource("../fxml/uebung.fxml"));
         Parent uebungDialog = uebungFxmlloader.load();
 
         Map<String, Object> map = new HashMap<String, Object>();

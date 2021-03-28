@@ -1,11 +1,7 @@
 package design;
 
 import daten.EintragCount;
-import daten.Workout;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
@@ -24,7 +20,7 @@ public class EintragCountCell extends ListCell<EintragCount> {
             HBox leftBox = new HBox();
             HBox rightBox = new HBox();
 
-            Label name = new Label(eintragCount.getName());
+            Label name = new Label(eintragCount.getDate());
             Label count = new Label(Integer.toString(eintragCount.getCount()));
 
             leftBox.getChildren().addAll(name);

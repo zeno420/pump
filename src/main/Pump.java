@@ -27,8 +27,6 @@ public class Pump extends Application {
     //TODO uebung.fxml spacing zwischen anchorpanes dynamisch machen
     //TODO fullscreen problem beheben
 
-    //TODO sinvollere fehlermeldungen in Valids
-
     private static ObservableList<Uebung> Uebungen = FXCollections.observableArrayList(Uebung.makeExtractor());
     private static ObservableList<Workout> Workouts = FXCollections.observableArrayList(Workout.makeExtractor());
     private static ObservableList<Programm> Programme = FXCollections.observableArrayList(Programm.makeExtractor());
@@ -53,7 +51,7 @@ public class Pump extends Application {
         }
         loadDatenbank();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("root.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/root.fxml"));
         Parent root = loader.load();
 
         root.setUserData(loader.getController());

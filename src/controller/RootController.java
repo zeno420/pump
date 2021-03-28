@@ -24,7 +24,7 @@ public class RootController {
 
     public void uebungErstellen(ActionEvent event) throws IOException {
 
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("uebung.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/uebung.fxml"));
         Parent uebungDialog = fxmlloader.load();
         uebungDialog.setUserData(fxmlloader.getController());
 
@@ -42,7 +42,7 @@ public class RootController {
 
     public void uebungBearbeiten(Uebung uebung) throws IOException {
 
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("uebung.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/uebung.fxml"));
         Parent uebungDialog = fxmlloader.load();
         uebungDialog.setUserData(fxmlloader.getController());
 
@@ -102,7 +102,7 @@ public class RootController {
 
     public void workoutErstellen(ActionEvent event) throws IOException {
 
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("workout.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/workout.fxml"));
         Parent workoutDialog = fxmlloader.load();
 
         Stage stage = new Stage();
@@ -119,7 +119,7 @@ public class RootController {
 
     public void workoutBearbeiten(Workout workout) throws IOException {
 
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("workout.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/workout.fxml"));
         Parent workoutDialog = fxmlloader.load();
         workoutDialog.setUserData(fxmlloader.getController());
 
@@ -178,7 +178,7 @@ public class RootController {
 
     public void programmErstellen(ActionEvent event) throws IOException {
 
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("programm.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/programm.fxml"));
         Parent programmDialog = fxmlloader.load();
 
         Stage stage = new Stage();
@@ -195,7 +195,7 @@ public class RootController {
 
     public void programmBearbeiten(Programm programm) throws IOException {
 
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("programm.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/programm.fxml"));
         Parent programmDialog = fxmlloader.load();
         programmDialog.setUserData(fxmlloader.getController());
 
@@ -231,7 +231,7 @@ public class RootController {
     }
 
     public void programmSpielen(Programm programm) throws IOException {
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("programm_spielen.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/programm_spielen.fxml"));
         Parent programmDialog = fxmlloader.load();
         programmDialog.setUserData(fxmlloader.getController());
 
@@ -248,7 +248,7 @@ public class RootController {
     }
 
     public void statistikOeffnen() throws IOException {
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("statistik.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/statistik.fxml"));
         Parent statistikDialog = fxmlloader.load();
         statistikDialog.setUserData(fxmlloader.getController());
 
