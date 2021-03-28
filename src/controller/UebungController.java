@@ -1,4 +1,4 @@
-package main;
+package controller;
 
 import daten.Satz;
 import daten.Uebung;
@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import main.Pump;
 
 import java.io.IOException;
 import java.util.List;
@@ -41,7 +42,7 @@ public class UebungController {
             isNew = true;
         }
 
-        exisitngNamesList = Main.getUebungen().stream().map(Uebung::getName).collect(Collectors.toList());
+        exisitngNamesList = Pump.getUebungen().stream().map(Uebung::getName).collect(Collectors.toList());
         if (!isNew) {
             exisitngNamesList.remove(uebung.getName());
         }
@@ -80,11 +81,11 @@ public class UebungController {
             aktuelleUebung.setMasse(tmpUebung.getMasse());
             aktuelleUebung.setDefi(tmpUebung.getDefi());
             if (isNew) {
-                Main.getUebungen().add(aktuelleUebung);
+                Pump.getUebungen().add(aktuelleUebung);
             }
             Stage stage = (Stage) uebungSpeichernBtn.getScene().getWindow();
             stage.close();
-            Main.saveDatenbank();
+            Pump.saveDatenbank();
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
 

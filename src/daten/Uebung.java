@@ -8,14 +8,12 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Callback;
-import main.Main;
+import main.Pump;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 public class Uebung {
 
@@ -158,7 +156,7 @@ public class Uebung {
     }
 
     public ObservableList<Satz> getSaetze() {
-        if (Main.getPhase().isMasse()) {
+        if (Pump.getPhase().isMasse()) {
             return masse.get();
 
         } else {

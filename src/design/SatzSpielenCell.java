@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import main.UebungController;
+import controller.UebungController;
 
 import java.io.IOException;
 import java.util.Map;

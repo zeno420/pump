@@ -1,7 +1,6 @@
-package main;
+package controller;
 
 import daten.EintragCount;
-import daten.LogEintrag;
 import design.EintragCountCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,10 +13,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
-
-import java.io.IOException;
-import java.time.ZonedDateTime;
+import main.Pump;
 
 
 public class StatistikController {
@@ -41,11 +37,11 @@ public class StatistikController {
 
         WorkoutLogsByName.clear();
         UebungLogsByName.clear();
-        WorkoutLogsByName.addAll(Main.getLogsByName(Main.getWorkoutLogs()));
-        UebungLogsByName.addAll(Main.getLogsByName(Main.getUebungLogs()));
+        WorkoutLogsByName.addAll(Pump.getLogsByName(Pump.getWorkoutLogs()));
+        UebungLogsByName.addAll(Pump.getLogsByName(Pump.getUebungLogs()));
 
-        workoutAnzahlLabel.setText(Integer.toString(Main.getWorkoutLogs().size()));
-        uebungAnzahlLabel.setText(Integer.toString(Main.getUebungLogs().size()));
+        workoutAnzahlLabel.setText(Integer.toString(Pump.getWorkoutLogs().size()));
+        uebungAnzahlLabel.setText(Integer.toString(Pump.getUebungLogs().size()));
 
         workoutLogListView.setItems(WorkoutLogsByName);
         workoutLogListView.setCellFactory(new Callback<ListView<EintragCount>,
@@ -69,11 +65,12 @@ public class StatistikController {
     }
 
     public void chartOeffnen() {
-//TODO
+        //TODO leertage
+
         WorkoutLogsByDate.clear();
         UebungLogsByDate.clear();
-        WorkoutLogsByDate.addAll(Main.getLogsByDate(Main.getWorkoutLogs()));
-        UebungLogsByDate.addAll(Main.getLogsByDate(Main.getUebungLogs()));
+        WorkoutLogsByDate.addAll(Pump.getLogsByDate(Pump.getWorkoutLogs()));
+        UebungLogsByDate.addAll(Pump.getLogsByDate(Pump.getUebungLogs()));
 
         Stage stage = new Stage();
         stage.setTitle("Zeitstrahl");
@@ -83,7 +80,7 @@ public class StatistikController {
         xAxis.setLabel("Date");
         yAxis.setLabel("Anzahl");
 
-        final BarChart<String, Number> barChart = new BarChart<>(xAxis,yAxis);
+        final BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
 
         XYChart.Series wSeries = new XYChart.Series();
         wSeries.setName("Workouts");
@@ -91,10 +88,10 @@ public class StatistikController {
         uSeries.setName("Übungen");
 
         //TODO sortierung der tage prüfen
-        for (EintragCount eintragCount: WorkoutLogsByDate) {
+        for (EintragCount eintragCount : WorkoutLogsByDate) {
             wSeries.getData().add(new XYChart.Data(eintragCount.getName(), eintragCount.getCount()));
         }
-        for (EintragCount eintragCount: UebungLogsByDate) {
+        for (EintragCount eintragCount : UebungLogsByDate) {
             uSeries.getData().add(new XYChart.Data(eintragCount.getName(), eintragCount.getCount()));
         }
 

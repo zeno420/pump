@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class Main extends Application {
+public class Pump extends Application {
 
     //TODO uebung.fxml spacing zwischen anchorpanes dynamisch machen
     //TODO fullscreen problem beheben

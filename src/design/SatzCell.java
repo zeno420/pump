@@ -1,7 +1,6 @@
 package design;
 
 import daten.Satz;
-import daten.Tag;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -10,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import main.UebungController;
+import controller.UebungController;
 
 import java.io.IOException;
 import java.util.Map;

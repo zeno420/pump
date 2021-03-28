@@ -1,4 +1,4 @@
-package main;
+package controller;
 
 import daten.*;
 import design.SatzSpielenCell;
@@ -10,10 +10,10 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import main.Pump;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class WorkoutController {
@@ -53,7 +53,7 @@ public class WorkoutController {
             isNew = true;
         }
 
-        exisitngNamesList = Main.getWorkouts().stream().map(Workout::getName).collect(Collectors.toList());
+        exisitngNamesList = Pump.getWorkouts().stream().map(Workout::getName).collect(Collectors.toList());
         if (!isNew) {
             exisitngNamesList.remove(workout.getName());
         }
@@ -75,7 +75,7 @@ public class WorkoutController {
         workoutBeschreibungField.textProperty().bindBidirectional(tmpWorkout.beschreibungProperty());
 
         uebungComboBox = (ComboBox) workoutDialog.lookup("#uebungComboBox");
-        uebungComboBox.setItems(Main.getUebungen());
+        uebungComboBox.setItems(Pump.getUebungen());
         uebungComboBox.setCellFactory(new Callback<ListView<Uebung>,
                                               ListCell<Uebung>>() {
                                           @Override
@@ -113,11 +113,11 @@ public class WorkoutController {
             aktuellesWorkout.setBeschreibung(tmpWorkout.getBeschreibung());
             aktuellesWorkout.setUebungen(tmpWorkout.getUebungen());
             if (isNew) {
-                Main.getWorkouts().add(aktuellesWorkout);
+                Pump.getWorkouts().add(aktuellesWorkout);
             }
             Stage stage = (Stage) workouSpeichernBtn.getScene().getWindow();
             stage.close();
-            Main.saveDatenbank();
+            Pump.saveDatenbank();
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
 
@@ -158,7 +158,7 @@ public class WorkoutController {
     }
 
     public void fertig(ActionEvent event) {
-        Main.getWorkoutLogs().add(new LogEintrag(aktuellesWorkout.getName(), aktuellesWorkout.getBeschreibung()));
+        Pump.getWorkoutLogs().add(new LogEintrag(aktuellesWorkout.getName(), aktuellesWorkout.getBeschreibung()));
         Stage stage = (Stage) fertigBtn.getScene().getWindow();
         stage.close();
     }

@@ -1,4 +1,4 @@
-package main;
+package controller;
 
 import daten.Programm;
 import daten.Tag;
@@ -11,12 +11,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.Pump;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,7 +60,7 @@ public class RootController {
     }
 
     public void uebungLoeschen(Uebung uebung) {
-        List<Workout> workoutList = Main.getWorkouts();
+        List<Workout> workoutList = Pump.getWorkouts();
         List<Workout> containingWorkoutList = new ArrayList<>();
         List<Workout> emptyAfterDeletionWorkoutList = new ArrayList<>();
 
@@ -96,7 +93,7 @@ public class RootController {
 
         Optional<ButtonType> result = a.showAndWait();
         if (result.get() == ButtonType.OK) {
-            Main.getUebungen().remove(uebung);
+            Pump.getUebungen().remove(uebung);
             for (Workout w : containingWorkoutList) {
                 w.getUebungen().remove(uebung);
             }
@@ -140,7 +137,7 @@ public class RootController {
     }
 
     public void workoutLoeschen(Workout workout) {
-        List<Programm> programmList = Main.getProgramme();
+        List<Programm> programmList = Pump.getProgramme();
         List<Programm> containingProgrammList = new ArrayList<>();
         List<Tag> containingTagList = new ArrayList<>();
         StringBuilder warnung = new StringBuilder();
@@ -172,7 +169,7 @@ public class RootController {
 
         Optional<ButtonType> result = a.showAndWait();
         if (result.get() == ButtonType.OK) {
-            Main.getWorkouts().remove(workout);
+            Pump.getWorkouts().remove(workout);
             for (Tag t : containingTagList) {
                 t.getWorkouts().remove(workout);
             }
@@ -229,7 +226,7 @@ public class RootController {
 
         Optional<ButtonType> result = a.showAndWait();
         if (result.get() == ButtonType.OK) {
-            Main.getProgramme().remove(programm);
+            Pump.getProgramme().remove(programm);
         }
     }
 

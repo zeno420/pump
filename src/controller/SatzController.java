@@ -1,4 +1,4 @@
-package main;
+package controller;
 
 import daten.Satz;
 import daten.Uebung;
@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import main.Pump;
 
 public class SatzController {
 
@@ -56,7 +57,7 @@ public class SatzController {
             }
             Stage stage = (Stage) satzSpeichernBtn.getScene().getWindow();
             stage.close();
-            Main.saveDatenbank();
+            Pump.saveDatenbank();
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
 

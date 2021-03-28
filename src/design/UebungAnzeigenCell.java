@@ -1,6 +1,5 @@
 package design;
 
-import daten.Tag;
 import daten.Uebung;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,9 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import main.RootController;
-
-import java.io.IOException;
 
 public class UebungAnzeigenCell extends ListCell<Uebung> {
     @Override

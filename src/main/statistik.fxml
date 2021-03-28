@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.StatistikController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StatistikController">
 
 
         <children>
@@ -16,7 +16,6 @@
                                     <Label layoutX="38.0" layoutY="27.0" text="Anzahl durchgeführter Workouts:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                     <Label fx:id="workoutAnzahlLabel" text="0" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="10.0" />
                                     <ListView fx:id="workoutLogListView" prefHeight="606.0" prefWidth="1040.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0" />
-
                                 </children>
                             </AnchorPane>
                         </content>

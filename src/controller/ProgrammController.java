@@ -1,4 +1,4 @@
-package main;
+package controller;
 
 import daten.*;
 import design.WorkoutSpielenCell;
@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import main.Pump;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -51,7 +52,7 @@ public class ProgrammController {
             isNew = true;
         }
 
-        exisitngNamesList = Main.getProgramme().stream().map(Programm::getName).collect(Collectors.toList());
+        exisitngNamesList = Pump.getProgramme().stream().map(Programm::getName).collect(Collectors.toList());
         if (!isNew) {
             exisitngNamesList.remove(programm.getName());
         }
@@ -100,11 +101,11 @@ public class ProgrammController {
             aktuellesProgramm.setBeschreibung(tmpProgramm.getBeschreibung());
             aktuellesProgramm.setTage(tmpProgramm.getTage());
             if (isNew) {
-                Main.getProgramme().add(aktuellesProgramm);
+                Pump.getProgramme().add(aktuellesProgramm);
             }
             Stage stage = (Stage) programmSpeichernBtn.getScene().getWindow();
             stage.close();
-            Main.saveDatenbank();
+            Pump.saveDatenbank();
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
 

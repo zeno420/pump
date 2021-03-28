@@ -1,4 +1,4 @@
-package main;
+package controller;
 
 import daten.*;
 import design.WorkoutAnzeigenCell;
@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import main.Pump;
 
 import java.io.IOException;
 
@@ -54,7 +55,7 @@ public class TagController {
         tagNameField.textProperty().bindBidirectional(tmpTag.nameProperty());
 
         workoutComboBox = (ComboBox) tagDialog.lookup("#workoutComboBox");
-        workoutComboBox.setItems(Main.getWorkouts());
+        workoutComboBox.setItems(Pump.getWorkouts());
         workoutComboBox.setCellFactory(new Callback<ListView<Workout>,
                                                ListCell<Workout>>() {
                                            @Override
@@ -74,7 +75,7 @@ public class TagController {
             }
             Stage stage = (Stage) tagSpeichernBtn.getScene().getWindow();
             stage.close();
-            Main.saveDatenbank();
+            Pump.saveDatenbank();
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
 
