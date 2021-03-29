@@ -21,7 +21,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
 import java.util.*;
 
 import static daten.EintragCount.frueher;
@@ -82,15 +81,20 @@ public class StatistikController {
         UebungLogsByDate.clear();
         WorkoutLogsByDate.addAll(Pump.getLogsByDate(Pump.getWorkoutLogs()));
         UebungLogsByDate.addAll(Pump.getLogsByDate(Pump.getUebungLogs()));
-        LeerTage = leertageGenerieren(WorkoutLogsByDate, UebungLogsByDate);
+        Map<String, Object> map = leertageGenerieren(WorkoutLogsByDate, UebungLogsByDate);
+        LeerTage = (ArrayList) map.get("leertageList");
 
         Stage stage = new Stage();
         stage.setTitle("Zeitstrahl");
 
         final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Date");
+
+        //TODO major ticks ganze schritte
+        final NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Anzahl");
+        yAxis.setForceZeroInRange(true);
+        yAxis.setMinorTickVisible(false);
 
         final BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
 
@@ -116,28 +120,33 @@ public class StatistikController {
 
             @Override
             public int compare(XYChart.Data o1, XYChart.Data o2) {
-                return new BigDecimal((String)o1.getXValue()).compareTo(new BigDecimal((String)o2.getXValue()));
+                return new BigDecimal((String) o1.getXValue()).compareTo(new BigDecimal((String) o2.getXValue()));
             }
         });
         Collections.sort(uSeries.getData(), new Comparator<XYChart.Data>() {
 
             @Override
             public int compare(XYChart.Data o1, XYChart.Data o2) {
-                return new BigDecimal((String)o1.getXValue()).compareTo(new BigDecimal((String)o2.getXValue()));
+                return new BigDecimal((String) o1.getXValue()).compareTo(new BigDecimal((String) o2.getXValue()));
             }
         });
 
+
         ScrollPane root = new ScrollPane(barChart);
         root.setMinSize(720, 1080);
-        barChart.setMinSize(root.getMinWidth(), root.getMinHeight() - 20);
-        Scene scene = new Scene(root, 720, 1080);
+
+        barChart.setMinSize((long) map.get("days") * 16, root.getMinHeight() - 100);
+
+        root.setHvalue(root.getHmax());
+
+        Scene scene = new Scene(root, 1920, 1080);
         barChart.getData().addAll(wSeries, uSeries);
 
         stage.setScene(scene);
         stage.show();
     }
 
-    private static ArrayList<EintragCount> leertageGenerieren(ObservableList<EintragCount> uebungsTage, ObservableList<EintragCount> workoutTage) {
+    private static Map<String, Object> leertageGenerieren(ObservableList<EintragCount> uebungsTage, ObservableList<EintragCount> workoutTage) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
@@ -157,14 +166,22 @@ public class StatistikController {
         long days = zonedDateTimeDifference(fruehestesDate, heute, ChronoUnit.DAYS);
         ArrayList<EintragCount> leertageList = new ArrayList<>();
 
-        for (int i = Integer.parseInt(fruehsterTag.getDate()); i <= Integer.parseInt(fruehsterTag.getDate()) + days; i++) {
-            EintragCount eintrag = new EintragCount(String.valueOf(i), 0);
+        ZonedDateTime spaetestesDate = fruehestesDate.plusDays(days);
+
+        for (ZonedDateTime currentDate = fruehestesDate; currentDate.isBefore(spaetestesDate); currentDate = currentDate.plusDays(1)) {
+            EintragCount eintrag = new EintragCount(currentDate.format(formatter), 0);
             if (!uebungsTage.contains(eintrag) && !workoutTage.contains(eintrag)) {
                 leertageList.add(eintrag);
             }
         }
-        return leertageList;
+
+        Map<String, Object> result = new HashMap();
+        result.put("leertageList", leertageList);
+        result.put("days", days);
+
+        return result;
     }
+
 
     private static long zonedDateTimeDifference(ZonedDateTime d1, ZonedDateTime d2, ChronoUnit unit) {
         return unit.between(d1, d2);
