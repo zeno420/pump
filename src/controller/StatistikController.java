@@ -5,6 +5,7 @@ import design.EintragCountCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.Label;
@@ -88,11 +89,12 @@ public class StatistikController {
         stage.setTitle("Zeitstrahl");
 
         final CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("Date");
+        xAxis.setLabel("Tag");
 
         //TODO major ticks ganze schritte
         final NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Anzahl");
+        yAxis.setSide(Side.RIGHT);
         yAxis.setForceZeroInRange(true);
         yAxis.setMinorTickVisible(false);
 
