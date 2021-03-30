@@ -50,7 +50,7 @@ public class SatzController {
             aktuellerSatz.setWiederholungen(tmpSatz.getWiederholungen());
             aktuellerSatz.setGewicht(tmpSatz.getGewicht());
             if (isNew) {
-                if(tmpSatz.isMasse()) {
+                if (tmpSatz.isMasse()) {
                     uebung.getMasse().add(aktuellerSatz);
                 } else {
                     uebung.getDefi().add(aktuellerSatz);
@@ -58,7 +58,16 @@ public class SatzController {
             }
             Stage stage = (Stage) satzSpeichernBtn.getScene().getWindow();
             stage.close();
-            Datenbank.save();
+            try {
+                Datenbank.save();
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Could not save data");
+                //alert.setContentText();
+                e.printStackTrace(System.out);
+                alert.showAndWait();
+            }
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
 

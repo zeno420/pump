@@ -1,4 +1,4 @@
-package test.daten;
+package test;
 
 import daten.EintragCount;
 import org.junit.jupiter.api.BeforeAll;

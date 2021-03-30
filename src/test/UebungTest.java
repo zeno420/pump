@@ -1,4 +1,4 @@
-package test.daten;
+package test;
 
 import daten.Satz;
 import daten.Uebung;

@@ -1,4 +1,4 @@
-package test.daten;
+package test;
 
 import com.sun.jmx.remote.internal.ArrayQueue;
 import daten.*;
@@ -30,6 +30,12 @@ public class StatistikTest {
 
     @BeforeAll
     static void initAll() throws Exception {
+
+        // TODO mock?
+        // UebungLogsByName.addAll(Statistik.getLogsByName(Datenbank.getUebungLogs()));
+
+
+
         formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
         Uebung uebung1 = new Uebung();
@@ -106,9 +112,6 @@ public class StatistikTest {
 
     @Test
     public void testGetLogsByName() {
-
-        // TODO mock?
-        // UebungLogsByName.addAll(Statistik.getLogsByName(Datenbank.getUebungLogs()));
 
         ArrayList<EintragCount> correctList = new ArrayList<>();
         correctList.add(new EintragCount(logEintrag1.getName(), 1));

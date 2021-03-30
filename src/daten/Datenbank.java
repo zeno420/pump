@@ -9,6 +9,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.io.IOException;
 
 public class Datenbank {
 
@@ -24,20 +25,12 @@ public class Datenbank {
     private static String dataFilePath = "datenbank.xml";
     private static File datenbank;
 
-    public static void init() {
-        try {
-            datenbank = new File(dataFilePath);
-            datenbank.createNewFile();
-        } catch (Exception e) {
-            System.out.println("no file yet!");
-        }
+    public static void init() throws IOException {
+        datenbank = new File(dataFilePath);
+        datenbank.createNewFile();
+
     }
 
-
-    /**
-     * Loads person data from the specified file. The current person data will
-     * be replaced.
-     */
     public static void load() throws JAXBException {
         try {
             JAXBContext c = JAXBContext.newInstance(DataWrapper.class);
@@ -74,20 +67,11 @@ public class Datenbank {
             }
 
         } catch (Exception e) { // catches ANY exception
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Could not load data");
-            // alert.setContentText("Could not load data from file:\n" + file.getPath());
-            e.printStackTrace(System.out);
-            alert.showAndWait();
+            throw e;
         }
     }
 
-
-    /**
-     * Saves the current person data to the specified file.
-     */
-    public static void save() {
+    public static void save() throws JAXBException {
         try {
             JAXBContext c = JAXBContext.newInstance(DataWrapper.class);
             Marshaller m = c.createMarshaller();
@@ -102,12 +86,7 @@ public class Datenbank {
             m.marshal(dw, datenbank);
 
         } catch (Exception e) { // catches ANY exception
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Could not save data");
-            //alert.setContentText();
-            e.printStackTrace(System.out);
-            alert.showAndWait();
+            throw e;
         }
     }
 

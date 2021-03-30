@@ -31,8 +31,17 @@ public class Pump extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Datenbank.init();
-        Datenbank.load();
+        try {
+            Datenbank.init();
+            Datenbank.load();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Could not load data");
+            // alert.setContentText("Could not load data from file:\n" + file.getPath());
+            e.printStackTrace(System.out);
+            alert.showAndWait();
+        }
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/root.fxml"));
         Parent root = loader.load();

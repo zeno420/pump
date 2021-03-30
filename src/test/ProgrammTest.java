@@ -1,4 +1,4 @@
-package test.daten;
+package test;
 
 import daten.Programm;
 import daten.Programm.Valid;
