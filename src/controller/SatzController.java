@@ -1,5 +1,6 @@
 package controller;
 
+import daten.Datenbank;
 import daten.Satz;
 import daten.Uebung;
 import javafx.event.ActionEvent;
@@ -57,7 +58,7 @@ public class SatzController {
             }
             Stage stage = (Stage) satzSpeichernBtn.getScene().getWindow();
             stage.close();
-            Pump.saveDatenbank();
+            Datenbank.save();
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
 

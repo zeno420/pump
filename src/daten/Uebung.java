@@ -156,7 +156,7 @@ public class Uebung {
     }
 
     public ObservableList<Satz> getSaetze() {
-        if (Pump.getPhase().isMasse()) {
+        if (Datenbank.getPhase().isMasse()) {
             return masse.get();
 
         } else {

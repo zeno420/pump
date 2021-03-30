@@ -20,7 +20,7 @@ public class EintragCountCell extends ListCell<EintragCount> {
             HBox leftBox = new HBox();
             HBox rightBox = new HBox();
 
-            Label name = new Label(eintragCount.getDate());
+            Label name = new Label(eintragCount.getKey());
             Label count = new Label(Integer.toString(eintragCount.getCount()));
 
             leftBox.getChildren().addAll(name);

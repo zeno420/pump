@@ -55,7 +55,7 @@ public class TagController {
         tagNameField.textProperty().bindBidirectional(tmpTag.nameProperty());
 
         workoutComboBox = (ComboBox) tagDialog.lookup("#workoutComboBox");
-        workoutComboBox.setItems(Pump.getWorkouts());
+        workoutComboBox.setItems(Datenbank.getWorkouts());
         workoutComboBox.setCellFactory(new Callback<ListView<Workout>,
                                                ListCell<Workout>>() {
                                            @Override
@@ -75,7 +75,7 @@ public class TagController {
             }
             Stage stage = (Stage) tagSpeichernBtn.getScene().getWindow();
             stage.close();
-            Pump.saveDatenbank();
+            Datenbank.save();
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
 

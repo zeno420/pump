@@ -1,9 +1,6 @@
 package controller;
 
-import daten.Programm;
-import daten.Tag;
-import daten.Uebung;
-import daten.Workout;
+import daten.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -60,7 +57,7 @@ public class RootController {
     }
 
     public void uebungLoeschen(Uebung uebung) {
-        List<Workout> workoutList = Pump.getWorkouts();
+        List<Workout> workoutList = Datenbank.getWorkouts();
         List<Workout> containingWorkoutList = new ArrayList<>();
         List<Workout> emptyAfterDeletionWorkoutList = new ArrayList<>();
 
@@ -93,7 +90,7 @@ public class RootController {
 
         Optional<ButtonType> result = a.showAndWait();
         if (result.get() == ButtonType.OK) {
-            Pump.getUebungen().remove(uebung);
+            Datenbank.getUebungen().remove(uebung);
             for (Workout w : containingWorkoutList) {
                 w.getUebungen().remove(uebung);
             }
@@ -137,7 +134,7 @@ public class RootController {
     }
 
     public void workoutLoeschen(Workout workout) {
-        List<Programm> programmList = Pump.getProgramme();
+        List<Programm> programmList = Datenbank.getProgramme();
         List<Programm> containingProgrammList = new ArrayList<>();
         List<Tag> containingTagList = new ArrayList<>();
         StringBuilder warnung = new StringBuilder();
@@ -169,7 +166,7 @@ public class RootController {
 
         Optional<ButtonType> result = a.showAndWait();
         if (result.get() == ButtonType.OK) {
-            Pump.getWorkouts().remove(workout);
+            Datenbank.getWorkouts().remove(workout);
             for (Tag t : containingTagList) {
                 t.getWorkouts().remove(workout);
             }
@@ -226,7 +223,7 @@ public class RootController {
 
         Optional<ButtonType> result = a.showAndWait();
         if (result.get() == ButtonType.OK) {
-            Pump.getProgramme().remove(programm);
+            Datenbank.getProgramme().remove(programm);
         }
     }
 
@@ -255,8 +252,7 @@ public class RootController {
         Stage stage = new Stage();
 
         StatistikController c = fxmlloader.getController();
-        c.setUpBindingPlay();
-
+        c.setUpBinding();
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Statistik");

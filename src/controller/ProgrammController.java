@@ -52,7 +52,7 @@ public class ProgrammController {
             isNew = true;
         }
 
-        exisitngNamesList = Pump.getProgramme().stream().map(Programm::getName).collect(Collectors.toList());
+        exisitngNamesList = Datenbank.getProgramme().stream().map(Programm::getName).collect(Collectors.toList());
         if (!isNew) {
             exisitngNamesList.remove(programm.getName());
         }
@@ -101,11 +101,11 @@ public class ProgrammController {
             aktuellesProgramm.setBeschreibung(tmpProgramm.getBeschreibung());
             aktuellesProgramm.setTage(tmpProgramm.getTage());
             if (isNew) {
-                Pump.getProgramme().add(aktuellesProgramm);
+                Datenbank.getProgramme().add(aktuellesProgramm);
             }
             Stage stage = (Stage) programmSpeichernBtn.getScene().getWindow();
             stage.close();
-            Pump.saveDatenbank();
+            Datenbank.save();
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
 

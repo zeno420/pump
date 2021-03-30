@@ -1,5 +1,6 @@
 package controller;
 
+import daten.Datenbank;
 import daten.Satz;
 import daten.Uebung;
 import design.SatzCell;
@@ -42,7 +43,7 @@ public class UebungController {
             isNew = true;
         }
 
-        exisitngNamesList = Pump.getUebungen().stream().map(Uebung::getName).collect(Collectors.toList());
+        exisitngNamesList = Datenbank.getUebungen().stream().map(Uebung::getName).collect(Collectors.toList());
         if (!isNew) {
             exisitngNamesList.remove(uebung.getName());
         }
@@ -81,11 +82,11 @@ public class UebungController {
             aktuelleUebung.setMasse(tmpUebung.getMasse());
             aktuelleUebung.setDefi(tmpUebung.getDefi());
             if (isNew) {
-                Pump.getUebungen().add(aktuelleUebung);
+                Datenbank.getUebungen().add(aktuelleUebung);
             }
             Stage stage = (Stage) uebungSpeichernBtn.getScene().getWindow();
             stage.close();
-            Pump.saveDatenbank();
+            Datenbank.save();
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
 

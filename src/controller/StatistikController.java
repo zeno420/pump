@@ -1,6 +1,8 @@
 package controller;
 
+import daten.Datenbank;
 import daten.EintragCount;
+import daten.Statistik;
 import design.EintragCountCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,14 +19,7 @@ import javafx.util.Callback;
 import main.Pump;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
-
-import static daten.EintragCount.frueher;
 
 
 public class StatistikController {
@@ -42,18 +37,18 @@ public class StatistikController {
     private static ObservableList<EintragCount> UebungLogsByName = FXCollections.observableArrayList();
     private static ObservableList<EintragCount> WorkoutLogsByDate = FXCollections.observableArrayList();
     private static ObservableList<EintragCount> UebungLogsByDate = FXCollections.observableArrayList();
-    private static List<EintragCount> LeerTage = new ArrayList<>();
+    //private static List<EintragCount> LeerTage = new ArrayList<>();
 
 
-    public void setUpBindingPlay() {
+    public void setUpBinding() {
 
         WorkoutLogsByName.clear();
         UebungLogsByName.clear();
-        WorkoutLogsByName.addAll(Pump.getLogsByName(Pump.getWorkoutLogs()));
-        UebungLogsByName.addAll(Pump.getLogsByName(Pump.getUebungLogs()));
+        WorkoutLogsByName.addAll(Statistik.getLogsByName(Datenbank.getWorkoutLogs()));
+        UebungLogsByName.addAll(Statistik.getLogsByName(Datenbank.getUebungLogs()));
 
-        workoutAnzahlLabel.setText(Integer.toString(Pump.getWorkoutLogs().size()));
-        uebungAnzahlLabel.setText(Integer.toString(Pump.getUebungLogs().size()));
+        workoutAnzahlLabel.setText(Integer.toString(Datenbank.getWorkoutLogs().size()));
+        uebungAnzahlLabel.setText(Integer.toString(Datenbank.getUebungLogs().size()));
 
         workoutLogListView.setItems(WorkoutLogsByName);
         workoutLogListView.setCellFactory(new Callback<ListView<EintragCount>,
@@ -80,10 +75,12 @@ public class StatistikController {
 
         WorkoutLogsByDate.clear();
         UebungLogsByDate.clear();
-        WorkoutLogsByDate.addAll(Pump.getLogsByDate(Pump.getWorkoutLogs()));
-        UebungLogsByDate.addAll(Pump.getLogsByDate(Pump.getUebungLogs()));
-        Map<String, Object> map = leertageGenerieren(WorkoutLogsByDate, UebungLogsByDate);
-        LeerTage = (ArrayList) map.get("leertageList");
+        WorkoutLogsByDate.addAll(Statistik.getAllDays(Datenbank.getWorkoutLogs()));
+        UebungLogsByDate.addAll(Statistik.getAllDays(Datenbank.getUebungLogs()));
+
+        //Map<String, Object> map = Statistik.leertageGenerieren(WorkoutLogsByDate, UebungLogsByDate);
+
+       // LeerTage = (ArrayList) map.get("leertageList");
 
         Stage stage = new Stage();
         stage.setTitle("Zeitstrahl");
@@ -106,16 +103,10 @@ public class StatistikController {
         uSeries.setName("Übungen");
 
         for (EintragCount eintragCount : WorkoutLogsByDate) {
-            wSeries.getData().add(new XYChart.Data(eintragCount.getDate(), eintragCount.getCount()));
+            wSeries.getData().add(new XYChart.Data(eintragCount.getKey(), eintragCount.getCount()));
         }
         for (EintragCount eintragCount : UebungLogsByDate) {
-            uSeries.getData().add(new XYChart.Data(eintragCount.getDate(), eintragCount.getCount()));
-        }
-        for (EintragCount eintragCount : LeerTage) {
-            wSeries.getData().add(new XYChart.Data(eintragCount.getDate(), eintragCount.getCount()));
-        }
-        for (EintragCount eintragCount : LeerTage) {
-            uSeries.getData().add(new XYChart.Data(eintragCount.getDate(), eintragCount.getCount()));
+            uSeries.getData().add(new XYChart.Data(eintragCount.getKey(), eintragCount.getCount()));
         }
 
         Collections.sort(wSeries.getData(), new Comparator<XYChart.Data>() {
@@ -137,7 +128,8 @@ public class StatistikController {
         ScrollPane root = new ScrollPane(barChart);
         root.setMinSize(720, 1080);
 
-        barChart.setMinSize((long) map.get("days") * 16, root.getMinHeight() - 100);
+        if (WorkoutLogsByDate.size() > UebungLogsByDate.size()) barChart.setMinSize((long) WorkoutLogsByDate.size() * 16, root.getMinHeight() - 100);
+        barChart.setMinSize((long) UebungLogsByDate.size() * 16, root.getMinHeight() - 100);
 
         root.setHvalue(root.getHmax());
 
@@ -148,53 +140,5 @@ public class StatistikController {
         stage.show();
     }
 
-    private static Map<String, Object> leertageGenerieren(ObservableList<EintragCount> uebungsTage, ObservableList<EintragCount> workoutTage) {
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-
-        ZonedDateTime heute = ZonedDateTime.now();
-
-        //frühesten tag ermitteln
-        EintragCount fruehsterTag = new EintragCount(heute.format(formatter), 0);
-        for (EintragCount u : uebungsTage) {
-            fruehsterTag = frueher(fruehsterTag, u);
-        }
-        for (EintragCount w : workoutTage) {
-            fruehsterTag = frueher(fruehsterTag, w);
-        }
-
-        ZonedDateTime fruehestesDate = convertToZDT(fruehsterTag.getDate());
-
-        long days = zonedDateTimeDifference(fruehestesDate, heute, ChronoUnit.DAYS);
-        ArrayList<EintragCount> leertageList = new ArrayList<>();
-
-        ZonedDateTime spaetestesDate = fruehestesDate.plusDays(days);
-
-        for (ZonedDateTime currentDate = fruehestesDate; currentDate.isBefore(spaetestesDate); currentDate = currentDate.plusDays(1)) {
-            EintragCount eintrag = new EintragCount(currentDate.format(formatter), 0);
-            if (!uebungsTage.contains(eintrag) && !workoutTage.contains(eintrag)) {
-                leertageList.add(eintrag);
-            }
-        }
-
-        Map<String, Object> result = new HashMap();
-        result.put("leertageList", leertageList);
-        result.put("days", days);
-
-        return result;
-    }
-
-
-    private static long zonedDateTimeDifference(ZonedDateTime d1, ZonedDateTime d2, ChronoUnit unit) {
-        return unit.between(d1, d2);
-    }
-
-    public static ZonedDateTime convertToZDT(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        LocalDate localDate = LocalDate.parse(date, formatter);
-
-        ZonedDateTime result = localDate.atStartOfDay(ZoneId.systemDefault());
-        return result;
-    }
 
 }
