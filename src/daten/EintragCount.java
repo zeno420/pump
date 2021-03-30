@@ -4,8 +4,8 @@ public class EintragCount {
     private String key;
     private int count;
 
-    public EintragCount(String date, int count) {
-        this.key = date;
+    public EintragCount(String key, int count) {
+        this.key = key;
         this.count = count;
     }
 

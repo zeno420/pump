@@ -19,7 +19,7 @@ public class LogEintrag {
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
-    public LogEintrag() {
+    private LogEintrag() {
     }
 
     public LogEintrag(String name, String beschreibung) {

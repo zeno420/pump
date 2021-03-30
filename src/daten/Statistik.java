@@ -16,7 +16,7 @@ import static daten.EintragCount.frueher;
 public class Statistik {
 
 
-    public static List<EintragCount> getLogsByDate(ObservableList<LogEintrag> list){
+    public static List<EintragCount> getLogsByDate(ObservableList<LogEintrag> list) {
         HashMap<String, List<LogEintrag>> map = new HashMap<>();
 
         for (LogEintrag logEintrag : list) {
@@ -39,8 +39,7 @@ public class Statistik {
     }
 
 
-
-        public static List<EintragCount> getLogsByName(ObservableList<LogEintrag> list) {
+    public static List<EintragCount> getLogsByName(ObservableList<LogEintrag> list) {
         HashMap<String, List<LogEintrag>> map = new HashMap<>();
 
         for (LogEintrag logEintrag : list) {
@@ -58,7 +57,7 @@ public class Statistik {
         return resultList;
     }
 
-    private static List<EintragCount> leertageEinfuegen(List<EintragCount> list) {
+    public static List<EintragCount> leertageEinfuegen(List<EintragCount> list) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
@@ -77,7 +76,7 @@ public class Statistik {
 
         ZonedDateTime spaetestesDate = fruehestesDate.plusDays(days);
 
-        for (ZonedDateTime currentDate = fruehestesDate; currentDate.isBefore(spaetestesDate); currentDate = currentDate.plusDays(1)) {
+        for (ZonedDateTime currentDate = fruehestesDate; currentDate.isBefore(spaetestesDate.plusDays(1)); currentDate = currentDate.plusDays(1)) {
             EintragCount eintrag = new EintragCount(currentDate.format(formatter), 0);
             if (!list.contains(eintrag)) {
                 leertageList.add(eintrag);
