@@ -1,0 +1,45 @@
+// Header of this document:
+
+Advanced Software Engineering - Dokumentation
+=============================================
+:toc:
+:toc-placement: preamble
+:toclevels: 4
+
+Eigenständigkeitserklärung:
+Hiermit erkläre ich, dass ich die vorliegende Arbeit selbstständig verfasst und keine anderen als die angegebenen Quellen und Hilfsmittel benutzt habe.
+Alle sinngemäß und wörtlich übernommenen Textstellen aus fremden Quellen wurden kenntlich gemacht.
+
+== pump
+
+=== Grundlagen
+==== Funktionsweise
+==== Aufbau
+
+=== Programmierprinzipien
+==== SOLID
+==== GRASP
+==== DRY
+
+=== Entwurfsmuster
+==== Dependency Injection
+
+=== Domain Driven Design
+==== Analyse der Ubiquitous Language
+==== Analyse und Begründung für…
+===== Repositories
+===== Aggregates
+===== Entities
+===== Value Objects
+
+=== Architektur
+==== 3-Schicht-Architektur
+
+=== Unit Tests
+==== ATRIP
+==== Code Coverage
+==== Mocks
+
+=== Refactoring
+==== Code Smells
+==== Anwendung und Begründung
