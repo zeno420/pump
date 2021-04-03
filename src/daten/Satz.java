@@ -74,9 +74,9 @@ public class Satz {
     }
 
     public Valid getValid() {
-        if (wiederholungen == null || !isValidNumber(wiederholungen.get(), false)) {
+        if (wiederholungen == null || isInvalidNumber(wiederholungen.get(), false)) {
             valid = Valid.WIEDERHOLUNGEN;
-        } else if (gewicht == null || !isValidNumber(gewicht.get(), true)) {
+        } else if (gewicht == null || isInvalidNumber(gewicht.get(), true)) {
             valid = Valid.GEWICHT;
         } else {
             valid = Valid.VALID;
@@ -120,24 +120,24 @@ public class Satz {
         this.masse.set(masse);
     }
 
-    public static boolean isValidNumber(String strNum, boolean pointAllowed) {
+    private static boolean isInvalidNumber(String strNum, boolean pointAllowed) {
         double d;
         if (strNum == null) {
-            return false;
+            return true;
         }
         try {
             d = Double.parseDouble(strNum);
             if (d < 0) {
-                return false;
+                return true;
             }
             if (!pointAllowed) {
                 if (!(d % 1 == 0)) {
-                    return false;
+                    return true;
                 }
             }
         } catch (NumberFormatException nfe) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 }

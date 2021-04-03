@@ -73,14 +73,7 @@ public class LogEintrag {
         return date;
     }
 
-    private ZonedDateTime getDateAsDate(String dateString) {
-        ZonedDateTime dateTime = ZonedDateTime.parse(dateString, formatter);
-        return dateTime;
-    }
-
     private String _2String(ZonedDateTime currentDateTime) {
         return currentDateTime.format(formatter);
     }
-
-
 }
