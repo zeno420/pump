@@ -77,10 +77,7 @@ public class UebungController {
 
     public void uebungSpeichern(ActionEvent event) {
         if (tmpUebung.getValid(exisitngNamesList).getCode() == 0) {
-            aktuelleUebung.setName(tmpUebung.getName());
-            aktuelleUebung.setBeschreibung(tmpUebung.getBeschreibung());
-            aktuelleUebung.setMasse(tmpUebung.getMasse());
-            aktuelleUebung.setDefi(tmpUebung.getDefi());
+            aktuelleUebung.aenderbareMemberUebertragen(tmpUebung.getAenderbareMember());
             if (isNew) {
                 Datenbank.getUebungen().add(aktuelleUebung);
             }

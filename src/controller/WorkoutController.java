@@ -109,9 +109,7 @@ public class WorkoutController {
 
     public void workoutSpeichern(ActionEvent event) {
         if (tmpWorkout.getValid(exisitngNamesList).getCode() == 0) {
-            aktuellesWorkout.setName(tmpWorkout.getName());
-            aktuellesWorkout.setBeschreibung(tmpWorkout.getBeschreibung());
-            aktuellesWorkout.setUebungen(tmpWorkout.getUebungen());
+            aktuellesWorkout.aenderbareMemberUebertragen(tmpWorkout.getAenderbareMember());
             if (isNew) {
                 Datenbank.getWorkouts().add(aktuellesWorkout);
             }

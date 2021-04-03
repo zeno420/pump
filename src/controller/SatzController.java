@@ -47,8 +47,8 @@ public class SatzController {
 
     public void satzSpeichern(ActionEvent event) {
         if (tmpSatz.getValid().getCode() == 0) {
-            aktuellerSatz.setWiederholungen(tmpSatz.getWiederholungen());
-            aktuellerSatz.setGewicht(tmpSatz.getGewicht());
+            aktuellerSatz.aenderbareMemberUebertragen(tmpSatz.getAenderbareMember());
+
             if (isNew) {
                 if (tmpSatz.isMasse()) {
                     uebung.getMasse().add(aktuellerSatz);

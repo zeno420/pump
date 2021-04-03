@@ -9,6 +9,7 @@ import javafx.util.Callback;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,6 +25,9 @@ public class Workout {
 
     private Valid valid = Valid.NONAME;
 
+    private List<Property> aenderbareMember = new ArrayList<>();
+
+
     //static id generator shared among all instances of Coordinates
     //private static final AtomicInteger idGenerator = new AtomicInteger(1000);
 
@@ -36,6 +40,10 @@ public class Workout {
         wid = "w-" + UUID.randomUUID().toString();
         name.set("");
         beschreibung.set("");
+
+        aenderbareMember.add(name);
+        aenderbareMember.add(beschreibung);
+        aenderbareMember.add(uebungen);
     }
 
     public String getId() {
@@ -97,6 +105,18 @@ public class Workout {
             valid = Valid.VALID;
         }
         return valid;
+    }
+
+    public List<Property> getAenderbareMember() {
+        return aenderbareMember;
+    }
+
+    public void aenderbareMemberUebertragen(List<Property> tmpAenderbareMember) {
+        //set aber kein setter
+        for (int i = 0; i < tmpAenderbareMember.size(); i++) {
+            aenderbareMember.get(i).setValue(tmpAenderbareMember.get(i).getValue());
+
+        }
     }
 
     public void setValid(Valid valid) {

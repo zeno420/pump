@@ -1,11 +1,11 @@
 package daten;
 
 import javafx.beans.Observable;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.util.Callback;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Satz {
 
@@ -15,6 +15,13 @@ public class Satz {
 
     private Valid valid = Valid.VALID;
 
+    private List<Property> aenderbareMember = new ArrayList<>();
+
+    public Satz() {
+
+        aenderbareMember.add(wiederholungen);
+        aenderbareMember.add(gewicht);
+    }
 
     public enum Valid {
 
@@ -34,6 +41,18 @@ public class Satz {
 
         public String getError() {
             return error;
+        }
+    }
+
+    public List<Property> getAenderbareMember() {
+        return aenderbareMember;
+    }
+
+    public void aenderbareMemberUebertragen(List<Property> tmpAenderbareMember){
+        //set aber kein setter
+        for (int i = 0; i < tmpAenderbareMember.size(); i++){
+            aenderbareMember.get(i).setValue(tmpAenderbareMember.get(i).getValue());
+
         }
     }
 

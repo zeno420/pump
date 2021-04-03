@@ -68,8 +68,7 @@ public class TagController {
 
     public void tagSpeichern(ActionEvent event) {
         if (tmpTag.getValid().getCode() == 0) {
-            aktuellerTag.setName(tmpTag.getName());
-            aktuellerTag.setWorkouts(tmpTag.getWorkouts());
+            aktuellerTag.aenderbareMemberUebertragen(tmpTag.getAenderbareMember());
             if (isNew) {
                 programm.getTage().add(aktuellerTag);
             }

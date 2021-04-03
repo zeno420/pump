@@ -1,15 +1,14 @@
 package daten;
 
 import javafx.beans.Observable;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Callback;
 
 import javax.xml.bind.annotation.XmlIDREF;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Tag {
 
@@ -19,6 +18,12 @@ public class Tag {
 
     private Valid valid = Valid.VALID;
 
+    private List<Property> aenderbareMember = new ArrayList<>();
+
+    public Tag() {
+        aenderbareMember.add(name);
+        aenderbareMember.add(workouts);
+    }
 
     public enum Valid {
 
@@ -41,18 +46,30 @@ public class Tag {
         }
     }
 
-    public Tag makeTmpCopy(){
+    public List<Property> getAenderbareMember() {
+        return aenderbareMember;
+    }
+
+    public void aenderbareMemberUebertragen(List<Property> tmpAenderbareMember) {
+        //set aber kein setter
+        for (int i = 0; i < tmpAenderbareMember.size(); i++) {
+            aenderbareMember.get(i).setValue(tmpAenderbareMember.get(i).getValue());
+
+        }
+    }
+
+    public Tag makeTmpCopy() {
         Tag tmpTag = new Tag();
         tmpTag.setName(name.get());
         tmpTag.getWorkouts().addAll(workouts.get());
         return tmpTag;
     }
 
-    public static Callback<Tag, Observable[]> makeExtractor(){
+    public static Callback<Tag, Observable[]> makeExtractor() {
         return new Callback<Tag, Observable[]>() {
             @Override
             public Observable[] call(Tag tag) {
-                return new Observable[] {tag.nameProperty(), tag.workoutsProperty()};
+                return new Observable[]{tag.nameProperty(), tag.workoutsProperty()};
             }
         };
     }

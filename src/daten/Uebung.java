@@ -1,10 +1,7 @@
 package daten;
 
 import javafx.beans.Observable;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Callback;
@@ -12,6 +9,7 @@ import main.Pump;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,6 +23,8 @@ public class Uebung {
 
     private Valid valid = Valid.NONAME;
 
+    private List<Property> aenderbareMember = new ArrayList<>();
+
     //static id generator shared among all instances of Coordinates
     //private static final AtomicInteger idGenerator = new AtomicInteger(1000);
 
@@ -37,6 +37,11 @@ public class Uebung {
         uid = "u-" + UUID.randomUUID().toString();
         name.set("");
         beschreibung.set("");
+
+        aenderbareMember.add(name);
+        aenderbareMember.add(beschreibung);
+        aenderbareMember.add(masse);
+        aenderbareMember.add(defi);
     }
 
     public String getId() {
@@ -44,6 +49,18 @@ public class Uebung {
         return uid;
     }
 
+
+    public List<Property> getAenderbareMember() {
+        return aenderbareMember;
+    }
+
+    public void aenderbareMemberUebertragen(List<Property> tmpAenderbareMember) {
+        //set aber kein setter
+        for (int i = 0; i < tmpAenderbareMember.size(); i++) {
+            aenderbareMember.get(i).setValue(tmpAenderbareMember.get(i).getValue());
+
+        }
+    }
 
     public enum Valid {
 
@@ -89,7 +106,7 @@ public class Uebung {
 
     public Valid getValid(List<String> existingNamesList) {
         boolean containsSearchStr = existingNamesList.stream().anyMatch(name.get()::equalsIgnoreCase);
-        if(containsSearchStr){
+        if (containsSearchStr) {
             valid = Valid.NAME;
         } else if (name == null || name.get() == null || name.get().equalsIgnoreCase("")) {
             valid = Valid.NONAME;
