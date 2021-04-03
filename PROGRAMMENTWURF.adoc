@@ -60,10 +60,10 @@ In "programmSpeichern()" muss nun nur noch die Funktion zum Übertragen aufgeruf
 
 image::doc/screenshots/programmSpeichern_1_1.png[]
 
-Somit kann in Programm einfach die Liste der Member erweitert werden ohne programmSpeicher() im ProgrammController ändern zu müssen.
+Somit kann in Programm einfach die Liste der Member erweitert werden ohne programmSpeicher() im ProgrammController ändern zu müssen. Hier der zugehörige link:https://github.com/zeno420/pump/commit/7f2e49c88027a5826853e37daa7ffb2067a33d93[commit].
 
 ===== Liskov substitution principle
-TODO
+TODO keine abgeleiteten klassen/ property als beispiel zum beweis dass verstanden/ listcell
 
 ===== Interface segregation principle
 TODO
