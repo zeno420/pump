@@ -3,6 +3,7 @@ package controller;
 import daten.*;
 import design.WorkoutSpielenCell;
 import design.TagCell;
+import javafx.beans.property.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -90,16 +91,16 @@ public class ProgrammController {
                                        }
         );
         tagNameLabel.textProperty().bind(programm.getTage().get(programm.currentTagIndexProperty().get()).nameProperty());
-        int currentTag =  programm.getCurrentTagIndex() + 1;
+        int currentTag = programm.getCurrentTagIndex() + 1;
         String bla = "Tag " + currentTag + " von " + programm.getTage().size();
         indexLabel.setText(bla);
     }
 
     public void programmSpeichern(ActionEvent event) {
         if (tmpProgramm.getValid(exisitngNamesList).getCode() == 0) {
-            aktuellesProgramm.setName(tmpProgramm.getName());
-            aktuellesProgramm.setBeschreibung(tmpProgramm.getBeschreibung());
-            aktuellesProgramm.setTage(tmpProgramm.getTage());
+
+            aktuellesProgramm.aenderbareMemberUebertragen(tmpProgramm.getAenderbareMember());
+
             if (isNew) {
                 Datenbank.getProgramme().add(aktuellesProgramm);
             }
@@ -157,7 +158,6 @@ public class ProgrammController {
 
         TagController c = fxmlloader.getController();
         c.setUpBinding(tag, tagDialog, tmpProgramm);
-
 
 
         stage.initModality(Modality.APPLICATION_MODAL);
