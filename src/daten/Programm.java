@@ -107,7 +107,6 @@ public class Programm {
     }
 
     public void aenderbareMemberUebertragen(List<Property> tmpAenderbareMember){
-        //set aber kein setter
         for (int i = 0; i < tmpAenderbareMember.size(); i++){
             aenderbareMember.get(i).setValue(tmpAenderbareMember.get(i).getValue());
 
