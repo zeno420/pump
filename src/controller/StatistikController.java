@@ -1,6 +1,5 @@
 package controller;
 
-import daten.Datenbank;
 import daten.EintragCount;
 import daten.Statistik;
 import design.EintragCountCell;
@@ -37,18 +36,16 @@ public class StatistikController {
     private static ObservableList<EintragCount> UebungLogsByName = FXCollections.observableArrayList();
     private static ObservableList<EintragCount> WorkoutLogsByDate = FXCollections.observableArrayList();
     private static ObservableList<EintragCount> UebungLogsByDate = FXCollections.observableArrayList();
-    //private static List<EintragCount> LeerTage = new ArrayList<>();
-
 
     public void setUpBinding() {
 
         WorkoutLogsByName.clear();
         UebungLogsByName.clear();
-        WorkoutLogsByName.addAll(Statistik.getLogsByName(Datenbank.getWorkoutLogs()));
-        UebungLogsByName.addAll(Statistik.getLogsByName(Datenbank.getUebungLogs()));
+        WorkoutLogsByName.addAll(Statistik.getLogsByName(Pump.datenbasis.getWorkoutLog()));
+        UebungLogsByName.addAll(Statistik.getLogsByName(Pump.datenbasis.getUebungLog()));
 
-        workoutAnzahlLabel.setText(Integer.toString(Datenbank.getWorkoutLogs().size()));
-        uebungAnzahlLabel.setText(Integer.toString(Datenbank.getUebungLogs().size()));
+        workoutAnzahlLabel.setText(Integer.toString(Pump.datenbasis.getWorkoutLog().size()));
+        uebungAnzahlLabel.setText(Integer.toString(Pump.datenbasis.getUebungLog().size()));
 
         workoutLogListView.setItems(WorkoutLogsByName);
         workoutLogListView.setCellFactory(new Callback<ListView<EintragCount>,
@@ -75,8 +72,8 @@ public class StatistikController {
 
         WorkoutLogsByDate.clear();
         UebungLogsByDate.clear();
-        WorkoutLogsByDate.addAll(Statistik.getAllDays(Datenbank.getWorkoutLogs()));
-        UebungLogsByDate.addAll(Statistik.getAllDays(Datenbank.getUebungLogs()));
+        WorkoutLogsByDate.addAll(Statistik.getAllDays(Pump.datenbasis.getWorkoutLog()));
+        UebungLogsByDate.addAll(Statistik.getAllDays(Pump.datenbasis.getUebungLog()));
 
         //Map<String, Object> map = Statistik.leertageGenerieren(WorkoutLogsByDate, UebungLogsByDate);
 

@@ -16,7 +16,7 @@ import static daten.EintragCount.frueher;
 public class Statistik {
 
 
-    public static List<EintragCount> getLogsByDate(ObservableList<LogEintrag> list) {
+    public static List<EintragCount> getLogsByDate(List<LogEintrag> list) {
         HashMap<String, List<LogEintrag>> map = new HashMap<>();
 
         for (LogEintrag logEintrag : list) {
@@ -34,12 +34,12 @@ public class Statistik {
         return resultList;
     }
 
-    public static List<EintragCount> getAllDays(ObservableList<LogEintrag> list) {
+    public static List<EintragCount> getAllDays(List<LogEintrag> list) {
         return leertageEinfuegen(getLogsByDate(list));
     }
 
 
-    public static List<EintragCount> getLogsByName(ObservableList<LogEintrag> list) {
+    public static List<EintragCount> getLogsByName(List<LogEintrag> list) {
         HashMap<String, List<LogEintrag>> map = new HashMap<>();
 
         for (LogEintrag logEintrag : list) {

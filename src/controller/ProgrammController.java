@@ -3,7 +3,6 @@ package controller;
 import daten.*;
 import design.WorkoutSpielenCell;
 import design.TagCell;
-import javafx.beans.property.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,7 +52,7 @@ public class ProgrammController {
             isNew = true;
         }
 
-        exisitngNamesList = Datenbank.getProgramme().stream().map(Programm::getName).collect(Collectors.toList());
+        exisitngNamesList = Pump.datenbasis.getProgramme().stream().map(Programm::getName).collect(Collectors.toList());
         if (!isNew) {
             exisitngNamesList.remove(programm.getName());
         }
@@ -102,12 +101,12 @@ public class ProgrammController {
             aktuellesProgramm.aenderbareMemberUebertragen(tmpProgramm.getAenderbareMember());
 
             if (isNew) {
-                Datenbank.getProgramme().add(aktuellesProgramm);
+                Pump.datenbasis.getProgramme().add(aktuellesProgramm);
             }
             Stage stage = (Stage) programmSpeichernBtn.getScene().getWindow();
             stage.close();
             try {
-                Datenbank.save();
+                Datenbank.save(Pump.datenbasis);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");

@@ -43,7 +43,7 @@ public class UebungController {
             isNew = true;
         }
 
-        exisitngNamesList = Datenbank.getUebungen().stream().map(Uebung::getName).collect(Collectors.toList());
+        exisitngNamesList = Pump.datenbasis.getUebungen().stream().map(Uebung::getName).collect(Collectors.toList());
         if (!isNew) {
             exisitngNamesList.remove(uebung.getName());
         }
@@ -79,12 +79,12 @@ public class UebungController {
         if (tmpUebung.getValid(exisitngNamesList).getCode() == 0) {
             aktuelleUebung.aenderbareMemberUebertragen(tmpUebung.getAenderbareMember());
             if (isNew) {
-                Datenbank.getUebungen().add(aktuelleUebung);
+                Pump.datenbasis.getUebungen().add(aktuelleUebung);
             }
             Stage stage = (Stage) uebungSpeichernBtn.getScene().getWindow();
             stage.close();
             try {
-                Datenbank.save();
+                Datenbank.save(Pump.datenbasis);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");

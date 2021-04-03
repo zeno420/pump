@@ -53,7 +53,7 @@ public class WorkoutController {
             isNew = true;
         }
 
-        exisitngNamesList = Datenbank.getWorkouts().stream().map(Workout::getName).collect(Collectors.toList());
+        exisitngNamesList = Pump.datenbasis.getWorkouts().stream().map(Workout::getName).collect(Collectors.toList());
         if (!isNew) {
             exisitngNamesList.remove(workout.getName());
         }
@@ -75,7 +75,7 @@ public class WorkoutController {
         workoutBeschreibungField.textProperty().bindBidirectional(tmpWorkout.beschreibungProperty());
 
         uebungComboBox = (ComboBox) workoutDialog.lookup("#uebungComboBox");
-        uebungComboBox.setItems(Datenbank.getUebungen());
+        uebungComboBox.setItems(Pump.datenbasis.getUebungen());
         uebungComboBox.setCellFactory(new Callback<ListView<Uebung>,
                                               ListCell<Uebung>>() {
                                           @Override
@@ -111,12 +111,12 @@ public class WorkoutController {
         if (tmpWorkout.getValid(exisitngNamesList).getCode() == 0) {
             aktuellesWorkout.aenderbareMemberUebertragen(tmpWorkout.getAenderbareMember());
             if (isNew) {
-                Datenbank.getWorkouts().add(aktuellesWorkout);
+                Pump.datenbasis.getWorkouts().add(aktuellesWorkout);
             }
             Stage stage = (Stage) workouSpeichernBtn.getScene().getWindow();
             stage.close();
             try {
-                Datenbank.save();
+                Datenbank.save(Pump.datenbasis);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
@@ -161,7 +161,7 @@ public class WorkoutController {
 
     public void nextUebungDone(ActionEvent event) throws IOException {
         Uebung uebung = aktuellesWorkout.getUebungen().get(aktuellesWorkout.currentUebungIndexProperty().get());
-        Datenbank.getUebungLogs().add(new LogEintrag(uebung.getName(), uebung.getBeschreibung()));
+        Pump.datenbasis.getUebungLog().add(new LogEintrag(uebung.getName(), uebung.getBeschreibung()));
         aktuellesWorkout.increaseAktuelleUebung();
         setUpBindingPlay(aktuellesWorkout, aktuellerWorkoutDialog);
     }
@@ -172,7 +172,7 @@ public class WorkoutController {
     }
 
     public void fertig(ActionEvent event) {
-        Datenbank.getWorkoutLogs().add(new LogEintrag(aktuellesWorkout.getName(), aktuellesWorkout.getBeschreibung()));
+        Pump.datenbasis.getWorkoutLog().add(new LogEintrag(aktuellesWorkout.getName(), aktuellesWorkout.getBeschreibung()));
         Stage stage = (Stage) fertigBtn.getScene().getWindow();
         stage.close();
     }

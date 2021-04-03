@@ -3,23 +3,12 @@ package main;
 import daten.*;
 import design.*;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 
 public class Pump extends Application {
@@ -28,13 +17,15 @@ public class Pump extends Application {
     //TODO fullscreen problem beheben
     //TODO new scene statt popup
 
+    public static Datenbasis datenbasis;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         try {
             Datenbank.init();
-            Datenbank.load();
+            datenbasis = Datenbank.load();
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -59,15 +50,15 @@ public class Pump extends Application {
 
         masseToggleBtn.setToggleGroup(masseDefiToggleGroup);
         defiToggleBtn.setToggleGroup(masseDefiToggleGroup);
-        masseToggleBtn.setSelected(Datenbank.getPhase().isMasse());
-        defiToggleBtn.setSelected(!Datenbank.getPhase().isMasse());
+        masseToggleBtn.setSelected(Pump.datenbasis.getPhase().isMasse());
+        defiToggleBtn.setSelected(!Pump.datenbasis.getPhase().isMasse());
 
         masseDefiToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            Datenbank.getPhase().setMasse(((RadioButton) newValue).getId().equalsIgnoreCase("masseToggleBtn"));
+            Pump.datenbasis.getPhase().setMasse(((RadioButton) newValue).getId().equalsIgnoreCase("masseToggleBtn"));
         });
 
         ListView<Uebung> uebungenListView = (ListView) root.lookup("#uebungenListView");
-        uebungenListView.setItems(Datenbank.getUebungen());
+        uebungenListView.setItems(Pump.datenbasis.getUebungen());
         uebungenListView.setCellFactory(new Callback<ListView<Uebung>,
                                                 ListCell<Uebung>>() {
                                             @Override
@@ -78,7 +69,7 @@ public class Pump extends Application {
         );
 
         ListView<Workout> workoutListView = (ListView) root.lookup("#workoutListView");
-        workoutListView.setItems(Datenbank.getWorkouts());
+        workoutListView.setItems(Pump.datenbasis.getWorkouts());
         workoutListView.setCellFactory(new Callback<ListView<Workout>,
                                                ListCell<Workout>>() {
                                            @Override
@@ -89,7 +80,7 @@ public class Pump extends Application {
         );
 
         ListView<Programm> programmListView = (ListView) root.lookup("#programmListView");
-        programmListView.setItems(Datenbank.getProgramme());
+        programmListView.setItems(Pump.datenbasis.getProgramme());
         programmListView.setCellFactory(new Callback<ListView<Programm>,
                                                 ListCell<Programm>>() {
                                             @Override
@@ -106,7 +97,7 @@ public class Pump extends Application {
 
     @Override
     public void stop() throws Exception {
-        Datenbank.save();
+        Datenbank.save(Pump.datenbasis);
     }
 
     public static void main(String[] args) {

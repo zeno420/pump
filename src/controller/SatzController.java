@@ -59,7 +59,7 @@ public class SatzController {
             Stage stage = (Stage) satzSpeichernBtn.getScene().getWindow();
             stage.close();
             try {
-                Datenbank.save();
+                Datenbank.save(Pump.datenbasis);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
