@@ -26,6 +26,7 @@ public class Pump extends Application {
 
     //TODO uebung.fxml spacing zwischen anchorpanes dynamisch machen
     //TODO fullscreen problem beheben
+    //TODO new scene statt popup
 
 
     @Override

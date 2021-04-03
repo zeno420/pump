@@ -2,7 +2,6 @@ package daten;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -12,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class Datenbank {
+
+    //TODO refactor
 
     private static ObservableList<Uebung> Uebungen = FXCollections.observableArrayList(Uebung.makeExtractor());
     private static ObservableList<Workout> Workouts = FXCollections.observableArrayList(Workout.makeExtractor());
