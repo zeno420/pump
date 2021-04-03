@@ -77,7 +77,13 @@ TODO keine abgeleiteten klassen/ property als beispiel zum beweis dass verstande
 TODO
 
 ===== Dependency inversion principle
-TODO
+In der Statistik Klasse wurden den Funktionen, die Listen von Logeinträgen nach gewissen Kriterien zusammenfassen, initial mit einer ObservableList als parameter aufgerufen.
+
+image::doc/screenshots/StatistikDI_0.png[]
+
+Dependency inversion fordert, dass auf das abstrakteste Level abgestuft wird. Die Funktionen werden jetzt also mit List als parameter aufgerufen.
+
+image::doc/screenshots/StatistikDI_1_1.png[]
 
 
 ==== GRASP
