@@ -32,8 +32,6 @@ public class UebungController {
     private Uebung tmpUebung;
     private boolean isNew = false;
 
-    //List<String> exisitngNamesList;
-
     public void setUpBinding(Uebung uebung, Parent uebungDialog) {
         if (uebung != null) {
             aktuelleUebung = uebung;
@@ -42,11 +40,6 @@ public class UebungController {
             aktuelleUebung = new Uebung();
             isNew = true;
         }
-
-        /*exisitngNamesList = Pump.datenbasis.getUebungen().stream().map(Uebung::getName).collect(Collectors.toList());
-        if (!isNew) {
-            exisitngNamesList.remove(uebung.getName());
-        }*/
 
         tmpUebung = aktuelleUebung.makeTmpCopy();
 
@@ -75,33 +68,6 @@ public class UebungController {
         uebungBeschreibungField.textProperty().bindBidirectional(tmpUebung.beschreibungProperty());
     }
 
-  /*  public void uebungSpeichern(ActionEvent event) {
-        if (tmpUebung.getValid(exisitngNamesList).getCode() == 0) {
-            aktuelleUebung.aenderbareMemberUebertragen(tmpUebung.getAenderbareMember());
-            if (isNew) {
-                Pump.datenbasis.getUebungen().add(aktuelleUebung);
-            }
-            Stage stage = (Stage) uebungSpeichernBtn.getScene().getWindow();
-            stage.close();
-            try {
-                Datenbank.save(Pump.datenbasis);
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Could not save data");
-                //alert.setContentText();
-                e.printStackTrace(System.out);
-                alert.showAndWait();
-            }
-        } else {
-            Alert a = new Alert(Alert.AlertType.WARNING);
-
-            a.setTitle("Ungültige Eingabe");
-            a.setHeaderText(tmpUebung.getValid(exisitngNamesList).getError());
-            a.showAndWait();
-        }
-    }*/
-
     public void uebungSpeichern(ActionEvent event) {
         if (isNew) {
             String error = Pump.datenbasis.uebungHinzufuegen(aktuelleUebung, tmpUebung);
@@ -124,7 +90,6 @@ public class UebungController {
             a.showAndWait();
         }
     }
-
 
     public void uebungAbbrechen(ActionEvent event) {
         Stage stage = (Stage) uebungSpeichernBtn.getScene().getWindow();
