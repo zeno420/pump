@@ -40,6 +40,8 @@ TODO
 TODO
 
 ===== Single-responsibility principle
+TODO bildüberschriften "Klasse.funktion()"
+
 Für meine Klasse Datenbank gab es mehrere Gründe sie zu bearbeiten. Ein Grund wäre eine Veränderung der Datenbasis, ein weiterer eine Änderung der Routine beim speichern oder laden der Daten.
 
 image::doc/screenshots/Datenbank_0.png[]
@@ -51,6 +53,8 @@ image::doc/screenshots/Datenbank_1_1.png[]
 Hier der zugehörige link:https://github.com/zeno420/pump/commit/55e2463a3013b87e0f49d280a61823e3f4b1fb3b[commit].
 
 ===== Open–closed principle
+TODO bildüberschriften "Klasse.funktion()"
+
 Ein Programm enthält veränderbare Member, wie den Namen, die Beschreibung und die Liste der Tage. Im ProgrammController wird beim drüken des Speicherknopfes die Funktion programmSpeichern() aufgerufen. Diese überprüft die Member des beim Start des Bearbeiten oder Erstellen eines Programms erzeugten temprären Programm auf korrektheit und überträgt die Werte der Memebr anschließend auf das tatsächliche Programm. (zeile 100 bis 102)
 
 image::doc/screenshots/programmSpeichern_0.png[]
@@ -77,6 +81,8 @@ TODO keine abgeleiteten klassen/ property als beispiel zum beweis dass verstande
 TODO
 
 ===== Dependency inversion principle
+TODO bildüberschriften "Klasse.funktion()"
+
 In der Statistik Klasse wurden den Funktionen, die Listen von Logeinträgen nach gewissen Kriterien zusammenfassen, initial mit einer ObservableList als parameter aufgerufen.
 
 image::doc/screenshots/StatistikDI_0.png[]
@@ -88,6 +94,38 @@ image::doc/screenshots/StatistikDI_1_1.png[]
 
 ==== GRASP
 TODO
+
+===== Low Coupling
+TODO bildüberschriften "Klasse.funktion()"
+
+Das Abspeichern einer Übung fand im ÜbungController statt.
+
+image::doc/screenshots/LowCoupling_0_2.png[]
+
+Dort brauchte es Wissen aus der Übung Klasse 
+
+image::doc/screenshots/LowCoupling_0_3.png[]
+
+und eine Liste mit Namen der bereits existierenden Übungen.
+
+image::doc/screenshots/LowCoupling_0_1.png[]
+
+Die Verantwortung zum Abspeichern, also in die Datenbasis eintragen, liegt eher bei der Datenbasis selbst.
+
+image::doc/screenshots/LowCoupling_1_1.png[]
+
+In der Datenbasis ist ebenfalls das wissen über die bereits existierenden Übungen, also wird hier die Namenskollision geprüft.
+
+image::doc/screenshots/LowCoupling_1_2.png[]
+
+Im Controller wird nun nur noch die hinzufügen() und updaten() Funktion aufgerufen.
+
+image::doc/screenshots/LowCoupling_1_4.png[]
+
+Die Validierung innerhalb der Übung selbst beinhaltet nurnoch die Prüfungen, die auf internens Wissen der Übung basieren.
+
+image::doc/screenshots/LowCoupling_1_3.png[]
+
 
 ==== DRY
 TODO
