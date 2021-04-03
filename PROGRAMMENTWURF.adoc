@@ -6,20 +6,64 @@ Advanced Software Engineering - Dokumentation
 :toc-placement: preamble
 :toclevels: 4
 
-Eigenständigkeitserklärung:
-Hiermit erkläre ich, dass ich die vorliegende Arbeit selbstständig verfasst und keine anderen als die angegebenen Quellen und Hilfsmittel benutzt habe.
-Alle sinngemäß und wörtlich übernommenen Textstellen aus fremden Quellen wurden kenntlich gemacht.
+Eigenständigkeitserklärung: Hiermit erkläre ich, dass ich die vorliegende Arbeit selbstständig verfasst und keine anderen als die angegebenen Quellen und Hilfsmittel benutzt habe. Alle sinngemäß und wörtlich übernommenen Textstellen aus fremden Quellen wurden kenntlich gemacht.
 
 == pump
 
+Mit der pump Desktopanwendung lassen sich einfach persönliche Trainingspläne erstellen. Das eigene Training lässt sich individuell gestalten, ohne dabei abhängig von Übungsangeboten von etablierten Anbietern zu sein.
+
+
 === Grundlagen
-==== Funktionsweise
+
+In pump lassen sich Übungen erstellen. Diese bestehen aus einem Namen, einer optionalen Beschreibung and Sätzen für die Masse- und Definitionsphase. Sätze setzen sich aus der Wiederholungsanzahl und dem Arbeitsgewicht zusammen. Anschließend können Workouts erstellt werden, denen neben einem Namen und einer Beschreuíbung beliebig viele Übungen, auch einzelne mehrfach, hinzugefügt werden können. Um nun ein Trainingsplan, im folgenden Programm, zu kreieren werden diesem Tage hinzugefügt, die aus Workouts bestehen.
+
+Programme lassen sich anschließend ausführen. Während dem ausführen ist es möglich die Sätze der Übungen anzupassen, falls entsprechende Vortschritte dies erfordern. Außerdem lässt sich mit einem Knopfdruck einfach zwischen der Masse- und Definitionsphase wechseln. So müssen, die Phase betreffende, Gewichts- und Wiederholungsänderungen nicht direkt in den Sätzen immer wieder vorgenommen werden.
+
+Um das Persönliche Trainingsverhalten beobachten zu können werden durchtgeführte Workouts und Übungen in ein Logbuchgeschrieben um anschließend dem Anwender aufgeschlüsselt dargestellt werden zu können.
+
+
+==== Verwendete Bibliotheken
+Neben Java wurden für den Programmentwurf JavaFX und JUnit verwendet. In diesem Abschnit wird erläutert warum gerade diese.
+
+===== JavaFX
+TODO
+
+===== JUnit
+TODO
+
 ==== Aufbau
+TODO
+
 
 === Programmierprinzipien
+TODO
+
 ==== SOLID
+TODO
+
+===== Single-responsibility principle
+TODO
+
+===== Open–closed principle
+TODO programm speichern iterator
+
+
+===== Liskov substitution principle
+TODO
+
+===== Interface segregation principle
+TODO
+
+===== Dependency inversion principle
+TODO
+
+
 ==== GRASP
+TODO
+
 ==== DRY
+TODO
+
 
 === Entwurfsmuster
 ==== Dependency Injection
