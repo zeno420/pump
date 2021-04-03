@@ -52,12 +52,7 @@ public class WorkoutController {
             aktuellesWorkout = new Workout();
             isNew = true;
         }
-
-        exisitngNamesList = Pump.datenbasis.getWorkouts().stream().map(Workout::getName).collect(Collectors.toList());
-        if (!isNew) {
-            exisitngNamesList.remove(workout.getName());
-        }
-
+        
         tmpWorkout = aktuellesWorkout.makeTmpCopy();
 
         workoutUebungenListView = (ListView) workoutDialog.lookup("#workoutUebungenListView");
@@ -108,32 +103,28 @@ public class WorkoutController {
     }
 
     public void workoutSpeichern(ActionEvent event) {
-        if (tmpWorkout.getValid(exisitngNamesList).getCode() == 0) {
-            aktuellesWorkout.aenderbareMemberUebertragen(tmpWorkout.getAenderbareMember());
-            if (isNew) {
-                Pump.datenbasis.getWorkouts().add(aktuellesWorkout);
-            }
+        if (isNew) {
+            String error = Pump.datenbasis.workoutHinzufuegen(aktuellesWorkout, tmpWorkout);
+            speichernAlarmieren(error);
+        } else {
+            String error = Pump.datenbasis.workoutUpdaten(aktuellesWorkout, tmpWorkout);
+            speichernAlarmieren(error);
+        }
+    }
+
+    private void speichernAlarmieren(String error) {
+        if (error == null) {
             Stage stage = (Stage) workouSpeichernBtn.getScene().getWindow();
             stage.close();
-            try {
-                Datenbank.save(Pump.datenbasis);
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Could not save data");
-                //alert.setContentText();
-                e.printStackTrace(System.out);
-                alert.showAndWait();
-            }
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
 
-            a.setTitle("Ungültige Eingabe");
-            a.setHeaderText(tmpWorkout.getValid(exisitngNamesList).getError());
+            a.setTitle("Ungültige Eingabe oder Datenbankfehler");
+            a.setHeaderText(error);
             a.showAndWait();
-
         }
     }
+
 
     public void workoutAbbrechen(ActionEvent event) {
         Stage stage = (Stage) workouSpeichernBtn.getScene().getWindow();

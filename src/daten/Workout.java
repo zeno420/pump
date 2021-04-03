@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public class Workout {
+public class Workout implements UniqueNamed {
 
     private StringProperty name = new SimpleStringProperty();
     private StringProperty beschreibung = new SimpleStringProperty();
@@ -23,7 +23,7 @@ public class Workout {
 
     private IntegerProperty currentUebungIndex = new SimpleIntegerProperty(0);
 
-    private Valid valid = Valid.NONAME;
+    private WorkoutValid workoutValid = WorkoutValid.NONAME;
 
     private List<Property> aenderbareMember = new ArrayList<>();
 
@@ -52,14 +52,13 @@ public class Workout {
     }
 
 
-    public enum Valid {
-        VALID(0, ""), NONAME(1, "Name ungültig"), UEBUNG(2, "Übungen ungültig"),
-        NAME(3, "Ein Workout mit diesem Name existiert bereits");
+    public enum WorkoutValid {
+        VALID(0, ""), NONAME(1, "Name ungültig"), UEBUNG(2, "Übungen ungültig");
 
         private int code;
         private String error;
 
-        Valid(int code, String error) {
+        WorkoutValid(int code, String error) {
             this.code = code;
             this.error = error;
         }
@@ -90,21 +89,18 @@ public class Workout {
         };
     }
 
-    public Valid getValid(List<String> existingNamesList) {
+    public WorkoutValid getWorkoutValid() {
 
-        boolean containsSearchStr = existingNamesList.stream().anyMatch(name.get()::equalsIgnoreCase);
-        if (containsSearchStr) {
-            valid = Valid.NAME;
-        } else if (name == null || name.get() == null) {
-            valid = Valid.NONAME;
+        if (name == null || name.get() == null) {
+            workoutValid = WorkoutValid.NONAME;
         } else if (name.get().equalsIgnoreCase("")) {
-            valid = Valid.NONAME;
+            workoutValid = WorkoutValid.NONAME;
         } else if (uebungen.get().size() < 1) {
-            valid = Valid.UEBUNG;
+            workoutValid = WorkoutValid.UEBUNG;
         } else {
-            valid = Valid.VALID;
+            workoutValid = WorkoutValid.VALID;
         }
-        return valid;
+        return workoutValid;
     }
 
     public List<Property> getAenderbareMember() {
@@ -119,8 +115,8 @@ public class Workout {
         }
     }
 
-    public void setValid(Valid valid) {
-        this.valid = valid;
+    public void setWorkoutValid(WorkoutValid workoutValid) {
+        this.workoutValid = workoutValid;
     }
 
     public String getName() {

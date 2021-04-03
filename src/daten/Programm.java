@@ -8,20 +8,18 @@ import javafx.util.Callback;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
-import javax.xml.bind.annotation.XmlIDREF;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
 
-public class Programm {
+public class Programm implements UniqueNamed{
 
     private StringProperty name = new SimpleStringProperty();
     private StringProperty beschreibung = new SimpleStringProperty();
 
     private ListProperty<Tag> tage = new SimpleListProperty<>(FXCollections.observableArrayList(Tag.makeExtractor()));
 
-    private Valid valid = Valid.NONAME;
+    private ProgrammValid programmValid = ProgrammValid.NONAME;
     private IntegerProperty currentTagIndex = new SimpleIntegerProperty(0);
 
     private List<Property> aenderbareMember = new ArrayList<>();
@@ -50,14 +48,13 @@ public class Programm {
     }
 
 
-    public enum Valid {
-        VALID(0, ""), NONAME(1, "Name ungültig"), TAGE(2, "Tage ungültig"),
-        NAME(3, "Ein Programm mit diesem Name existiert bereits");
+    public enum ProgrammValid {
+        VALID(0, ""), NONAME(1, "Name ungültig"), TAGE(2, "Tage ungültig");
 
         private int code;
         private String error;
 
-        Valid(int code, String error) {
+        ProgrammValid(int code, String error) {
             this.code = code;
             this.error = error;
         }
@@ -71,7 +68,7 @@ public class Programm {
         }
     }
 
-    public Programm makeTmpCopy(){
+    public Programm makeTmpCopy() {
         Programm tmpProgramm = new Programm();
         tmpProgramm.setName(name.get());
         tmpProgramm.setBeschreibung(beschreibung.get());
@@ -79,42 +76,39 @@ public class Programm {
         return tmpProgramm;
     }
 
-    public static Callback<Programm, Observable[]> makeExtractor(){
+    public static Callback<Programm, Observable[]> makeExtractor() {
         return new Callback<Programm, Observable[]>() {
             @Override
             public Observable[] call(Programm programm) {
-                return new Observable[] {programm.nameProperty(), programm.beschreibungProperty(), programm.tageProperty()};
+                return new Observable[]{programm.nameProperty(), programm.beschreibungProperty(), programm.tageProperty()};
             }
         };
     }
 
-    public Valid getValid(List<String> existingNamesList) {
-        boolean containsSearchStr = existingNamesList.stream().anyMatch(name.get()::equalsIgnoreCase);
-        if(containsSearchStr){
-            valid = Valid.NAME;
-        } else if (name == null || name.get() == null || name.get().equalsIgnoreCase("")) {
-            valid = Valid.NONAME;
+    public ProgrammValid getProgrammValid() {
+        if (name == null || name.get() == null || name.get().equalsIgnoreCase("")) {
+            programmValid = ProgrammValid.NONAME;
         } else if (tage.get().size() < 1) {
-            valid = Valid.TAGE;
+            programmValid = ProgrammValid.TAGE;
         } else {
-            valid = Valid.VALID;
+            programmValid = ProgrammValid.VALID;
         }
-        return valid;
+        return programmValid;
     }
 
     public List<Property> getAenderbareMember() {
         return aenderbareMember;
     }
 
-    public void aenderbareMemberUebertragen(List<Property> tmpAenderbareMember){
-        for (int i = 0; i < tmpAenderbareMember.size(); i++){
+    public void aenderbareMemberUebertragen(List<Property> tmpAenderbareMember) {
+        for (int i = 0; i < tmpAenderbareMember.size(); i++) {
             aenderbareMember.get(i).setValue(tmpAenderbareMember.get(i).getValue());
 
         }
     }
 
-    public void setValid(Valid valid) {
-        this.valid = valid;
+    public void setProgrammValid(ProgrammValid programmValid) {
+        this.programmValid = programmValid;
     }
 
     public String getName() {

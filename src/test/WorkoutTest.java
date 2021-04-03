@@ -2,12 +2,9 @@ package test;
 
 import daten.Uebung;
 import daten.Workout;
-import daten.Workout.Valid;
+import daten.Workout.WorkoutValid;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -21,23 +18,18 @@ public class WorkoutTest {
     @Test
     public void testGetValid() {
 
-        List<String> existingWorkoutNameList = new ArrayList<>();
         Workout workout = new Workout();
 
-        assertEquals(Valid.NONAME, workout.getValid(existingWorkoutNameList));
+        assertEquals(WorkoutValid.NONAME, workout.getWorkoutValid());
 
         workout.setName("");
-        assertEquals(Valid.NONAME, workout.getValid(existingWorkoutNameList));
+        assertEquals(WorkoutValid.NONAME, workout.getWorkoutValid());
 
         workout.setName("name");
-        assertEquals(Valid.UEBUNG, workout.getValid(existingWorkoutNameList));
+        assertEquals(WorkoutValid.UEBUNG, workout.getWorkoutValid());
 
         Uebung uebung = new Uebung();
         workout.getUebungen().add(uebung);
-        assertEquals(Valid.VALID, workout.getValid(existingWorkoutNameList));
-
-        existingWorkoutNameList.add("name");
-        assertEquals(Valid.NAME, workout.getValid(existingWorkoutNameList));
-
+        assertEquals(WorkoutValid.VALID, workout.getWorkoutValid());
     }
 }

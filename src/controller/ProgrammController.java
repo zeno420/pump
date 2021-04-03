@@ -52,11 +52,6 @@ public class ProgrammController {
             isNew = true;
         }
 
-        exisitngNamesList = Pump.datenbasis.getProgramme().stream().map(Programm::getName).collect(Collectors.toList());
-        if (!isNew) {
-            exisitngNamesList.remove(programm.getName());
-        }
-
         tmpProgramm = aktuellesProgramm.makeTmpCopy();
 
         ListView<Tag> tageListView = (ListView) programmDialog.lookup("#tageListView");
@@ -95,31 +90,25 @@ public class ProgrammController {
         indexLabel.setText(bla);
     }
 
-    public void programmSpeichern(ActionEvent event) {
-        if (tmpProgramm.getValid(exisitngNamesList).getCode() == 0) {
+     public void programmSpeichern(ActionEvent event) {
+        if (isNew) {
+            String error = Pump.datenbasis.programmHinzufuegen(aktuellesProgramm, tmpProgramm);
+            speichernAlarmieren(error);
+        } else {
+            String error = Pump.datenbasis.programmUpdaten(aktuellesProgramm, tmpProgramm);
+            speichernAlarmieren(error);
+        }
+    }
 
-            aktuellesProgramm.aenderbareMemberUebertragen(tmpProgramm.getAenderbareMember());
-
-            if (isNew) {
-                Pump.datenbasis.getProgramme().add(aktuellesProgramm);
-            }
+    private void speichernAlarmieren(String error) {
+        if (error == null) {
             Stage stage = (Stage) programmSpeichernBtn.getScene().getWindow();
             stage.close();
-            try {
-                Datenbank.save(Pump.datenbasis);
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Could not save data");
-                //alert.setContentText();
-                e.printStackTrace(System.out);
-                alert.showAndWait();
-            }
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
 
-            a.setTitle("Ungültige Eingabe");
-            a.setHeaderText(tmpProgramm.getValid(exisitngNamesList).getError());
+            a.setTitle("Ungültige Eingabe oder Datenbankfehler");
+            a.setHeaderText(error);
             a.showAndWait();
         }
     }

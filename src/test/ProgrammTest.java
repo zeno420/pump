@@ -1,13 +1,10 @@
 package test;
 
 import daten.Programm;
-import daten.Programm.Valid;
+import daten.Programm.ProgrammValid;
 import daten.Tag;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -20,23 +17,18 @@ public class ProgrammTest {
 
     @Test
     public void testGetValid() {
-
-        List<String> existingProgrammNameList = new ArrayList<>();
         Programm programm = new Programm();
 
-        assertEquals(Valid.NONAME, programm.getValid(existingProgrammNameList));
+        assertEquals(ProgrammValid.NONAME, programm.getProgrammValid());
 
         programm.setName("");
-        assertEquals(Valid.NONAME, programm.getValid(existingProgrammNameList));
+        assertEquals(ProgrammValid.NONAME, programm.getProgrammValid());
 
         programm.setName("name");
-        assertEquals(Valid.TAGE, programm.getValid(existingProgrammNameList));
+        assertEquals(ProgrammValid.TAGE, programm.getProgrammValid());
 
         Tag tag = new Tag();
         programm.getTage().add(tag);
-        assertEquals(Valid.VALID, programm.getValid(existingProgrammNameList));
-
-        existingProgrammNameList.add("name");
-        assertEquals(Valid.NAME, programm.getValid(existingProgrammNameList));
+        assertEquals(ProgrammValid.VALID, programm.getProgrammValid());
     }
 }

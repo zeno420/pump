@@ -2,12 +2,9 @@ package test;
 
 import daten.Satz;
 import daten.Uebung;
-import daten.Uebung.Valid;
+import daten.Uebung.UebungValid;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -21,26 +18,22 @@ public class UebungTest {
     @Test
     public void testGetValid() {
 
-        List<String> existingUebungNameList = new ArrayList<>();
         Uebung uebung = new Uebung();
 
-        assertEquals(Valid.NONAME, uebung.getValid(existingUebungNameList));
+        assertEquals(UebungValid.NONAME, uebung.getUebungValid());
 
         uebung.setName("");
-        assertEquals(Valid.NONAME, uebung.getValid(existingUebungNameList));
+        assertEquals(UebungValid.NONAME, uebung.getUebungValid());
 
         uebung.setName("name");
-        assertEquals(Valid.MASSE, uebung.getValid(existingUebungNameList));
+        assertEquals(UebungValid.MASSE, uebung.getUebungValid());
 
         Satz satz = new Satz();
         uebung.getMasse().add(satz);
-        assertEquals(Valid.DEFI, uebung.getValid(existingUebungNameList));
+        assertEquals(UebungValid.DEFI, uebung.getUebungValid());
 
         uebung.getDefi().add(satz);
-        assertEquals(Valid.VALID, uebung.getValid(existingUebungNameList));
-
-        existingUebungNameList.add("name");
-        assertEquals(Valid.NAME, uebung.getValid(existingUebungNameList));
+        assertEquals(UebungValid.VALID, uebung.getUebungValid());
 
     }
 }

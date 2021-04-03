@@ -2,10 +2,12 @@ package daten;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import main.Pump;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @XmlRootElement(name = "data")
 public class Datenbasis {
@@ -21,7 +23,7 @@ public class Datenbasis {
         this.programme = programme;
     }
 
-    private ObservableList<Workout> workouts = FXCollections.observableArrayList(Workout.makeExtractor());;
+    private ObservableList<Workout> workouts = FXCollections.observableArrayList(Workout.makeExtractor());
 
     @XmlElement(name = "workout")
     public ObservableList<Workout> getWorkouts() {
@@ -32,7 +34,7 @@ public class Datenbasis {
         this.workouts = workouts;
     }
 
-    private ObservableList<Uebung> uebungen = FXCollections.observableArrayList(Uebung.makeExtractor());;
+    private ObservableList<Uebung> uebungen = FXCollections.observableArrayList(Uebung.makeExtractor());
 
     @XmlElement(name = "uebung")
     public ObservableList<Uebung> getUebungen() {
@@ -54,7 +56,7 @@ public class Datenbasis {
         this.phase = phase;
     }
 
-    private ObservableList<LogEintrag> uebungLog = FXCollections.observableArrayList(LogEintrag.makeExtractor());;
+    private ObservableList<LogEintrag> uebungLog = FXCollections.observableArrayList(LogEintrag.makeExtractor());
 
     @XmlElement(name = "uebung_log")
     public ObservableList<LogEintrag> getUebungLog() {
@@ -65,7 +67,7 @@ public class Datenbasis {
         this.uebungLog = uebungLog;
     }
 
-    private ObservableList<LogEintrag> workoutLog = FXCollections.observableArrayList(LogEintrag.makeExtractor());;
+    private ObservableList<LogEintrag> workoutLog = FXCollections.observableArrayList(LogEintrag.makeExtractor());
 
     @XmlElement(name = "workout_log")
     public ObservableList<LogEintrag> getWorkoutLog() {
@@ -74,5 +76,135 @@ public class Datenbasis {
 
     public void setWorkoutLog(ObservableList<LogEintrag> programmLog) {
         this.workoutLog = programmLog;
+    }
+
+
+    public String uebungHinzufuegen(Uebung uebung, Uebung tmpUebung) {
+        if (tmpUebung.getUebungValid().getCode() == 0) {
+            if (uebungNameIsUnique(null, tmpUebung.getName())) {
+                uebung.aenderbareMemberUebertragen(tmpUebung.getAenderbareMember());
+                uebungen.add(uebung);
+                try {
+                    Datenbank.save(Pump.datenbasis);
+                } catch (Exception e) {
+                    return "Could not save data to database";
+                }
+                return null;
+            }
+            return "Name exists already!";
+        } else {
+            return tmpUebung.getUebungValid().getError();
+        }
+    }
+
+    public String uebungUpdaten(Uebung uebung, Uebung tmpUebung) {
+        if (tmpUebung.getUebungValid().getCode() == 0) {
+            if (uebungNameIsUnique(uebung.getName(), tmpUebung.getName())) {
+                uebung.aenderbareMemberUebertragen(tmpUebung.getAenderbareMember());
+                try {
+                    Datenbank.save(Pump.datenbasis);
+                } catch (Exception e) {
+                    return "Could not save data to database";
+                }
+                return null;
+            }
+            return "Name exists already!";
+        } else {
+            return tmpUebung.getUebungValid().getError();
+        }
+    }
+
+    public String workoutHinzufuegen(Workout workout, Workout tmpWorkout) {
+        if (tmpWorkout.getWorkoutValid().getCode() == 0) {
+            if (workoutNameIsUnique(null, tmpWorkout.getName())) {
+                workout.aenderbareMemberUebertragen(tmpWorkout.getAenderbareMember());
+                workouts.add(workout);
+                try {
+                    Datenbank.save(Pump.datenbasis);
+                } catch (Exception e) {
+                    return "Could not save data to database";
+                }
+                return null;
+            }
+            return "Name exists already!";
+        } else {
+            return tmpWorkout.getWorkoutValid().getError();
+        }
+    }
+
+    public String workoutUpdaten(Workout workout, Workout tmpWorkout) {
+        if (tmpWorkout.getWorkoutValid().getCode() == 0) {
+            if (workoutNameIsUnique(workout.getName(), tmpWorkout.getName())) {
+                workout.aenderbareMemberUebertragen(tmpWorkout.getAenderbareMember());
+                try {
+                    Datenbank.save(Pump.datenbasis);
+                } catch (Exception e) {
+                    return "Could not save data to database";
+                }
+                return null;
+            }
+            return "Name exists already!";
+        } else {
+            return tmpWorkout.getWorkoutValid().getError();
+        }
+    }
+
+    public String programmHinzufuegen(Programm programm, Programm tmpProgramm) {
+        if (tmpProgramm.getProgrammValid().getCode() == 0) {
+            if (programmNameIsUnique(null, tmpProgramm.getName())) {
+                programm.aenderbareMemberUebertragen(tmpProgramm.getAenderbareMember());
+                programme.add(programm);
+                try {
+                    Datenbank.save(Pump.datenbasis);
+                } catch (Exception e) {
+                    return "Could not save data to database";
+                }
+                return null;
+            }
+            return "Name exists already!";
+        } else {
+            return tmpProgramm.getProgrammValid().getError();
+        }
+    }
+
+    public String programmUpdaten(Programm programm, Programm tmpProgramm) {
+        if (tmpProgramm.getProgrammValid().getCode() == 0) {
+            if (programmNameIsUnique(programm.getName(), tmpProgramm.getName())) {
+                programm.aenderbareMemberUebertragen(tmpProgramm.getAenderbareMember());
+                try {
+                    Datenbank.save(Pump.datenbasis);
+                } catch (Exception e) {
+                    return "Could not save data to database";
+                }
+                return null;
+            }
+            return "Name exists already!";
+        } else {
+            return tmpProgramm.getProgrammValid().getError();
+        }
+    }
+
+    private boolean uebungNameIsUnique(String oldName, String name) {
+        List<String> nameList = uebungen.stream().map(UniqueNamed::getName).collect(Collectors.toList());
+        if (oldName != null) {
+            nameList.remove(oldName);
+        }
+        return nameList.stream().noneMatch(name::equalsIgnoreCase);
+    }
+
+    private boolean workoutNameIsUnique(String oldName, String name) {
+        List<String> nameList = workouts.stream().map(UniqueNamed::getName).collect(Collectors.toList());
+        if (oldName != null) {
+            nameList.remove(oldName);
+        }
+        return nameList.stream().noneMatch(name::equalsIgnoreCase);
+    }
+
+    private boolean programmNameIsUnique(String oldName, String name) {
+        List<String> nameList = programme.stream().map(UniqueNamed::getName).collect(Collectors.toList());
+        if (oldName != null) {
+            nameList.remove(oldName);
+        }
+        return nameList.stream().noneMatch(name::equalsIgnoreCase);
     }
 }

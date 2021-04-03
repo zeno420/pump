@@ -32,7 +32,7 @@ public class UebungController {
     private Uebung tmpUebung;
     private boolean isNew = false;
 
-    List<String> exisitngNamesList;
+    //List<String> exisitngNamesList;
 
     public void setUpBinding(Uebung uebung, Parent uebungDialog) {
         if (uebung != null) {
@@ -43,10 +43,10 @@ public class UebungController {
             isNew = true;
         }
 
-        exisitngNamesList = Pump.datenbasis.getUebungen().stream().map(Uebung::getName).collect(Collectors.toList());
+        /*exisitngNamesList = Pump.datenbasis.getUebungen().stream().map(Uebung::getName).collect(Collectors.toList());
         if (!isNew) {
             exisitngNamesList.remove(uebung.getName());
-        }
+        }*/
 
         tmpUebung = aktuelleUebung.makeTmpCopy();
 
@@ -75,7 +75,7 @@ public class UebungController {
         uebungBeschreibungField.textProperty().bindBidirectional(tmpUebung.beschreibungProperty());
     }
 
-    public void uebungSpeichern(ActionEvent event) {
+  /*  public void uebungSpeichern(ActionEvent event) {
         if (tmpUebung.getValid(exisitngNamesList).getCode() == 0) {
             aktuelleUebung.aenderbareMemberUebertragen(tmpUebung.getAenderbareMember());
             if (isNew) {
@@ -100,7 +100,31 @@ public class UebungController {
             a.setHeaderText(tmpUebung.getValid(exisitngNamesList).getError());
             a.showAndWait();
         }
+    }*/
+
+    public void uebungSpeichern(ActionEvent event) {
+        if (isNew) {
+            String error = Pump.datenbasis.uebungHinzufuegen(aktuelleUebung, tmpUebung);
+            speichernAlarmieren(error);
+        } else {
+            String error = Pump.datenbasis.uebungUpdaten(aktuelleUebung, tmpUebung);
+            speichernAlarmieren(error);
+        }
     }
+
+    private void speichernAlarmieren(String error) {
+        if (error == null) {
+            Stage stage = (Stage) uebungSpeichernBtn.getScene().getWindow();
+            stage.close();
+        } else {
+            Alert a = new Alert(Alert.AlertType.WARNING);
+
+            a.setTitle("Ungültige Eingabe oder Datenbankfehler");
+            a.setHeaderText(error);
+            a.showAndWait();
+        }
+    }
+
 
     public void uebungAbbrechen(ActionEvent event) {
         Stage stage = (Stage) uebungSpeichernBtn.getScene().getWindow();
