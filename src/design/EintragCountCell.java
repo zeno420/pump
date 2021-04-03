@@ -8,7 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 public class EintragCountCell extends ListCell<EintragCount> {
-   @Override
+    @Override
     public void updateItem(EintragCount eintragCount, boolean empty) {
         super.updateItem(eintragCount, empty);
         if (empty) {
