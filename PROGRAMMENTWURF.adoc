@@ -40,7 +40,15 @@ TODO
 TODO
 
 ===== Single-responsibility principle
-TODO
+Für meine Klasse Datenbank gab es mehrere Gründe sie zu bearbeiten. Ein Grund wäre eine Veränderung der Datenbasis, ein weiterer eine Änderung der Routine beim speichern oder laden der Daten.
+
+image::doc/screenshots/Datenbank_0.png[]
+
+Um nun das single-responsibility Prinzip umzusetzen wird die Logik der Datenbasis aus der Klasse extrahiert. Die Datenbank Klasse lädt und speichert nun lediglich eine Datenbasis. Die Struktur der Datenbasis befindet sich in der Klasse Datenbasis.
+
+image::doc/screenshots/Datenbank_1_1.png[]
+
+Hier der zugehörige link:https://github.com/zeno420/pump/commit/55e2463a3013b87e0f49d280a61823e3f4b1fb3b[commit].
 
 ===== Open–closed principle
 Ein Programm enthält veränderbare Member, wie den Namen, die Beschreibung und die Liste der Tage. Im ProgrammController wird beim drüken des Speicherknopfes die Funktion programmSpeichern() aufgerufen. Diese überprüft die Member des beim Start des Bearbeiten oder Erstellen eines Programms erzeugten temprären Programm auf korrektheit und überträgt die Werte der Memebr anschließend auf das tatsächliche Programm. (zeile 100 bis 102)
