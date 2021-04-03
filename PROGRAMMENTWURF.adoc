@@ -9,12 +9,10 @@ Advanced Software Engineering - Dokumentation
 Eigenständigkeitserklärung: Hiermit erkläre ich, dass ich die vorliegende Arbeit selbstständig verfasst und keine anderen als die angegebenen Quellen und Hilfsmittel benutzt habe. Alle sinngemäß und wörtlich übernommenen Textstellen aus fremden Quellen wurden kenntlich gemacht.
 
 == pump
-
 Mit der pump Desktopanwendung lassen sich einfach persönliche Trainingspläne erstellen. Das eigene Training lässt sich individuell gestalten, ohne dabei abhängig von Übungsangeboten von etablierten Anbietern zu sein.
 
 
 === Grundlagen
-
 In pump lassen sich Übungen erstellen. Diese bestehen aus einem Namen, einer optionalen Beschreibung and Sätzen für die Masse- und Definitionsphase. Sätze setzen sich aus der Wiederholungsanzahl und dem Arbeitsgewicht zusammen. Anschließend können Workouts erstellt werden, denen neben einem Namen und einer Beschreuíbung beliebig viele Übungen, auch einzelne mehrfach, hinzugefügt werden können. Um nun ein Trainingsplan, im folgenden Programm, zu kreieren werden diesem Tage hinzugefügt, die aus Workouts bestehen.
 
 Programme lassen sich anschließend ausführen. Während dem ausführen ist es möglich die Sätze der Übungen anzupassen, falls entsprechende Vortschritte dies erfordern. Außerdem lässt sich mit einem Knopfdruck einfach zwischen der Masse- und Definitionsphase wechseln. So müssen, die Phase betreffende, Gewichts- und Wiederholungsänderungen nicht direkt in den Sätzen immer wieder vorgenommen werden.
@@ -45,8 +43,24 @@ TODO
 TODO
 
 ===== Open–closed principle
-TODO programm speichern iterator
+Ein Programm enthält veränderbare Member, wie den Namen, die Beschreibung und die Liste der Tage. Im ProgrammController wird beim drüken des Speicherknopfes die Funktion programmSpeichern() aufgerufen. Diese überprüft die Member des beim Start des Bearbeiten oder Erstellen eines Programms erzeugten temprären Programm auf korrektheit und überträgt die Werte der Memebr anschließend auf das tatsächliche Programm. (zeile 100 bis 102)
 
+image::doc/screenshots/programmSpeichern_0.png[]
+
+Wollte man einem Programm ein weiteren Member hinzufügen, so müsste auch diese stelle im Code überarbeitet werden. Um das open-closed Prinzip hier zu unserem Vorteil zu nutzen wird in der Klasse Programm eine List erzeugt, welche alle änderbaren Member beinhaltet, also alle, auf die beim Erstellen oder Bearbeiten zugegriffen werden.
+
+image::doc/screenshots/programmSpeichern_1_3.png[]
+image::doc/screenshots/programmSpeichern_1_4.png[]
+
+Eine neue Funktion "aenderbareMemberUebertragen(List<Property> tmpAenderbareMember)" iteriert nun über all diese Felder und überträggt die Werte.
+
+image::doc/screenshots/programmSpeichern_1_2.png[]
+
+In "programmSpeichern()" muss nun nur noch die Funktion zum Übertragen aufgerufen werden.
+
+image::doc/screenshots/programmSpeichern_1_1.png[]
+
+Somit kann in Programm einfach die Liste der Member erweitert werden ohne programmSpeicher() im ProgrammController ändern zu müssen.
 
 ===== Liskov substitution principle
 TODO
