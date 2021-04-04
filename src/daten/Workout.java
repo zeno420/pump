@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public class Workout implements UniqueNamed {
+public class Workout implements UniqueNamed, EditableDomainObject {
 
     private StringProperty name = new SimpleStringProperty();
     private StringProperty beschreibung = new SimpleStringProperty();

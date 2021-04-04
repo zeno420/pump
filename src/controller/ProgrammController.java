@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class ProgrammController {
+public class ProgrammController implements SetupableController<Programm> {
 
     @FXML
     private TextField programmNameField;
@@ -40,6 +40,7 @@ public class ProgrammController {
     private Parent aktuellerProgrammDialog;
     private Programm tmpProgramm;
     private boolean isNew = false;
+
 
     public void setUpBindingEdit(Programm programm, Parent programmDialog) {
         if (programm != null) {
@@ -88,15 +89,15 @@ public class ProgrammController {
         indexLabel.setText(bla);
     }
 
-     public void programmSpeichern(ActionEvent event) {
-         String error;
-         if (isNew) {
-             error = Pump.datenbasis.programmHinzufuegen(aktuellesProgramm, tmpProgramm);
-         } else {
-             error = Pump.datenbasis.programmUpdaten(aktuellesProgramm, tmpProgramm);
-         }
-         speichernAlarmieren(error);
-     }
+    public void programmSpeichern(ActionEvent event) {
+        String error;
+        if (isNew) {
+            error = Pump.datenbasis.programmHinzufuegen(aktuellesProgramm, tmpProgramm);
+        } else {
+            error = Pump.datenbasis.programmUpdaten(aktuellesProgramm, tmpProgramm);
+        }
+        speichernAlarmieren(error);
+    }
 
     private void speichernAlarmieren(String error) {
         if (error == null) {
@@ -205,4 +206,5 @@ public class ProgrammController {
         Stage stage = (Stage) fertigBtn.getScene().getWindow();
         stage.close();
     }
+
 }

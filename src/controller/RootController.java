@@ -21,39 +21,14 @@ public class RootController {
 
     public void uebungErstellen(ActionEvent event) throws IOException {
 
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/uebung.fxml"));
-        Parent uebungDialog = fxmlloader.load();
-        uebungDialog.setUserData(fxmlloader.getController());
-
-        Stage stage = new Stage();
-
-        UebungController c = fxmlloader.getController();
-        c.setUpBinding(null, uebungDialog);
-
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Übung erstellen");
-        stage.setScene(new Scene(uebungDialog));
-
-        stage.show();
+        EditDialogBuilder<Uebung> editDialogBuilder = new EditDialogBuilder<>();
+        editDialogBuilder.setTitle("Übung erstellen").setFxmlResource("../fxml/uebung.fxml").build().show();
     }
 
     public void uebungBearbeiten(Uebung uebung) throws IOException {
 
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/uebung.fxml"));
-        Parent uebungDialog = fxmlloader.load();
-        uebungDialog.setUserData(fxmlloader.getController());
-
-        Stage stage = new Stage();
-
-        UebungController c = fxmlloader.getController();
-        c.setUpBinding(uebung, uebungDialog);
-
-
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Übung bearbeiten");
-        stage.setScene(new Scene(uebungDialog));
-
-        stage.show();
+        EditDialogBuilder<Uebung> editDialogBuilder = new EditDialogBuilder<>();
+        editDialogBuilder.setTitle("Übung erstellen").setFxmlResource("../fxml/uebung.fxml").setEditableObject(uebung).build().show();
     }
 
     public void uebungLoeschen(Uebung uebung) {
@@ -92,38 +67,14 @@ public class RootController {
 
     public void workoutErstellen(ActionEvent event) throws IOException {
 
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/workout.fxml"));
-        Parent workoutDialog = fxmlloader.load();
-
-        Stage stage = new Stage();
-
-        WorkoutController c = fxmlloader.getController();
-        c.setUpBinding(null, workoutDialog);
-
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Workout erstellen");
-        stage.setScene(new Scene(workoutDialog));
-
-        stage.show();
+        EditDialogBuilder<Workout> editDialogBuilder = new EditDialogBuilder<>();
+        editDialogBuilder.setTitle("Workout erstellen").setFxmlResource("../fxml/workout.fxml").build().show();
     }
 
     public void workoutBearbeiten(Workout workout) throws IOException {
 
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/workout.fxml"));
-        Parent workoutDialog = fxmlloader.load();
-        workoutDialog.setUserData(fxmlloader.getController());
-
-        Stage stage = new Stage();
-
-        WorkoutController c = fxmlloader.getController();
-        c.setUpBinding(workout, workoutDialog);
-
-
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Workout bearbeiten");
-        stage.setScene(new Scene(workoutDialog));
-
-        stage.show();
+        EditDialogBuilder<Workout> editDialogBuilder = new EditDialogBuilder<>();
+        editDialogBuilder.setTitle("Workout erstellen").setFxmlResource("../fxml/workout.fxml").setEditableObject(workout).build().show();
     }
 
     public void workoutLoeschen(Workout workout) {
@@ -159,29 +110,16 @@ public class RootController {
         }
     }
 
-    private Optional<ButtonType> customizeDeleteAlert(StringBuilder warnung, Alert a) {
-        a.setContentText(warnung.toString());
-        Button lb = (Button) a.getDialogPane().lookupButton(ButtonType.OK);
-        lb.setText("löschen");
-        lb.setDefaultButton(false);
-        Button cb = (Button) a.getDialogPane().lookupButton(ButtonType.CANCEL);
-        cb.setText("abbrechen");
-        cb.setDefaultButton(true);
-
-        Optional<ButtonType> result = a.showAndWait();
-        return result;
-    }
-
     public void programmErstellen(ActionEvent event) throws IOException {
 
-        EditDialogBuilder editDialogBuilder = new EditDialogBuilder();
+        EditDialogBuilder<Programm> editDialogBuilder = new EditDialogBuilder<>();
         editDialogBuilder.setTitle("Programm erstellen").setFxmlResource("../fxml/programm.fxml").build().show();
     }
 
     public void programmBearbeiten(Programm programm) throws IOException {
 
-        EditDialogBuilder editDialogBuilder = new EditDialogBuilder();
-        editDialogBuilder.setTitle("Programm bearbeiten").setFxmlResource("../fxml/programm.fxml").setProgramm(programm).build().show();
+        EditDialogBuilder<Programm> editDialogBuilder = new EditDialogBuilder<>();
+        editDialogBuilder.setTitle("Programm bearbeiten").setFxmlResource("../fxml/programm.fxml").setEditableObject(programm).build().show();
     }
 
     public void programmLoeschen(Programm programm) {
@@ -236,4 +174,16 @@ public class RootController {
         stage.show();
     }
 
+    private Optional<ButtonType> customizeDeleteAlert(StringBuilder warnung, Alert a) {
+        a.setContentText(warnung.toString());
+        Button lb = (Button) a.getDialogPane().lookupButton(ButtonType.OK);
+        lb.setText("löschen");
+        lb.setDefaultButton(false);
+        Button cb = (Button) a.getDialogPane().lookupButton(ButtonType.CANCEL);
+        cb.setText("abbrechen");
+        cb.setDefaultButton(true);
+
+        Optional<ButtonType> result = a.showAndWait();
+        return result;
+    }
 }

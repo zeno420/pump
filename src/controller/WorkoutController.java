@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class WorkoutController {
+public class WorkoutController implements SetupableController<Workout> {
 
     private Workout aktuellesWorkout;
     private Parent aktuellerWorkoutDialog;
@@ -41,9 +41,7 @@ public class WorkoutController {
     @FXML
     private Button fertigBtn;
 
-    List<String> exisitngNamesList;
-
-    public void setUpBinding(Workout workout, Parent workoutDialog) {
+    public void setUpBindingEdit(Workout workout, Parent workoutDialog) {
 
         if (workout != null) {
             aktuellesWorkout = workout;

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Uebung implements UniqueNamed {
+public class Uebung implements UniqueNamed, EditableDomainObject {
 
     private StringProperty name = new SimpleStringProperty();
     private StringProperty beschreibung = new SimpleStringProperty();

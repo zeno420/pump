@@ -1,6 +1,7 @@
 package controller;
 
 import daten.Datenbank;
+import daten.Programm;
 import daten.Satz;
 import daten.Uebung;
 import design.SatzCell;
@@ -19,7 +20,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UebungController {
+public class UebungController implements SetupableController<Uebung>  {
 
     @FXML
     private TextField uebungNameField;
@@ -32,7 +33,7 @@ public class UebungController {
     private Uebung tmpUebung;
     private boolean isNew = false;
 
-    public void setUpBinding(Uebung uebung, Parent uebungDialog) {
+    public void setUpBindingEdit(Uebung uebung, Parent uebungDialog) {
         if (uebung != null) {
             aktuelleUebung = uebung;
             isNew = false;

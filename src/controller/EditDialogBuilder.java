@@ -1,6 +1,6 @@
 package controller;
 
-import daten.Programm;
+import daten.EditableDomainObject;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,39 +9,39 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class EditDialogBuilder {
+public class EditDialogBuilder<T extends EditableDomainObject> {
 
     private String fxmlResource;
-    private Programm programm;
+    private T editableObject;
     private String title;
 
     public EditDialogBuilder() {
     }
 
-    public EditDialogBuilder setFxmlResource(String fxmlResource) {
+    public EditDialogBuilder<T> setFxmlResource(String fxmlResource) {
         this.fxmlResource = fxmlResource;
         return this;
     }
 
-    public EditDialogBuilder setProgramm(Programm programm) {
-        this.programm = programm;
+    public EditDialogBuilder<T> setEditableObject(T object) {
+        this.editableObject = object;
         return this;
     }
 
-    public EditDialogBuilder setTitle(String title) {
+    public EditDialogBuilder<T> setTitle(String title) {
         this.title = title;
         return this;
     }
 
-    public Stage build() throws IOException {
+    public <TC extends SetupableController<T>> Stage build() throws IOException {
 
         FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource(this.fxmlResource));
         Parent parentDialog = fxmlloader.load();
 
         Stage stage = new Stage();
 
-        ProgrammController c = fxmlloader.getController();
-        c.setUpBindingEdit(this.programm, parentDialog);
+        TC c = fxmlloader.getController();
+        c.setUpBindingEdit(this.editableObject, parentDialog);
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle(this.title);
