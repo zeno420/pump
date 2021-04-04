@@ -62,11 +62,7 @@ public class SatzCell extends ListCell<Satz> {
                     } else {
                         uc = (UebungController) ((Map) getScene().getRoot().getUserData()).get("uebungController");
                     }
-                    try {
-                        uc.satzLoeschen(satz);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    uc.satzLoeschen(satz);
                 }
             });
 
