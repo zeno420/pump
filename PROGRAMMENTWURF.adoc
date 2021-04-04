@@ -174,7 +174,7 @@ Diese Funktin wird nun an den Stellen aufgerufen, wo vorher gleicher Code stand.
 image::doc/screenshots/DRYDeleteAlert_1_1.png[]
 image::doc/screenshots/DRYDeleteAlert_1_2.png[]
 
-Wiederholungen von Code ziehen sich oft durch das ganze Projekt. Vorangegangenes Beispiel war nur ein Fall von vielen. Hier der zugehörige link:https://github.com/zeno420/pump/commit/ba45d2b46b9a109049c786512d07fc08af8861db[commit].
+Wiederholungen von Code ziehen sich oft durch das ganze Projekt. Vorangegangenes Beispiel war nur ein Fall von vielen. Im Zuge des zugehörigen link:https://github.com/zeno420/pump/commit/ba45d2b46b9a109049c786512d07fc08af8861db[commits] wurde die Anzahl der Codezeilen von 2256 auf 2220 verringert.
 
 
 === Entwurfsmuster
