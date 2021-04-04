@@ -151,7 +151,30 @@ Um Listen von EintragCount nach weiteren Kriterien zu sortieren muss nun ledigli
 
 
 ==== DRY
-TODO
+TODO bildüberschriften "Klasse.funktion()"
+
+Oft integrieren IDEs statische Codeanalyse. Bei IntelliJ IDEA ist dies der Fall. Diese Analyse zeigt einem einige Stellen auf, an denen duplicated Code existiert. Dies ist in dem nachfogenden Bild in Zeile 82, als eine graue Unterkringelung, zu sehen.
+
+image::doc/screenshots/DRYDeleteAlert_0_1.png[]
+
+Der Code wiederholt sich ab Zeile 158.
+
+image::doc/screenshots/DRYDeleteAlert_0_2.png[]
+
+In manchen Fällen wird sogar eine automatische Extraktion des Codestückes geboten.
+
+image::doc/screenshots/DRYDeleteAlert_0_3.png[]
+
+Das Codestück wirde in die customizeDeleteAlert() Funktion ausgelagert und die variablen Teile übergeben.
+
+image::doc/screenshots/DRYDeleteAlert_1_3.png[]
+
+Diese Funktin wird nun an den Stellen aufgerufen, wo vorher gleicher Code stand.
+
+image::doc/screenshots/DRYDeleteAlert_1_1.png[]
+image::doc/screenshots/DRYDeleteAlert_1_2.png[]
+
+Wiederholungen von Code ziehen sich oft durch das ganze Projekt. Vorangegangenes Beispiel war nur ein Fall von vielen. Hier der zugehörige link:https://github.com/zeno420/pump/commit/ba45d2b46b9a109049c786512d07fc08af8861db[commit].
 
 
 === Entwurfsmuster
