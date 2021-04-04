@@ -55,9 +55,9 @@ public class Uebung implements UniqueNamed {
     }
 
     public void aenderbareMemberUebertragen(List<Property> tmpAenderbareMember) {
+
         for (int i = 0; i < tmpAenderbareMember.size(); i++) {
             aenderbareMember.get(i).setValue(tmpAenderbareMember.get(i).getValue());
-
         }
     }
 

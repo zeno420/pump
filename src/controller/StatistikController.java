@@ -75,17 +75,12 @@ public class StatistikController {
         WorkoutLogsByDate.addAll(Statistik.getAllDays(Pump.datenbasis.getWorkoutLog()));
         UebungLogsByDate.addAll(Statistik.getAllDays(Pump.datenbasis.getUebungLog()));
 
-        //Map<String, Object> map = Statistik.leertageGenerieren(WorkoutLogsByDate, UebungLogsByDate);
-
-       // LeerTage = (ArrayList) map.get("leertageList");
-
         Stage stage = new Stage();
         stage.setTitle("Zeitstrahl");
 
         final CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Tag");
 
-        //TODO major ticks ganze schritte
         final NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Anzahl");
         yAxis.setSide(Side.RIGHT);
@@ -125,7 +120,8 @@ public class StatistikController {
         ScrollPane root = new ScrollPane(barChart);
         root.setMinSize(720, 1080);
 
-        if (WorkoutLogsByDate.size() > UebungLogsByDate.size()) barChart.setMinSize((long) WorkoutLogsByDate.size() * 16, root.getMinHeight() - 100);
+        if (WorkoutLogsByDate.size() > UebungLogsByDate.size())
+            barChart.setMinSize((long) WorkoutLogsByDate.size() * 16, root.getMinHeight() - 100);
         barChart.setMinSize((long) UebungLogsByDate.size() * 16, root.getMinHeight() - 100);
 
         root.setHvalue(root.getHmax());

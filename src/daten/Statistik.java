@@ -1,7 +1,5 @@
 package daten;
 
-import javafx.collections.ObservableList;
-
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -11,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static daten.EintragCount.frueher;
+import static daten.EintragCount.keyLexikographischKleiner;
 
 public class Statistik {
 
@@ -66,7 +64,7 @@ public class Statistik {
         //frühesten tag ermitteln
         EintragCount fruehsterTag = new EintragCount(heute.format(formatter), 0);
         for (EintragCount e : list) {
-            fruehsterTag = frueher(fruehsterTag, e);
+            fruehsterTag = keyLexikographischKleiner(fruehsterTag, e);
         }
 
         ZonedDateTime fruehestesDate = convertToZDT(fruehsterTag.getKey());

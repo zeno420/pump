@@ -131,7 +131,7 @@ public class UebungController {
         stage.show();
     }
 
-    public void satzLoeschen(Satz satz) throws IOException {
+    public void satzLoeschen(Satz satz) {
         if (satz.isMasse()) {
             tmpUebung.getMasse().remove(satz);
         } else {
