@@ -128,6 +128,9 @@ image::doc/screenshots/LowCoupling_1_3.png[]
 
 Hier der zugehörige link:https://github.com/zeno420/pump/commit/e28d6914da42028e8ae67a6eacfa08adb5d58ee4[commit].
 
+===== High Cohesion
+
+
 
 ==== DRY
 TODO
