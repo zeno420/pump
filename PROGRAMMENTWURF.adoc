@@ -129,7 +129,25 @@ image::doc/screenshots/LowCoupling_1_3.png[]
 Hier der zugehörige link:https://github.com/zeno420/pump/commit/e28d6914da42028e8ae67a6eacfa08adb5d58ee4[commit].
 
 ===== High Cohesion
+TODO bildüberschriften "Klasse.funktion()"
 
+Um die Kohäsion zu steigern soll beispielsweise vermieden werden, einer Domainklasse, semantisch zu weit enfernten Code hinzuzufügen. In der Klasse EintragCount befand sich die Funktion keyLexikographischKleiner(),
+
+image::doc/screenshots/HighCohesion_0_1.png[]
+
+die in der Satistik Klasse dazu verwendet wurde, den Eintrag mit dem frühsten Datum zu ermitteln.
+
+image::doc/screenshots/HighCohesion_0_2.png[]
+
+Diese Funktionalität wird in einen Comparator namens EintragCountKeyComparator ausgelagert.
+
+image::doc/screenshots/HighCohesion_1_2.png[]
+
+Mit diesem Comparator wird anschließend die Liste Sortiert und auf das Element mit dem Index 0 zugegriffen.
+
+image::doc/screenshots/HighCohesion_1_1.png[]
+
+Um Listen von EintragCount nach weiteren Kriterien zu sortieren muss nun lediglich ein entsprechender Comparator hinzugefügt werden. Hier der zugehörige link:https://github.com/zeno420/pump/commit/540f6c38374af922ae780dac809f66685cfa15e6[commit].
 
 
 ==== DRY
