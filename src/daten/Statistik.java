@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static daten.EintragCount.keyLexikographischKleiner;
-
 public class Statistik {
 
 
@@ -61,11 +59,8 @@ public class Statistik {
 
         ZonedDateTime heute = ZonedDateTime.now();
 
-        //frühesten tag ermitteln
-        EintragCount fruehsterTag = new EintragCount(heute.format(formatter), 0);
-        for (EintragCount e : list) {
-            fruehsterTag = keyLexikographischKleiner(fruehsterTag, e);
-        }
+        list.sort(new EintragCountKeyComparator());
+        EintragCount fruehsterTag = list.get(0);
 
         ZonedDateTime fruehestesDate = convertToZDT(fruehsterTag.getKey());
 

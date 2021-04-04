@@ -17,11 +17,6 @@ public class EintragCount {
         return count;
     }
 
-    public static EintragCount keyLexikographischKleiner(EintragCount eintragCount1, EintragCount eintragCount2) {
-        if (Integer.parseInt(eintragCount1.getKey()) > Integer.parseInt(eintragCount2.getKey())) return eintragCount2;
-        return eintragCount1;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof EintragCount)) {
