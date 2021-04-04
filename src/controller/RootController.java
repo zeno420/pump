@@ -66,10 +66,10 @@ public class RootController {
         for (Workout w : workoutList) {
             if (w.getUebungen().contains(uebung)) {
                 containingWorkoutList.add(w);
-                if (w.getUebungen().stream().allMatch(uebung::equals)){
+                if (w.getUebungen().stream().allMatch(uebung::equals)) {
                     emptyAfterDeletionWorkoutList.add(w);
                     warnung.append(w.getName()).append(": will be empty after deleting this Übung.");
-                } else{
+                } else {
                     warnung.append(w.getName()).append(": contains this Übung.");
                 }
                 warnung.append("\n");
@@ -174,37 +174,14 @@ public class RootController {
 
     public void programmErstellen(ActionEvent event) throws IOException {
 
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/programm.fxml"));
-        Parent programmDialog = fxmlloader.load();
-
-        Stage stage = new Stage();
-
-        ProgrammController c = fxmlloader.getController();
-        c.setUpBindingEdit(null, programmDialog);
-
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Programm erstellen");
-        stage.setScene(new Scene(programmDialog));
-
-        stage.show();
+        EditDialogBuilder editDialogBuilder = new EditDialogBuilder();
+        editDialogBuilder.setTitle("Programm erstellen").setFxmlResource("../fxml/programm.fxml").build().show();
     }
 
     public void programmBearbeiten(Programm programm) throws IOException {
 
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/programm.fxml"));
-        Parent programmDialog = fxmlloader.load();
-        programmDialog.setUserData(fxmlloader.getController());
-
-        Stage stage = new Stage();
-
-        ProgrammController c = fxmlloader.getController();
-        c.setUpBindingEdit(programm, programmDialog);
-
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Programm bearbeiten");
-        stage.setScene(new Scene(programmDialog));
-
-        stage.show();
+        EditDialogBuilder editDialogBuilder = new EditDialogBuilder();
+        editDialogBuilder.setTitle("Programm bearbeiten").setFxmlResource("../fxml/programm.fxml").setProgramm(programm).build().show();
     }
 
     public void programmLoeschen(Programm programm) {
