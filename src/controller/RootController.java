@@ -66,10 +66,10 @@ public class RootController {
         for (Workout w : workoutList) {
             if (w.getUebungen().contains(uebung)) {
                 containingWorkoutList.add(w);
-                if (w.getUebungen().size() == 1) {
+                if (w.getUebungen().stream().allMatch(uebung::equals)){
                     emptyAfterDeletionWorkoutList.add(w);
                     warnung.append(w.getName()).append(": will be empty after deleting this Übung.");
-                } else {
+                } else{
                     warnung.append(w.getName()).append(": contains this Übung.");
                 }
                 warnung.append("\n");
@@ -79,20 +79,13 @@ public class RootController {
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         a.setTitle("Achtung: wirklich löschen?");
         a.setHeaderText(emptyAfterDeletionWorkoutList.size() + " Workouts enthalten NUR diese Übung, " + (containingWorkoutList.size() - emptyAfterDeletionWorkoutList.size()) + " weitere Workouts enthalten diese Übung.");
-        a.setContentText(warnung.toString());
-        Button lb = (Button) a.getDialogPane().lookupButton(ButtonType.OK);
-        lb.setText("löschen");
-        lb.setDefaultButton(false);
-        Button cb = (Button) a.getDialogPane().lookupButton(ButtonType.CANCEL);
-        cb.setText("abbrechen");
-        cb.setDefaultButton(true);
-
-
-        Optional<ButtonType> result = a.showAndWait();
+        Optional<ButtonType> result = customizeDeleteAlert(warnung, a);
         if (result.get() == ButtonType.OK) {
             Pump.datenbasis.getUebungen().remove(uebung);
             for (Workout w : containingWorkoutList) {
-                w.getUebungen().remove(uebung);
+                while (w.getUebungen().contains(uebung)) {
+                    w.getUebungen().remove(uebung);
+                }
             }
         }
     }
@@ -155,6 +148,18 @@ public class RootController {
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         a.setTitle("Achtung: wirklich löschen?");
         a.setHeaderText(containingProgrammList.size() + " Programme enthalten dieses Workout an " + containingTagList.size() + " Tagen:");
+        Optional<ButtonType> result = customizeDeleteAlert(warnung, a);
+        if (result.get() == ButtonType.OK) {
+            Pump.datenbasis.getWorkouts().remove(workout);
+            for (Tag t : containingTagList) {
+                while (t.getWorkouts().contains(workout)) {
+                    t.getWorkouts().remove(workout);
+                }
+            }
+        }
+    }
+
+    private Optional<ButtonType> customizeDeleteAlert(StringBuilder warnung, Alert a) {
         a.setContentText(warnung.toString());
         Button lb = (Button) a.getDialogPane().lookupButton(ButtonType.OK);
         lb.setText("löschen");
@@ -163,14 +168,8 @@ public class RootController {
         cb.setText("abbrechen");
         cb.setDefaultButton(true);
 
-
         Optional<ButtonType> result = a.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            Pump.datenbasis.getWorkouts().remove(workout);
-            for (Tag t : containingTagList) {
-                t.getWorkouts().remove(workout);
-            }
-        }
+        return result;
     }
 
     public void programmErstellen(ActionEvent event) throws IOException {
@@ -199,7 +198,6 @@ public class RootController {
         Stage stage = new Stage();
 
         ProgrammController c = fxmlloader.getController();
-        //Programm programm = (Programm) ((ListView)event.getSource()).getSelectionModel().getSelectedItem();
         c.setUpBindingEdit(programm, programmDialog);
 
         stage.initModality(Modality.APPLICATION_MODAL);

@@ -21,7 +21,7 @@ public class EintragCount {
     public boolean equals(Object o) {
         if (!(o instanceof EintragCount)) {
             return false;
-        } else if (this == (EintragCount) o) {
+        } else if (this == o) {
             return true;
         } else return this.key.equalsIgnoreCase(((EintragCount) o).getKey());
     }

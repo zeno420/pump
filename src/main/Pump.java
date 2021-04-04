@@ -1,5 +1,6 @@
 package main;
 
+import controller.SpeicherAlert;
 import daten.*;
 import design.*;
 import javafx.application.Application;
@@ -27,12 +28,7 @@ public class Pump extends Application {
             Datenbank.init();
             datenbasis = Datenbank.load();
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Could not load data");
-            // alert.setContentText("Could not load data from file:\n" + file.getPath());
-            e.printStackTrace(System.out);
-            alert.showAndWait();
+            new SpeicherAlert(Alert.AlertType.ERROR, "Could not load data");
         }
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/root.fxml"));

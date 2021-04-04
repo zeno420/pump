@@ -77,12 +77,7 @@ public class TagController {
             try {
                 Datenbank.save(Pump.datenbasis);
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Could not save data");
-                //alert.setContentText();
-                e.printStackTrace(System.out);
-                alert.showAndWait();
+                new SpeicherAlert(Alert.AlertType.ERROR, "Could not save Data!");
             }
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);

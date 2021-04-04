@@ -69,13 +69,13 @@ public class UebungController {
     }
 
     public void uebungSpeichern(ActionEvent event) {
+        String error;
         if (isNew) {
-            String error = Pump.datenbasis.uebungHinzufuegen(aktuelleUebung, tmpUebung);
-            speichernAlarmieren(error);
+            error = Pump.datenbasis.uebungHinzufuegen(aktuelleUebung, tmpUebung);
         } else {
-            String error = Pump.datenbasis.uebungUpdaten(aktuelleUebung, tmpUebung);
-            speichernAlarmieren(error);
+            error = Pump.datenbasis.uebungUpdaten(aktuelleUebung, tmpUebung);
         }
+        speichernAlarmieren(error);
     }
 
     private void speichernAlarmieren(String error) {
@@ -83,11 +83,7 @@ public class UebungController {
             Stage stage = (Stage) uebungSpeichernBtn.getScene().getWindow();
             stage.close();
         } else {
-            Alert a = new Alert(Alert.AlertType.WARNING);
-
-            a.setTitle("Ungültige Eingabe oder Datenbankfehler");
-            a.setHeaderText(error);
-            a.showAndWait();
+            new SpeicherAlert(Alert.AlertType.WARNING, error);
         }
     }
 

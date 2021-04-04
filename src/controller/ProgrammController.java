@@ -41,8 +41,6 @@ public class ProgrammController {
     private Programm tmpProgramm;
     private boolean isNew = false;
 
-    List<String> exisitngNamesList;
-
     public void setUpBindingEdit(Programm programm, Parent programmDialog) {
         if (programm != null) {
             aktuellesProgramm = programm;
@@ -91,25 +89,21 @@ public class ProgrammController {
     }
 
      public void programmSpeichern(ActionEvent event) {
-        if (isNew) {
-            String error = Pump.datenbasis.programmHinzufuegen(aktuellesProgramm, tmpProgramm);
-            speichernAlarmieren(error);
-        } else {
-            String error = Pump.datenbasis.programmUpdaten(aktuellesProgramm, tmpProgramm);
-            speichernAlarmieren(error);
-        }
-    }
+         String error;
+         if (isNew) {
+             error = Pump.datenbasis.programmHinzufuegen(aktuellesProgramm, tmpProgramm);
+         } else {
+             error = Pump.datenbasis.programmUpdaten(aktuellesProgramm, tmpProgramm);
+         }
+         speichernAlarmieren(error);
+     }
 
     private void speichernAlarmieren(String error) {
         if (error == null) {
             Stage stage = (Stage) programmSpeichernBtn.getScene().getWindow();
             stage.close();
         } else {
-            Alert a = new Alert(Alert.AlertType.WARNING);
-
-            a.setTitle("Ungültige Eingabe oder Datenbankfehler");
-            a.setHeaderText(error);
-            a.showAndWait();
+            new SpeicherAlert(Alert.AlertType.WARNING, error);
         }
     }
 
@@ -179,7 +173,7 @@ public class ProgrammController {
         FXMLLoader uebungFxmlloader = new FXMLLoader(getClass().getResource("../fxml/uebung.fxml"));
         Parent uebungDialog = uebungFxmlloader.load();
 
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         map.put("workoutController", workoutFxmlloader.getController());
         map.put("uebungController", uebungFxmlloader.getController());
 

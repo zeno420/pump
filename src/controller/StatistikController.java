@@ -101,21 +101,16 @@ public class StatistikController {
             uSeries.getData().add(new XYChart.Data(eintragCount.getKey(), eintragCount.getCount()));
         }
 
-        Collections.sort(wSeries.getData(), new Comparator<XYChart.Data>() {
+        Comparator XYChartComaparator = new Comparator<XYChart.Data>() {
 
             @Override
             public int compare(XYChart.Data o1, XYChart.Data o2) {
                 return new BigDecimal((String) o1.getXValue()).compareTo(new BigDecimal((String) o2.getXValue()));
             }
-        });
-        Collections.sort(uSeries.getData(), new Comparator<XYChart.Data>() {
+        };
 
-            @Override
-            public int compare(XYChart.Data o1, XYChart.Data o2) {
-                return new BigDecimal((String) o1.getXValue()).compareTo(new BigDecimal((String) o2.getXValue()));
-            }
-        });
-
+        wSeries.getData().sort(XYChartComaparator);
+        uSeries.getData().sort(XYChartComaparator);
 
         ScrollPane root = new ScrollPane(barChart);
         root.setMinSize(720, 1080);

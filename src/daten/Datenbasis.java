@@ -81,7 +81,7 @@ public class Datenbasis {
 
     public String uebungHinzufuegen(Uebung uebung, Uebung tmpUebung) {
         if (tmpUebung.getUebungValid().getCode() == 0) {
-            if (uebungNameIsUnique(null, tmpUebung.getName())) {
+            if (nameIsUnique(null, tmpUebung.getName(), uebungen)) {
                 uebung.aenderbareMemberUebertragen(tmpUebung.getAenderbareMember());
                 uebungen.add(uebung);
                 try {
@@ -99,7 +99,7 @@ public class Datenbasis {
 
     public String uebungUpdaten(Uebung uebung, Uebung tmpUebung) {
         if (tmpUebung.getUebungValid().getCode() == 0) {
-            if (uebungNameIsUnique(uebung.getName(), tmpUebung.getName())) {
+            if (nameIsUnique(uebung.getName(), tmpUebung.getName(), uebungen)) {
                 uebung.aenderbareMemberUebertragen(tmpUebung.getAenderbareMember());
                 try {
                     Datenbank.save(Pump.datenbasis);
@@ -116,7 +116,7 @@ public class Datenbasis {
 
     public String workoutHinzufuegen(Workout workout, Workout tmpWorkout) {
         if (tmpWorkout.getWorkoutValid().getCode() == 0) {
-            if (workoutNameIsUnique(null, tmpWorkout.getName())) {
+            if (nameIsUnique(null, tmpWorkout.getName(), workouts)) {
                 workout.aenderbareMemberUebertragen(tmpWorkout.getAenderbareMember());
                 workouts.add(workout);
                 try {
@@ -134,7 +134,7 @@ public class Datenbasis {
 
     public String workoutUpdaten(Workout workout, Workout tmpWorkout) {
         if (tmpWorkout.getWorkoutValid().getCode() == 0) {
-            if (workoutNameIsUnique(workout.getName(), tmpWorkout.getName())) {
+            if (nameIsUnique(workout.getName(), tmpWorkout.getName(), workouts)) {
                 workout.aenderbareMemberUebertragen(tmpWorkout.getAenderbareMember());
                 try {
                     Datenbank.save(Pump.datenbasis);
@@ -151,7 +151,7 @@ public class Datenbasis {
 
     public String programmHinzufuegen(Programm programm, Programm tmpProgramm) {
         if (tmpProgramm.getProgrammValid().getCode() == 0) {
-            if (programmNameIsUnique(null, tmpProgramm.getName())) {
+            if (nameIsUnique(null, tmpProgramm.getName(), programme)) {
                 programm.aenderbareMemberUebertragen(tmpProgramm.getAenderbareMember());
                 programme.add(programm);
                 try {
@@ -169,7 +169,7 @@ public class Datenbasis {
 
     public String programmUpdaten(Programm programm, Programm tmpProgramm) {
         if (tmpProgramm.getProgrammValid().getCode() == 0) {
-            if (programmNameIsUnique(programm.getName(), tmpProgramm.getName())) {
+            if (nameIsUnique(programm.getName(), tmpProgramm.getName(), programme)) {
                 programm.aenderbareMemberUebertragen(tmpProgramm.getAenderbareMember());
                 try {
                     Datenbank.save(Pump.datenbasis);
@@ -184,24 +184,8 @@ public class Datenbasis {
         }
     }
 
-    private boolean uebungNameIsUnique(String oldName, String name) {
-        List<String> nameList = uebungen.stream().map(UniqueNamed::getName).collect(Collectors.toList());
-        if (oldName != null) {
-            nameList.remove(oldName);
-        }
-        return nameList.stream().noneMatch(name::equalsIgnoreCase);
-    }
-
-    private boolean workoutNameIsUnique(String oldName, String name) {
-        List<String> nameList = workouts.stream().map(UniqueNamed::getName).collect(Collectors.toList());
-        if (oldName != null) {
-            nameList.remove(oldName);
-        }
-        return nameList.stream().noneMatch(name::equalsIgnoreCase);
-    }
-
-    private boolean programmNameIsUnique(String oldName, String name) {
-        List<String> nameList = programme.stream().map(UniqueNamed::getName).collect(Collectors.toList());
+    private boolean nameIsUnique(String oldName, String name, List<? extends UniqueNamed> list) {
+        List<String> nameList = list.stream().map(UniqueNamed::getName).collect(Collectors.toList());
         if (oldName != null) {
             nameList.remove(oldName);
         }

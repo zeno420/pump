@@ -103,13 +103,13 @@ public class WorkoutController {
     }
 
     public void workoutSpeichern(ActionEvent event) {
+        String error;
         if (isNew) {
-            String error = Pump.datenbasis.workoutHinzufuegen(aktuellesWorkout, tmpWorkout);
-            speichernAlarmieren(error);
+            error = Pump.datenbasis.workoutHinzufuegen(aktuellesWorkout, tmpWorkout);
         } else {
-            String error = Pump.datenbasis.workoutUpdaten(aktuellesWorkout, tmpWorkout);
-            speichernAlarmieren(error);
+            error = Pump.datenbasis.workoutUpdaten(aktuellesWorkout, tmpWorkout);
         }
+        speichernAlarmieren(error);
     }
 
     private void speichernAlarmieren(String error) {
@@ -117,11 +117,7 @@ public class WorkoutController {
             Stage stage = (Stage) workouSpeichernBtn.getScene().getWindow();
             stage.close();
         } else {
-            Alert a = new Alert(Alert.AlertType.WARNING);
-
-            a.setTitle("Ungültige Eingabe oder Datenbankfehler");
-            a.setHeaderText(error);
-            a.showAndWait();
+            new SpeicherAlert(Alert.AlertType.WARNING, error);
         }
     }
 
