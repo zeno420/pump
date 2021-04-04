@@ -178,7 +178,29 @@ Wiederholungen von Code ziehen sich oft durch das ganze Projekt. Vorangegangenes
 
 
 === Entwurfsmuster
-==== Dependency Injection
+TODO
+
+==== Builder Pattern
+TODO bildüberschriften "Klasse.funktion()"
+
+Möchte man in der Satrtansicht der Anwendung ein neues Prgramm, Workout oder eine nue Übung erstellen, oder ein Bestehendes Objekt bearbeiten, wird bei Dürcken des entsprenden Knopfes, im RootController die zugehörige Funktion aufgerufen. diese sechs verschiedenen Funktionen folgen immer dem gleichen Schema: Ein neuer Dialog wird aus einer fxml Resource erstellt, ein Name für diesen Dialog gewählt und der für den Dialog zukünftig zuständige Controller mit dem zu bearbeitenden Objekt initialisiert (setUpBingingEdit()). Vereinfacht gesagt, es wird immer der Editierdialog *gebaut*. Hier bietet es sich an ein Entwurfsmuster vom Typ Erzeuger anzuwenden. Genauer, das Builder Pattern.
+
+Um aus den, als Beispiel dienenden, Funktionen programmBearbeiten() und programmErstellen() den, zusätzlich noch DRY verletzenden, Dialogaufbaucode zu entfernen wird eine neue Klasse, EditDialogBuilder, geschrieben. Diese besitzt Member, die den zuvor zwischen programmBearbeiten() und programmErstellen() unterschiedlichen Aufrufen entsprechen. Für diese Member gibt es Setter, die den Wert nicht nur setzen, sondern auch *this*, also den EditDialogBuilder wieder zurrückgeben. Damit wird erreicht, dass die "konfiguration" des Builders in einem verketteten Statement erfolgen kann. Abschließend wird die funktion build() aufgerufen, die den Bau des Dialogs vornimmt.
+
+Da für Workout und Übung die Routine nahezu identisch ist, wird jetzt der EditDialogBuilder noch generisch gemacht. Dies bedarf die Hilfsinterfaces EditableDomainObject, welches von Programm, Workout und Übung implementiert wird und SetupableController, welches von Programm-, Workout, und Übungscontroller implementiert wird.
+
+Zuvor hängt der RootController, aus dem die erstellen und bearbeiten Funktionen aufgerufen werden,  noch von der setUpBingingEdit() Funktion des Programm-, Workout, und Übungscontrollers ab.
+
+image::doc/classdiagrams/Package_controller_builder_0.png[]
+image::doc/classdiagrams/Package_daten_builder_0.png[]
+
+Nach der Implementierung des EditDialogBuilders hängt der Rootcontroller nurnoch von dem Builder ab. Der Builder wiederrum von der setUpBingingEdit() Funktion eines SetupableControllers. EditableDomainObject ist lediglich ein Markierungsinterface. SetupableController stellt sicher, dass ein Controller über die setUpBingingEdit() Funktion verfügt.
+
+
+image::doc/classdiagrams/Package_controller_builder_1.png[]
+image::doc/classdiagrams/Package_daten_builder_1.png[]
+
+Die weiterhin bestehende Abhängigkeit des RootControllers auf den ProgrammController ist einer anderen Codestelle geschuldet. In diesem link:https://github.com/zeno420/pump/commit/e564a17be6bebdf4caffedf6ed3861efed9a5167[commit] können alle, im Zuge der Implementierung des Builder Patterns für Programme, vorgennommenen Änderungen eingesehen werden. In diesem link:https://github.com/zeno420/pump/commit/bd64481cd97d911d30e35034710d8595d6a9ebd9[commit] die Änderungen für die Generifizierung.
 
 === Domain Driven Design
 ==== Analyse der Ubiquitous Language
