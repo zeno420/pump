@@ -18,16 +18,12 @@ public class Tag {
 
     private Valid valid = Valid.VALID;
 
-    private List<Property> aenderbareMember = new ArrayList<>();
-
     public Tag() {
-        aenderbareMember.add(name);
-        aenderbareMember.add(workouts);
     }
 
     public enum Valid {
 
-        VALID(0, ""), NAME(1, "Name ungültig"), WORKOUTS(2, "Workouts ungültig");
+        VALID(0, ""), NAME(1, "Name ungültig");
 
         private int code;
         private String error;
@@ -43,18 +39,6 @@ public class Tag {
 
         public String getError() {
             return error;
-        }
-    }
-
-    public List<Property> getAenderbareMember() {
-        return aenderbareMember;
-    }
-
-    public void aenderbareMemberUebertragen(List<Property> tmpAenderbareMember) {
-        //set aber kein setter
-        for (int i = 0; i < tmpAenderbareMember.size(); i++) {
-            aenderbareMember.get(i).setValue(tmpAenderbareMember.get(i).getValue());
-
         }
     }
 
@@ -77,8 +61,6 @@ public class Tag {
     public Valid getValid() {
         if (name == null || name.get() == null || name.get().equalsIgnoreCase("")) {
             valid = Valid.NAME;
-        } else if (workouts.get().size() < 1) {
-            valid = Valid.WORKOUTS;
         } else {
             valid = Valid.VALID;
         }

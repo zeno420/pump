@@ -69,10 +69,14 @@ public class TagController {
 
     public void tagSpeichern(ActionEvent event) {
         if (tmpTag.getValid().getCode() == 0) {
-            aktuellerTag.aenderbareMemberUebertragen(tmpTag.getAenderbareMember());
-            if (isNew) {
-                programm.getTage().add(aktuellerTag);
+
+            if (!isNew) {
+                int old = programm.getTage().indexOf(aktuellerTag);
+                programm.getTage().set(old, tmpTag);
+            } else {
+                programm.getTage().add(tmpTag);
             }
+
             Stage stage = (Stage) tagSpeichernBtn.getScene().getWindow();
             stage.close();
             try {

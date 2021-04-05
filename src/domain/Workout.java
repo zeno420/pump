@@ -157,6 +157,7 @@ public class Workout implements UniqueNamed, EditableDomainObject {
     }
 
     public int getCurrentUebungIndex() {
+        validateIndex();
         return currentUebungIndex.get();
     }
 

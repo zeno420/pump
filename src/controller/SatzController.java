@@ -47,23 +47,30 @@ public class SatzController {
 
     public void satzSpeichern(ActionEvent event) {
         if (tmpSatz.getValid().getCode() == 0) {
-            aktuellerSatz.aenderbareMemberUebertragen(tmpSatz.getAenderbareMember());
 
-            if (isNew) {
+            if (!isNew) {
                 if (tmpSatz.isMasse()) {
-                    uebung.getMasse().add(aktuellerSatz);
+                    int old = uebung.getMasse().indexOf(aktuellerSatz);
+                    uebung.getMasse().set(old, tmpSatz);
                 } else {
-                    uebung.getDefi().add(aktuellerSatz);
+                    int old = uebung.getDefi().indexOf(aktuellerSatz);
+                    uebung.getDefi().set(old, tmpSatz);
+                }
+            } else {
+
+                if (tmpSatz.isMasse()) {
+                    uebung.getMasse().add(tmpSatz);
+                } else {
+                    uebung.getDefi().add(tmpSatz);
                 }
             }
+
             Stage stage = (Stage) satzSpeichernBtn.getScene().getWindow();
             stage.close();
-            try {
-                Datenbank.save(Pump.datenbasis);
-            } catch (Exception e) {
-                new SpeicherAlert(Alert.AlertType.ERROR, "Could not save Data!");
-            }
+
         } else {
+
+            //TODO custom alert
             Alert a = new Alert(Alert.AlertType.WARNING);
 
             a.setTitle("Ungültige Eingabe");

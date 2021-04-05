@@ -1,5 +1,6 @@
 package design;
 
+import controller.SatzController;
 import domain.Satz;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -48,7 +49,7 @@ public class SatzCell extends ListCell<Satz> {
                         uc = (UebungController) ((Map) getScene().getRoot().getUserData()).get("uebungController");
                     }
                     try {
-                        uc.satzBearbeiten(satz);
+                        uc.satzBearbeiten(satz, null);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

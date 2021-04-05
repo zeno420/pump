@@ -16,7 +16,7 @@ import main.Pump;
 
 import java.io.IOException;
 
-public class UebungController implements SetupableController<Uebung>  {
+public class UebungController implements SetupableController<Uebung> {
 
     @FXML
     private TextField uebungNameField;
@@ -72,6 +72,7 @@ public class UebungController implements SetupableController<Uebung>  {
         } else {
             error = Pump.datenbasis.uebungUpdaten(aktuelleUebung, tmpUebung);
         }
+        if (event == null) return;
         speichernAlarmieren(error);
     }
 
@@ -107,7 +108,7 @@ public class UebungController implements SetupableController<Uebung>  {
         stage.show();
     }
 
-    public void satzBearbeiten(Satz satz) throws IOException {
+    public void satzBearbeiten(Satz satz, Uebung notfallUebung) throws IOException {
         FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/satz.fxml"));
         Parent satzDialog = fxmlloader.load();
 
@@ -115,13 +116,27 @@ public class UebungController implements SetupableController<Uebung>  {
 
         SatzController c = fxmlloader.getController();
 
+        boolean notfall = false;
+        if (tmpUebung == null) {
+            notfall = true;
+            aktuelleUebung = notfallUebung;
+            tmpUebung = aktuelleUebung.makeTmpCopy();
+        }
+
         c.setUpBinding(null, satz, satzDialog, tmpUebung);
 
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Satz erstellen");
+        stage.setTitle("Satz bearbeiten");
         stage.setScene(new Scene(satzDialog));
+        if (notfall) {
+            notfall = false;
+            stage.showAndWait();
+            uebungSpeichern(null);
+            tmpUebung = null;
+        } else {
+            stage.show();
+        }
 
-        stage.show();
     }
 
     public void satzLoeschen(Satz satz) {

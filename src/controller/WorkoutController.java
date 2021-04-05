@@ -20,6 +20,7 @@ public class WorkoutController implements SetupableController<Workout> {
     private Parent aktuellerWorkoutDialog;
     private Workout tmpWorkout;
     private boolean isNew = false;
+    private Uebung aktuellGespielteUebung;
 
     public ComboBox<Uebung> uebungComboBox;
     public ListView<Uebung> workoutUebungenListView;
@@ -81,13 +82,14 @@ public class WorkoutController implements SetupableController<Workout> {
 
         aktuellesWorkout = workout;
         aktuellerWorkoutDialog = workoutDialog;
+        aktuellGespielteUebung = workout.getUebungen().get(workout.getCurrentUebungIndex());
 
-        satzListView.setItems(workout.getUebungen().get(workout.getCurrentUebungIndex()).getSaetze(Pump.datenbasis.getPhase().isMasse()));
+        satzListView.setItems(aktuellGespielteUebung.getSaetze(Pump.datenbasis.getPhase().isMasse()));
         satzListView.setCellFactory(new Callback<ListView<Satz>,
                                             ListCell<Satz>>() {
                                         @Override
                                         public ListCell<Satz> call(ListView<Satz> list) {
-                                            return new SatzSpielenCell();
+                                            return new SatzSpielenCell(aktuellGespielteUebung);
                                         }
                                     }
         );
@@ -143,8 +145,7 @@ public class WorkoutController implements SetupableController<Workout> {
     }
 
     public void nextUebungDone(ActionEvent event) throws IOException {
-        Uebung uebung = aktuellesWorkout.getUebungen().get(aktuellesWorkout.currentUebungIndexProperty().get());
-        Pump.datenbasis.getUebungLog().add(new LogEintrag(uebung.getName(), uebung.getBeschreibung()));
+        Pump.datenbasis.getUebungLog().add(new LogEintrag(aktuellGespielteUebung.getName(), aktuellesWorkout.getBeschreibung()));
         aktuellesWorkout.increaseAktuelleUebung();
         setUpBindingPlay(aktuellesWorkout, aktuellerWorkoutDialog);
     }

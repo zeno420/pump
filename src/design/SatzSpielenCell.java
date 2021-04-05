@@ -1,6 +1,7 @@
 package design;
 
 import domain.Satz;
+import domain.Uebung;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -16,6 +17,11 @@ import java.util.Map;
 
 public class SatzSpielenCell extends ListCell<Satz> {
 
+    private Uebung notfallUebung;
+
+    public SatzSpielenCell(Uebung notfallUebung) {
+        this.notfallUebung = notfallUebung;
+    }
 
     @Override
     public void updateItem(Satz satz, boolean empty) {
@@ -42,7 +48,8 @@ public class SatzSpielenCell extends ListCell<Satz> {
                         uc = (UebungController) ((Map) getScene().getRoot().getUserData()).get("uebungController");
                     }
                     try {
-                        uc.satzBearbeiten(satz);
+                        uc.satzBearbeiten(satz, notfallUebung);
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

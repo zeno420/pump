@@ -15,12 +15,7 @@ public class Satz {
 
     private Valid valid = Valid.VALID;
 
-    private List<Property> aenderbareMember = new ArrayList<>();
-
     public Satz() {
-
-        aenderbareMember.add(wiederholungen);
-        aenderbareMember.add(gewicht);
     }
 
     public enum Valid {
@@ -44,19 +39,7 @@ public class Satz {
         }
     }
 
-    public List<Property> getAenderbareMember() {
-        return aenderbareMember;
-    }
-
-    public void aenderbareMemberUebertragen(List<Property> tmpAenderbareMember){
-        //set aber kein setter
-        for (int i = 0; i < tmpAenderbareMember.size(); i++){
-            aenderbareMember.get(i).setValue(tmpAenderbareMember.get(i).getValue());
-
-        }
-    }
-
-    public Satz makeTmpCopy(){
+    public Satz makeTmpCopy() {
         Satz tmpSatz = new Satz();
         tmpSatz.setWiederholungen(wiederholungen.get());
         tmpSatz.setGewicht(gewicht.get());
@@ -64,11 +47,11 @@ public class Satz {
         return tmpSatz;
     }
 
-    public static Callback<Satz, Observable[]> makeExtractor(){
+    public static Callback<Satz, Observable[]> makeExtractor() {
         return new Callback<Satz, Observable[]>() {
             @Override
             public Observable[] call(Satz satz) {
-                return new Observable[] {satz.wiederholungenProperty(), satz.gewichtProperty()};
+                return new Observable[]{satz.wiederholungenProperty(), satz.gewichtProperty()};
             }
         };
     }

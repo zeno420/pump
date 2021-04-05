@@ -47,7 +47,7 @@ public class WorkoutBearbeitenCell extends ListCell<Workout> {
                 @Override
                 public void handle(ActionEvent arg0) {
                     RootController rc = (RootController) getScene().getRoot().getUserData();
-                    rc.workoutLoeschen(workout);
+                    rc.workoutLoeschen(workout, true);
                 }
             });
 

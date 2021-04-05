@@ -32,6 +32,7 @@ public class RootController {
     }
 
     public void uebungLoeschen(Uebung uebung) {
+        //TODO leeres workout macht probleme
         List<Workout> workoutList = Pump.datenbasis.getWorkouts();
         List<Workout> containingWorkoutList = new ArrayList<>();
         List<Workout> emptyAfterDeletionWorkoutList = new ArrayList<>();
@@ -43,7 +44,7 @@ public class RootController {
                 containingWorkoutList.add(w);
                 if (w.getUebungen().stream().allMatch(uebung::equals)) {
                     emptyAfterDeletionWorkoutList.add(w);
-                    warnung.append(w.getName()).append(": will be empty after deleting this Übung.");
+                    warnung.append(w.getName()).append(": will be empty after deleting this Übung and will be also deletet.");
                 } else {
                     warnung.append(w.getName()).append(": contains this Übung.");
                 }
@@ -62,6 +63,9 @@ public class RootController {
                     w.getUebungen().remove(uebung);
                 }
             }
+            for (Workout w : emptyAfterDeletionWorkoutList) {
+                workoutLoeschen(w, false);
+            }
         }
     }
 
@@ -77,7 +81,7 @@ public class RootController {
         editDialogBuilder.setTitle("Workout erstellen").setFxmlResource("../fxml/workout.fxml").setEditableObject(workout).build().show();
     }
 
-    public void workoutLoeschen(Workout workout) {
+    public void workoutLoeschen(Workout workout, boolean manuell) {
         List<Programm> programmList = Pump.datenbasis.getProgramme();
         List<Programm> containingProgrammList = new ArrayList<>();
         List<Tag> containingTagList = new ArrayList<>();
@@ -95,11 +99,15 @@ public class RootController {
                 }
             }
         }
-
-        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-        a.setTitle("Achtung: wirklich löschen?");
-        a.setHeaderText(containingProgrammList.size() + " Programme enthalten dieses Workout an " + containingTagList.size() + " Tagen:");
-        Optional<ButtonType> result = customizeDeleteAlert(warnung, a);
+        Optional<ButtonType> result;
+        if (manuell) {
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+            a.setTitle("Achtung: wirklich löschen?");
+            a.setHeaderText(containingProgrammList.size() + " Programme enthalten dieses Workout an " + containingTagList.size() + " Tagen:");
+            result = customizeDeleteAlert(warnung, a);
+        } else {
+            result = Optional.of(ButtonType.OK);
+        }
         if (result.get() == ButtonType.OK) {
             Pump.datenbasis.getWorkouts().remove(workout);
             for (Tag t : containingTagList) {

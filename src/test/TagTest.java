@@ -25,10 +25,6 @@ public class TagTest {
         assertEquals(Valid.NAME, tag.getValid());
 
         tag.setName("name");
-        assertEquals(Valid.WORKOUTS, tag.getValid());
-
-        Workout workout = new Workout();
-        tag.getWorkouts().add(workout);
         assertEquals(Valid.VALID, tag.getValid());
 
     }
