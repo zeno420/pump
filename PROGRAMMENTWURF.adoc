@@ -223,7 +223,22 @@ TODO statistik
 ==== Analyse und Begründung für Value Objects
 
 === Architektur
-==== 3-Schicht-Architektur
+TODO
+
+==== Schichtenarchitektur
+Durch die Verwendung von JavaFX enstand automatisch schon eine 2-Schichtenarchitektur, aufgeteilt in die Anzeigeschicht/GUI und die Domainschicht. Die, äußere Schicht, die Anzeigeschicht besteht aus den Controllern, den speziellen ListCells, den fxml Dateien und dem Hauptprogramm.
+
+image::doc/screenshots/Schichten_0.png[Anzeigeschicht (+Tests) mit Abhängigkeiten in untere Schichten]
+
+Die Controller sind dafür zuständig, die Interaktion des Benutzers mit der Geschäftslogik zu visualisieren. Ändert sich etwas in der Domainschicht kann es vorkommen, dass die Anzeigeschicht angepasst werden muss. Wird etwas in der GUI geändert kann es nicht vorkommen, dass die Domainschicht angepasst werden muss. Die Domainschicht beinhaltet die Domainklassen, in denen die Geschäftslogik steckt.
+
+image::doc/screenshots/Schichten_1.png[Domainschicht mit Abhängigkeiten nur in untere (Persistenz)Schicht]
+
+Um die Anwendung sinnvoll nutzen zu können fügen wir noch eine dritte, innerste Schicht hinzu. Die Persistenzschicht soll dafür sorgen Daten zu speichern, zu persistieren. Die Persistenz wird mit dem Modul javax.xml.bind.* umgesetzt. Durch Annotations in der Domainklasse Datenbasis werden alle zu speichernden Datensätze in der Klasse Datenbank in ein xml-File geschrieben. Eine Änderung in der Domainschicht fordert zwar gegebenenfalls eine anpassung der Annotations, bzw der Datenbasis, da diese jedoch noch zur Domainschicht selbst gehört, werden die Abhängigkeitsregeln nicht verletzt. Die Persistenzschicht besteht lediglich aus der Datenbankklasse und dem erzeugten xml-File. Änderungen in der Datenbank Klasse können Anpassungen in den äußeren Schichten erfordern, das xml-File sollte nicht händisch geändert werden.
+
+image::doc/screenshots/Schichten_2.png[Persistenzschicht mit Abhängigkeiten in keine Schicht da selbst unterste]
+
+Die Verwendung einer 3-Schichtenarchitektur aus Anzeige-, Domain-, und Persistenzschicht begründet sich dadurch, dass die Persistierung unabhängig von der Anzeige- und Domainlogik sein soll und die Domainlogik unabhängig von der Art wie sie Angezeigt wird sein soll. Für die Visualisierung der Abhängigkeiten zwischen den Packages einer Schicht und dem Rest wurde der Dependency Viewer von IntelliJ genutzt.
 
 === Unit Tests
 ==== ATRIP
