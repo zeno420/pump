@@ -218,9 +218,18 @@ Sätze können erstellt (*erstellen*), verändert (*bearbeiten*) und verworfen (
 TODO statistik
 
 ==== Analyse und Begründung für Repositories
+TODO
+
 ==== Analyse und Begründung für Aggregates
+TODO versteh ich ned
+
 ==== Analyse und Begründung für Entities
+Die Domainobjekte Übung, Workout und Programm sind Entitäten. Ihre Identität wird über eine eindeutige ID bestimmt. Zwei Übungen mit der gleichen Zusammensetzung von Sätzen sind trotzdem unterschiedliche Übungen. Die Sätze einer Übung können während des Lebenszyklus der Übung verändert werden, die Übung bleibt die selbe.
+
 ==== Analyse und Begründung für Value Objects
+Die Domainobjekte Satz und Tag sind Value Objects. Bei ihnen ist nur der Wert ihrer Attribute wichtig. Ein Satz teilt dem Nutzer mit wieviel Wiederholungen mit welchem Gewicht er zu machen hat. Sätze sind zwar in der Ubiquitous Language änderbar (*bearbeiten*), wird so eine Änderung jedoch vorgenommen wird der bearbeitete Satz durch einen neuen mit den neuen Werten ersetzt. Bei Tagen genau so. Sätze und Tage sind also immutable.
+
+
 
 === Architektur
 TODO
