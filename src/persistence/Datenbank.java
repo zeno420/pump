@@ -1,4 +1,4 @@
-package daten;
+package persistence;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -19,11 +19,11 @@ public class Datenbank {
 
     }
 
-    public static Datenbasis load() throws JAXBException {
+    public static Object load(Class<?> klasse) throws JAXBException {
         try {
-            JAXBContext c = JAXBContext.newInstance(Datenbasis.class);
+            JAXBContext c = JAXBContext.newInstance(klasse);
             Unmarshaller um = c.createUnmarshaller();
-            Datenbasis dw = (Datenbasis) um.unmarshal(datenbank);
+            Object dw = um.unmarshal(datenbank);
 
             return dw;
 
@@ -32,9 +32,9 @@ public class Datenbank {
         }
     }
 
-    public static void save(Datenbasis datenbasis) throws JAXBException {
+    public static void save(Object datenbasis) throws JAXBException {
         try {
-            JAXBContext c = JAXBContext.newInstance(Datenbasis.class);
+            JAXBContext c = JAXBContext.newInstance(datenbasis.getClass());
             Marshaller m = c.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
@@ -44,5 +44,4 @@ public class Datenbank {
             throw e;
         }
     }
-
 }

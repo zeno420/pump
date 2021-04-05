@@ -1,7 +1,7 @@
 package main;
 
 import controller.SpeicherAlert;
-import daten.*;
+import domain.*;
 import design.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import persistence.Datenbank;
 
 
 public class Pump extends Application {
@@ -26,7 +27,7 @@ public class Pump extends Application {
 
         try {
             Datenbank.init();
-            datenbasis = Datenbank.load();
+            datenbasis = (Datenbasis) Datenbank.load(Datenbasis.class);
         } catch (Exception e) {
             new SpeicherAlert(Alert.AlertType.ERROR, "Could not load data");
         }

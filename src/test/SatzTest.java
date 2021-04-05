@@ -1,7 +1,7 @@
 package test;
 
-import daten.Satz;
-import daten.Satz.Valid;
+import domain.Satz;
+import domain.Satz.Valid;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

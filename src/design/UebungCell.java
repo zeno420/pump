@@ -1,7 +1,6 @@
 package design;
 
-import daten.Uebung;
-import daten.Workout;
+import domain.Uebung;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;

@@ -1,6 +1,6 @@
 package controller;
 
-import daten.*;
+import domain.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,7 +28,7 @@ public class RootController {
     public void uebungBearbeiten(Uebung uebung) throws IOException {
 
         EditDialogBuilder<Uebung> editDialogBuilder = new EditDialogBuilder<>();
-        editDialogBuilder.setTitle("Übung erstellen").setFxmlResource("../fxml/uebung.fxml").setEditableObject(uebung).build().show();
+        editDialogBuilder.setTitle("Übung bearbeiten").setFxmlResource("../fxml/uebung.fxml").setEditableObject(uebung).build().show();
     }
 
     public void uebungLoeschen(Uebung uebung) {

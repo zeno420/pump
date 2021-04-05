@@ -1,8 +1,8 @@
 package test;
 
-import daten.Uebung;
-import daten.Workout;
-import daten.Workout.WorkoutValid;
+import domain.Uebung;
+import domain.Workout;
+import domain.Workout.WorkoutValid;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

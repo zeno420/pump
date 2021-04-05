@@ -1,6 +1,6 @@
 package controller;
 
-import daten.*;
+import domain.*;
 import design.WorkoutAnzeigenCell;
 import design.WourkoutCell;
 import javafx.event.ActionEvent;
@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import main.Pump;
+import persistence.Datenbank;
 
 import java.io.IOException;
 

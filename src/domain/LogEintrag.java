@@ -1,4 +1,4 @@
-package daten;
+package domain;
 
 import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
@@ -7,8 +7,6 @@ import javafx.util.Callback;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Map;
 
 
 public class LogEintrag {

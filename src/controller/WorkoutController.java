@@ -1,6 +1,6 @@
 package controller;
 
-import daten.*;
+import domain.*;
 import design.SatzSpielenCell;
 import design.UebungAnzeigenCell;
 import design.UebungCell;
@@ -13,8 +13,6 @@ import javafx.util.Callback;
 import main.Pump;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class WorkoutController implements SetupableController<Workout> {
 
@@ -84,7 +82,7 @@ public class WorkoutController implements SetupableController<Workout> {
         aktuellesWorkout = workout;
         aktuellerWorkoutDialog = workoutDialog;
 
-        satzListView.setItems(workout.getUebungen().get(workout.getCurrentUebungIndex()).getSaetze());
+        satzListView.setItems(workout.getUebungen().get(workout.getCurrentUebungIndex()).getSaetze(Pump.datenbasis.getPhase().isMasse()));
         satzListView.setCellFactory(new Callback<ListView<Satz>,
                                             ListCell<Satz>>() {
                                         @Override

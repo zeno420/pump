@@ -1,9 +1,7 @@
 package controller;
 
-import daten.Datenbank;
-import daten.Programm;
-import daten.Satz;
-import daten.Uebung;
+import domain.Satz;
+import domain.Uebung;
 import design.SatzCell;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,8 +15,6 @@ import javafx.util.Callback;
 import main.Pump;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class UebungController implements SetupableController<Uebung>  {
 

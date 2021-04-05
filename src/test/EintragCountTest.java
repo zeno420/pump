@@ -1,6 +1,6 @@
 package test;
 
-import daten.EintragCount;
+import domain.EintragCount;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

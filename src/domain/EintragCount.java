@@ -1,4 +1,4 @@
-package daten;
+package domain;
 
 public class EintragCount {
     private String key;

@@ -1,6 +1,6 @@
 package controller;
 
-import daten.EditableDomainObject;
+import domain.EditableDomainObject;
 import javafx.scene.Parent;
 
 public interface SetupableController <T extends EditableDomainObject> {

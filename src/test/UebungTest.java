@@ -1,8 +1,8 @@
 package test;
 
-import daten.Satz;
-import daten.Uebung;
-import daten.Uebung.UebungValid;
+import domain.Satz;
+import domain.Uebung;
+import domain.Uebung.UebungValid;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

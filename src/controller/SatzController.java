@@ -1,8 +1,8 @@
 package controller;
 
-import daten.Datenbank;
-import daten.Satz;
-import daten.Uebung;
+import persistence.Datenbank;
+import domain.Satz;
+import domain.Uebung;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;

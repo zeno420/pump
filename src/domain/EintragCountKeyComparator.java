@@ -1,6 +1,5 @@
-package daten;
+package domain;
 
-import java.math.BigDecimal;
 import java.util.Comparator;
 
 public class EintragCountKeyComparator implements Comparator<EintragCount> {

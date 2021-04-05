@@ -1,6 +1,6 @@
 package controller;
 
-import daten.EditableDomainObject;
+import domain.EditableDomainObject;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -41,6 +41,8 @@ public class EditDialogBuilder<T extends EditableDomainObject> {
         Stage stage = new Stage();
 
         TC c = fxmlloader.getController();
+        parentDialog.setUserData(c);
+
         c.setUpBindingEdit(this.editableObject, parentDialog);
 
         stage.initModality(Modality.APPLICATION_MODAL);

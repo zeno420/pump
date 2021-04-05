@@ -1,8 +1,8 @@
 package test;
 
-import daten.Programm;
-import daten.Programm.ProgrammValid;
-import daten.Tag;
+import domain.Programm;
+import domain.Programm.ProgrammValid;
+import domain.Tag;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

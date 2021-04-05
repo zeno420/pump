@@ -1,6 +1,6 @@
 package design;
 
-import daten.Programm;
+import domain.Programm;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;

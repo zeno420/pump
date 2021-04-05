@@ -1,7 +1,7 @@
 package controller;
 
-import daten.EintragCount;
-import daten.Statistik;
+import domain.EintragCount;
+import domain.Statistik;
 import design.EintragCountCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

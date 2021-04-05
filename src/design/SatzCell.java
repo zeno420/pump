@@ -1,9 +1,10 @@
 package design;
 
-import daten.Satz;
+import domain.Satz;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -39,7 +40,9 @@ public class SatzCell extends ListCell<Satz> {
                 @Override
                 public void handle(ActionEvent arg0) {
                     UebungController uc;
-                    if (getScene().getRoot().getUserData() instanceof UebungController) {
+                    Parent parent = getScene().getRoot();
+                    Object userData = parent.getUserData();
+                    if (userData instanceof UebungController) {
                         uc = (UebungController) getScene().getRoot().getUserData();
                     } else {
                         uc = (UebungController) ((Map) getScene().getRoot().getUserData()).get("uebungController");

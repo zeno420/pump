@@ -1,4 +1,4 @@
-package daten;
+package domain;
 
 import javafx.beans.Observable;
 import javafx.beans.property.*;

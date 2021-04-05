@@ -1,11 +1,11 @@
-package daten;
+package domain;
 
 import javafx.beans.Observable;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Callback;
-import main.Pump;
+//import main.Pump;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -168,8 +168,8 @@ public class Uebung implements UniqueNamed, EditableDomainObject {
         this.defi.set(defi);
     }
 
-    public ObservableList<Satz> getSaetze() {
-        if (Pump.datenbasis.getPhase().isMasse()) {
+    public ObservableList<Satz> getSaetze(boolean isMasse) {
+        if (isMasse) {
             return masse.get();
 
         } else {

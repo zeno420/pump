@@ -1,8 +1,8 @@
-package daten;
+package domain;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import main.Pump;
+import persistence.Datenbank;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -85,7 +85,7 @@ public class Datenbasis {
                 uebung.aenderbareMemberUebertragen(tmpUebung.getAenderbareMember());
                 uebungen.add(uebung);
                 try {
-                    Datenbank.save(Pump.datenbasis);
+                    Datenbank.save(this);
                 } catch (Exception e) {
                     return "Could not save data to database";
                 }
@@ -102,7 +102,7 @@ public class Datenbasis {
             if (nameIsUnique(uebung.getName(), tmpUebung.getName(), uebungen)) {
                 uebung.aenderbareMemberUebertragen(tmpUebung.getAenderbareMember());
                 try {
-                    Datenbank.save(Pump.datenbasis);
+                    Datenbank.save(this);
                 } catch (Exception e) {
                     return "Could not save data to database";
                 }
@@ -120,7 +120,7 @@ public class Datenbasis {
                 workout.aenderbareMemberUebertragen(tmpWorkout.getAenderbareMember());
                 workouts.add(workout);
                 try {
-                    Datenbank.save(Pump.datenbasis);
+                    Datenbank.save(this);
                 } catch (Exception e) {
                     return "Could not save data to database";
                 }
@@ -137,7 +137,7 @@ public class Datenbasis {
             if (nameIsUnique(workout.getName(), tmpWorkout.getName(), workouts)) {
                 workout.aenderbareMemberUebertragen(tmpWorkout.getAenderbareMember());
                 try {
-                    Datenbank.save(Pump.datenbasis);
+                    Datenbank.save(this);
                 } catch (Exception e) {
                     return "Could not save data to database";
                 }
@@ -155,7 +155,7 @@ public class Datenbasis {
                 programm.aenderbareMemberUebertragen(tmpProgramm.getAenderbareMember());
                 programme.add(programm);
                 try {
-                    Datenbank.save(Pump.datenbasis);
+                    Datenbank.save(this);
                 } catch (Exception e) {
                     return "Could not save data to database";
                 }
@@ -172,7 +172,7 @@ public class Datenbasis {
             if (nameIsUnique(programm.getName(), tmpProgramm.getName(), programme)) {
                 programm.aenderbareMemberUebertragen(tmpProgramm.getAenderbareMember());
                 try {
-                    Datenbank.save(Pump.datenbasis);
+                    Datenbank.save(this);
                 } catch (Exception e) {
                     return "Could not save data to database";
                 }
