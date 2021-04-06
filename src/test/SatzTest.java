@@ -9,10 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SatzTest {
 
-    @BeforeAll
-    static void initAll() throws Exception {
-    }
-
     @Test
     public void testGetValid() {
 

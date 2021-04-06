@@ -8,12 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class EintragCountTest {
 
-
-    @BeforeAll
-    static void initAll() throws Exception {
-    }
-
-
     @Test
     public void testEquals() {
 

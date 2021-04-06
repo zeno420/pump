@@ -13,7 +13,7 @@ public class EditDialogBuilder<T extends EditableDomainObject> {
 
     private String fxmlResource;
     private T editableObject;
-    private String title;
+    private String title = "";
 
     public EditDialogBuilder() {
     }

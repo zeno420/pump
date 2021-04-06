@@ -3,17 +3,11 @@ package test;
 import domain.Uebung;
 import domain.Workout;
 import domain.Workout.WorkoutValid;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class WorkoutTest {
-
-    @BeforeAll
-    static void initAll() throws Exception {
-    }
-
 
     @Test
     public void testGetValid() {

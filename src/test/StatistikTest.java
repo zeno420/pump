@@ -30,11 +30,6 @@ public class StatistikTest {
     @BeforeAll
     static void initAll() throws Exception {
 
-        // TODO mock?
-        // UebungLogsByName.addAll(Statistik.getLogsByName(Datenbank.getUebungLogs()));
-
-
-
         formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
         Uebung uebung1 = new Uebung();
@@ -78,9 +73,6 @@ public class StatistikTest {
 
     @Test
     public void testGetLogsByDate() {
-
-        // TODO mock?
-        // UebungLogsByName.addAll(Statistik.getLogsByName(Datenbank.getUebungLogs()));
 
         ArrayList<EintragCount> correctList = new ArrayList<>();
         correctList.add(new EintragCount(logEintrag1.getDate(), 1));

@@ -10,11 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProgrammTest {
 
-    @BeforeAll
-    static void initAll() throws Exception {
-    }
-
-
     @Test
     public void testGetValid() {
         Programm programm = new Programm();

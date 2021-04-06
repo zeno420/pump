@@ -3,17 +3,11 @@ package test;
 import domain.Satz;
 import domain.Uebung;
 import domain.Uebung.UebungValid;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UebungTest {
-
-    @BeforeAll
-    static void initAll() throws Exception {
-    }
-
 
     @Test
     public void testGetValid() {

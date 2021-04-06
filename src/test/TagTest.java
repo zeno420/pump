@@ -2,18 +2,11 @@ package test;
 
 import domain.Tag;
 import domain.Tag.Valid;
-import domain.Workout;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TagTest {
-
-    @BeforeAll
-    static void initAll() throws Exception {
-    }
-
 
     @Test
     public void testGetValid() {
