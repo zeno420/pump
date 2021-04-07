@@ -250,9 +250,47 @@ image::doc/screenshots/Schichten_2.png[Persistenzschicht mit Abhängigkeiten in 
 Die Verwendung einer 3-Schichtenarchitektur aus Anzeige-, Domain-, und Persistenzschicht begründet sich dadurch, dass die Persistierung unabhängig von der Anzeige- und Domainlogik sein soll und die Domainlogik unabhängig von der Art wie sie Angezeigt wird sein soll. Für die Visualisierung der Abhängigkeiten zwischen den Packages einer Schicht und dem Rest wurde der Dependency Viewer von IntelliJ genutzt.
 
 === Unit Tests
+TODO JUnit
 ==== ATRIP
+TODO
+
+===== Automatic
+TODO bildüberschriften "Klasse.funktion()"
+
+Die Kombination aus IntelliJ und JUnit erlaubt die Ausführung aller Tests in einem Ordner, Projekt oder einer Klasse mit nur einem Knopfdruck. Außerdem lässt sich bei der Ausführungskonfiguration ein "Before launch" Block angeben. In diesem habe ich meine Testrun Konfiguration eingebunden. Vor dem Ausführen meiner Desktopanwendung werden also die Test durchgeführt und bei einem Fehlschlag eines Tests die Anwendung nicht gestartet.
+
+image::doc/screenshots/Tests_3.png[]
+
+
+===== Thorough
+Da dieser Aspekt im "Ermessen des Entwiclers" liegt ist hier nichts zu beweisen. Es sei allerdings gesagt, dass meine Menge an Tests, zum Zeitpunkt der Abgabe, noch nicht vollständig ist.
+
+===== Repeatable
+Da Java schon die Plattformunabhängigkeit liefert, wird davon ausgegangen, dass die Tests dies ebenfalls erfüllen. Von Zeit oder Zufall hängen in diesem Projekt keine Funktionenn ab. In einem anderen privaten Projekt ist Zufall eine Komponente eienr Funktion, um diese sinvoll zu Testen wird die Zufallszahl hard gecoded. 
+
+Um die EditDialogBuilder Klasse zu testen, musste das FXToolkit initialisiert werden. Dies geht nur in einem FXThread. Das in einer Testklasse, die nicht in einer JavaFX Klasse/Umgebung läuft, umzusetzen bedarf der manuellern Erzeugung eines FXThreads. Die Asserts, die die zu testenden Funktionen der EditDialogBuilder Klasse aufrufen, müssen an den FXThread übergeben werden. Die geworfenen Exceptions zurück an den TestThread. Die Synchronisation der beiden Threads ist eine Fehlerquelle. Um die Synchronisation zu gewährleisten, wwerden Semaphore benutz, die released und accquired werden. Der Link zur link:https://github.com/zeno420/pump/blob/edb2e0a5a7b74bbbccd2bbe53adc16936f9c245f/src/test/EditDialogBuilderTest.java[EditDialogBuilderTest] Klasse.
+
+===== Independent
+Damit Tests sich nicht beeinflussen wurden Globale Variablen, veränderbarer Listen oder Objekte, in Testklassen weitestgehend vermieden.
+
+===== Professional
+Getter und Setter wurden abgesehen von der EditDialogBuilder Klasse (Builderpatter gehört halt dazu) nicht getestet. DRY wird in manchen Tests etwas verletzt um die Independence der einzelnen Testfunktionen zu gewährleisten.
+
 ==== Code Coverage
+TODO bildüberschriften "Klasse.funktion()"
+
+IntelliJ bietet die Möglichkeit bei Tests Coveragedaten zu sammeln. Das default Plugin sammelt Daten bezüglich der getesteten Klassen, Methoden und durchlaufen Codezeilen.
+
+image::doc/screenshots/Tests_2.png[]
+
 ==== Mocks
+TODO bildüberschriften "Klasse.funktion()"
+
+Die Domainklasse Datenbasis benutzt in ihren *hinzufügen und *updaten Funktionen die Klasse Datenbank. Genauer, die statische Funktion Datenbank.save(). Da wir Datenbasis unabhängig von Datenbank testen wollen, muss die statische Funktion gemocked werden. Hierfür wird Mockito verwendet.
+
+image::doc/screenshots/Tests_1.png[]
+
+Dies bewirkt, dass beim Aufruf der statischen Funktion save() keine Exception geworfen wird.
 
 === Refactoring
 ==== Code Smells
