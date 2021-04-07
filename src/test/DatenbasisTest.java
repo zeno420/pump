@@ -16,31 +16,24 @@ public class DatenbasisTest {
     @Test
     public void testUebungHinzufuegen() {
         Uebung uebung1 = new Uebung();
-
         Uebung uebung2 = new Uebung();
-
-
         Uebung uebung3 = new Uebung();
 
         Satz satz = new Satz();
 
-
         uebung1.setName("uebung1");
         uebung1.getMasse().add(satz);
         uebung1.getDefi().add(satz);
-
         Uebung tmpUebung1 = uebung1.makeTmpCopy();
 
         uebung2.setName("uebung2");
         uebung2.getMasse().add(satz);
         uebung2.getDefi().add(satz);
-
         Uebung tmpUebung2 = uebung2.makeTmpCopy();
 
         uebung3.setName("uebung2");
         uebung3.getMasse().add(satz);
         uebung3.getDefi().add(satz);
-
         Uebung tmpUebung3 = uebung3.makeTmpCopy();
 
         Datenbasis datenbasis = new Datenbasis();
@@ -48,7 +41,6 @@ public class DatenbasisTest {
         //mock Datenbank.save() to avoid JAXBException
         try (MockedStatic<Datenbank> mockBank = Mockito.mockStatic(Datenbank.class)) {
             mockBank.when(() -> Datenbank.save(datenbasis)).thenAnswer(Answers.RETURNS_DEFAULTS);
-
 
             //adds uebung1, error null
             ObservableList<Uebung> correctList = FXCollections.observableArrayList(Uebung.makeExtractor());
@@ -84,31 +76,24 @@ public class DatenbasisTest {
     @Test
     public void testUebungUpdaten() {
         Uebung uebung1 = new Uebung();
-
         Uebung uebung2 = new Uebung();
-
-
         Uebung uebung3 = new Uebung();
 
         Satz satz = new Satz();
 
-
         uebung1.setName("uebung1");
         uebung1.getMasse().add(satz);
         uebung1.getDefi().add(satz);
-
         Uebung tmpUebung1 = uebung1.makeTmpCopy();
 
         uebung2.setName("uebung2");
         uebung2.getMasse().add(satz);
         uebung2.getDefi().add(satz);
-
         Uebung tmpUebung2 = uebung2.makeTmpCopy();
 
         uebung3.setName("uebung2");
         uebung3.getMasse().add(satz);
         uebung3.getDefi().add(satz);
-
         Uebung tmpUebung3 = uebung3.makeTmpCopy();
 
         Datenbasis datenbasis = new Datenbasis();
@@ -160,25 +145,21 @@ public class DatenbasisTest {
 
 
         Uebung uebung = new Uebung();
+
         Workout workout1 = new Workout();
-
         Workout workout2 = new Workout();
-
         Workout workout3 = new Workout();
 
         workout1.setName("workout1");
         workout1.getUebungen().add(uebung);
-
         Workout tmpWorkout1 = workout1.makeTmpCopy();
 
         workout2.setName("workout2");
         workout2.getUebungen().add(uebung);
-
         Workout tmpWorkout2 = workout2.makeTmpCopy();
 
         workout3.setName("workout2");
         workout3.getUebungen().add(uebung);
-
         Workout tmpWorkout3 = workout3.makeTmpCopy();
 
 
@@ -187,7 +168,6 @@ public class DatenbasisTest {
         //mock Datenbank.save() to avoid JAXBException
         try (MockedStatic<Datenbank> mockBank = Mockito.mockStatic(Datenbank.class)) {
             mockBank.when(() -> Datenbank.save(datenbasis)).thenAnswer(Answers.RETURNS_DEFAULTS);
-
 
             //adds workout1, error null
             ObservableList<Workout> correctList = FXCollections.observableArrayList(Workout.makeExtractor());
@@ -225,26 +205,20 @@ public class DatenbasisTest {
         Uebung uebung = new Uebung();
 
         Workout workout1 = new Workout();
-
         Workout workout2 = new Workout();
-
         Workout workout3 = new Workout();
 
         workout1.setName("workout1");
         workout1.getUebungen().add(uebung);
-
         Workout tmpWorkout1 = workout1.makeTmpCopy();
 
         workout2.setName("workout2");
         workout2.getUebungen().add(uebung);
-
         Workout tmpWorkout2 = workout2.makeTmpCopy();
 
         workout3.setName("workout2");
         workout3.getUebungen().add(uebung);
-
         Workout tmpWorkout3 = workout3.makeTmpCopy();
-
 
         Datenbasis datenbasis = new Datenbasis();
 
@@ -294,27 +268,21 @@ public class DatenbasisTest {
     public void testProgrammHinzufuegen() {
 
         Programm programm1 = new Programm();
-
         Programm programm2 = new Programm();
-
         Programm programm3 = new Programm();
 
         Tag tag = new Tag();
 
-
         programm1.setName("programm1");
         programm1.getTage().add(tag);
-
         Programm tmpProgramm1 = programm1.makeTmpCopy();
 
         programm2.setName("programm2");
         programm2.getTage().add(tag);
-
         Programm tmpProgramm2 = programm2.makeTmpCopy();
 
         programm3.setName("programm2");
         programm3.getTage().add(tag);
-
         Programm tmpProgramm3 = programm3.makeTmpCopy();
 
         Datenbasis datenbasis = new Datenbasis();
@@ -322,7 +290,6 @@ public class DatenbasisTest {
         //mock Datenbank.save() to avoid JAXBException
         try (MockedStatic<Datenbank> mockBank = Mockito.mockStatic(Datenbank.class)) {
             mockBank.when(() -> Datenbank.save(datenbasis)).thenAnswer(Answers.RETURNS_DEFAULTS);
-
 
             //adds programm1, error null
             ObservableList<Programm> correctList = FXCollections.observableArrayList(Programm.makeExtractor());
@@ -358,27 +325,21 @@ public class DatenbasisTest {
     public void testProgrammUpdaten() {
 
         Programm programm1 = new Programm();
-
         Programm programm2 = new Programm();
-
         Programm programm3 = new Programm();
 
         Tag tag = new Tag();
 
-
         programm1.setName("programm1");
         programm1.getTage().add(tag);
-
         Programm tmpProgramm1 = programm1.makeTmpCopy();
 
         programm2.setName("programm2");
         programm2.getTage().add(tag);
-
         Programm tmpProgramm2 = programm2.makeTmpCopy();
 
         programm3.setName("programm2");
         programm3.getTage().add(tag);
-
         Programm tmpProgramm3 = programm3.makeTmpCopy();
 
         Datenbasis datenbasis = new Datenbasis();

@@ -17,6 +17,9 @@ public class LogEintrag {
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
+    public LogEintrag() {
+    }
+
     public LogEintrag(String name, String beschreibung) {
         setName(name);
         setBeschreibung(beschreibung);
