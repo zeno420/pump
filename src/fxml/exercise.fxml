@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="720" prefWidth="1080"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.ExerciseController">
+    <children>
+        <Label text="Name:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0"/>
+        <Label text="Description:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0"/>
+        <TextField fx:id="exerciseNameField" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="20.0"/>
+        <TextField fx:id="exerciseDescriptionField" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="50.0"/>
+        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="cancel"
+                AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="115.0"/>
+        <Button fx:id="saveExerciseButton" mnemonicParsing="false" onAction="#saveExercise" text="save"
+                AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0"/>
+        <AnchorPane AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="550.0"
+                    AnchorPane.topAnchor="100.0">
+            <children>
+                <Label text="Bulking" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0"/>
+                <ListView fx:id="bulkingSetListView" prefWidth="500.0" AnchorPane.bottomAnchor="20.0"
+                          AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0"/>
+                <Button fx:id="addBulkingSetButton" mnemonicParsing="false" onAction="#createSet" text="add"
+                        AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0"/>
+            </children>
+        </AnchorPane>
+        <AnchorPane AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="550.0" AnchorPane.rightAnchor="20.0"
+                    AnchorPane.topAnchor="100.0">
+            <children>
+                <Label text="Cutting" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0"/>
+                <ListView fx:id="cuttingSetListView" prefHeight="142.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0"
+                          AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0"/>
+                <Button fx:id="addCuttingSetButton" mnemonicParsing="false" onAction="#createSet" text="add"
+                        AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0"/>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

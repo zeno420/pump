@@ -3,18 +3,27 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="720" prefWidth="1080" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WorkoutController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="720" prefWidth="1080"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.WorkoutController">
     <children>
-        <Label text="Name:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
-        <Label text="Beschreibung:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0" />
-        <TextField fx:id="workoutNameField" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="20.0" />
-        <TextField fx:id="workoutBeschreibungField" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="50.0" />
-        <Label text="Übungen:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0" />
-        <ListView fx:id="workoutUebungenListView" prefHeight="163.0" prefWidth="200.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="140.0" />
-        <Button fx:id="uebungHinzufuegenBtn" mnemonicParsing="false" onAction="#uebungZuWorkoutHinzufuegen" text="hinzufügen" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="80.0" />
-        <ComboBox fx:id="uebungComboBox" prefHeight="26.0" prefWidth="171.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="80.0" />
-        <Button fx:id="uebungEntfernenBtn" layoutX="301.0" layoutY="316.0" mnemonicParsing="false" onAction="#uebungEntfernen" text="Ausgewählte Übung löschen" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
-          <Button fx:id="workoutAbbrechenBtn" mnemonicParsing="false" onAction="#workoutAbbrechen" text="Abbrechen" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="115.0" />
-          <Button fx:id="workouSpeichernBtn" mnemonicParsing="false" onAction="#workoutSpeichern" text="Speichern" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+        <Label text="Name:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0"/>
+        <Label text="Description:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0"/>
+        <TextField fx:id="workoutNameField" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="20.0"/>
+        <TextField fx:id="workoutDescriptionField" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="50.0"/>
+        <Label text="Exercises:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0"/>
+        <ListView fx:id="workoutExercisesListView" prefHeight="163.0" prefWidth="200.0" AnchorPane.bottomAnchor="60.0"
+                  AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="140.0"/>
+        <Button fx:id="addExerciseButton" mnemonicParsing="false" onAction="#addExerciseToWorkout" text="add"
+                AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="80.0"/>
+        <ComboBox fx:id="exerciseComboBox" prefHeight="26.0" prefWidth="171.0" AnchorPane.leftAnchor="150.0"
+                  AnchorPane.topAnchor="80.0"/>
+        <Button fx:id="removeExerciseButton" layoutX="301.0" layoutY="316.0" mnemonicParsing="false"
+                onAction="#removeExerciseFromWorkout" text="remove selected exercise" AnchorPane.bottomAnchor="20.0"
+                AnchorPane.leftAnchor="20.0"/>
+        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="cancel"
+                AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="115.0"/>
+        <Button fx:id="saveWorkoutButton" mnemonicParsing="false" onAction="#saveWorkout" text="save"
+                AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0"/>
     </children>
 </AnchorPane>

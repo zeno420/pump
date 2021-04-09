@@ -13,7 +13,7 @@ public class EditDialogBuilder<T extends EditableDomainObject> {
 
     private String fxmlResource;
     private T editableObject;
-    private String title = "";
+    private String windowTitle = "";
 
     public EditDialogBuilder() {
     }
@@ -28,8 +28,8 @@ public class EditDialogBuilder<T extends EditableDomainObject> {
         return this;
     }
 
-    public EditDialogBuilder<T> setTitle(String title) {
-        this.title = title;
+    public EditDialogBuilder<T> setWindowTitle(String windowTitle) {
+        this.windowTitle = windowTitle;
         return this;
     }
 
@@ -40,13 +40,13 @@ public class EditDialogBuilder<T extends EditableDomainObject> {
 
         Stage stage = new Stage();
 
-        TC c = fxmlloader.getController();
-        parentDialog.setUserData(c);
+        TC controller = fxmlloader.getController();
+        parentDialog.setUserData(controller);
 
-        c.setUpBindingEdit(this.editableObject, parentDialog);
+        controller.setUpBindingEdit(this.editableObject, parentDialog);
 
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle(this.title);
+        stage.setTitle(this.windowTitle);
         stage.setScene(new Scene(parentDialog));
 
         return stage;

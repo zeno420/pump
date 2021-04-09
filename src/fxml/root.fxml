@@ -3,16 +3,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1080" prefWidth="1920" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RootController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1080" prefWidth="1920"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.RootController">
     <children>
-        <TabPane layoutY="36.0" prefHeight="684.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="36.0">
+        <TabPane layoutY="36.0" prefHeight="684.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE"
+                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                 AnchorPane.topAnchor="36.0">
             <tabs>
-                <Tab text="Programm">
+                <Tab text="Programs">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <Button fx:id="neuesProgrammBtn" mnemonicParsing="false" onAction="#programmErstellen" text="Programm erstellen" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
-                                <ListView fx:id="programmListView" prefHeight="606.0" prefWidth="1040.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0" />
+                                <Button fx:id="createProgramButton" mnemonicParsing="false" onAction="#createProgram"
+                                        text="Create program" textAlignment="CENTER" AnchorPane.leftAnchor="20.0"
+                                        AnchorPane.topAnchor="20.0"/>
+                                <ListView fx:id="programListView" prefHeight="606.0" prefWidth="1040.0"
+                                          AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0"
+                                          AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0"/>
                             </children>
                         </AnchorPane>
                     </content>
@@ -21,26 +29,37 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <Button fx:id="neuesWorkoutBtn" mnemonicParsing="false" onAction="#workoutErstellen" text="Workout erstellen" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
-                                <ListView fx:id="workoutListView" prefHeight="606.0" prefWidth="1040.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0" />
+                                <Button fx:id="createWorkoutButton" mnemonicParsing="false" onAction="#createWorkout"
+                                        text="Create workout" textAlignment="CENTER" AnchorPane.leftAnchor="20.0"
+                                        AnchorPane.topAnchor="20.0"/>
+                                <ListView fx:id="workoutListView" prefHeight="606.0" prefWidth="1040.0"
+                                          AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0"
+                                          AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0"/>
                             </children>
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab fx:id="uebungenTab" text="Übungen">
+                <Tab text="Exercises">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <Button fx:id="neueUebungBtn" mnemonicParsing="false" onAction="#uebungErstellen" text="Übung erstellen" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
-                                <ListView fx:id="uebungenListView" prefHeight="606.0" prefWidth="1040.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0" />
+                                <Button fx:id="createExerciseButton" mnemonicParsing="false" onAction="#createExercise"
+                                        text="Create exercise" textAlignment="CENTER" AnchorPane.leftAnchor="20.0"
+                                        AnchorPane.topAnchor="20.0"/>
+                                <ListView fx:id="exerciseListView" prefHeight="606.0" prefWidth="1040.0"
+                                          AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0"
+                                          AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0"/>
                             </children>
                         </AnchorPane>
                     </content>
                 </Tab>
             </tabs>
         </TabPane>
-        <RadioButton fx:id="masseToggleBtn" mnemonicParsing="false" text="Masse" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0" />
-        <RadioButton fx:id="defiToggleBtn" mnemonicParsing="false" text="Definition" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="10.0" />
-        <Button fx:id="statistikLadenBtn" onAction="#statistikOeffnen" mnemonicParsing="false" text="Statistik" textAlignment="CENTER" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0" />
+        <RadioButton fx:id="phaseToggleButtonBulking" mnemonicParsing="false" text="Bulking"
+                     AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0"/>
+        <RadioButton fx:id="phaseToggleButtonCutting" mnemonicParsing="false" text="Cutting"
+                     AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="10.0"/>
+        <Button fx:id="openStatisticsButton" onAction="#openStatistics" mnemonicParsing="false" text="Statistics"
+                textAlignment="CENTER" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0"/>
     </children>
 </AnchorPane>

@@ -1,6 +1,6 @@
 package main;
 
-import controller.SpeicherAlert;
+import controller.SaveAlert;
 import domain.*;
 import design.*;
 import javafx.application.Application;
@@ -10,26 +10,23 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import persistence.Datenbank;
+import persistence.Database;
 
 
 public class Pump extends Application {
 
-    //TODO uebung.fxml spacing zwischen anchorpanes dynamisch machen
-    //TODO fullscreen problem beheben
     //TODO new scene statt popup
 
-    public static Datenbasis datenbasis;
-
+    public static Databasis databasis;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         try {
-            Datenbank.init();
-            datenbasis = (Datenbasis) Datenbank.load(Datenbasis.class);
+            Database.init();
+            databasis = (Databasis) Database.load(Databasis.class);
         } catch (Exception e) {
-            new SpeicherAlert(Alert.AlertType.ERROR, "Could not load data");
+            new SaveAlert(Alert.AlertType.ERROR, "Could not load data.");
         }
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/root.fxml"));
@@ -41,52 +38,53 @@ public class Pump extends Application {
         primaryStage.setTitle("pump");
 
 
-        RadioButton masseToggleBtn = (RadioButton) root.lookup("#masseToggleBtn");
-        RadioButton defiToggleBtn = (RadioButton) root.lookup("#defiToggleBtn");
-        ToggleGroup masseDefiToggleGroup = new ToggleGroup();
+        RadioButton phaseToggleButtonBulking = (RadioButton) root.lookup("#phaseToggleButtonBulking");
+        RadioButton phaseToggleButtonCutting = (RadioButton) root.lookup("#phaseToggleButtonCutting");
 
-        masseToggleBtn.setToggleGroup(masseDefiToggleGroup);
-        defiToggleBtn.setToggleGroup(masseDefiToggleGroup);
-        masseToggleBtn.setSelected(Pump.datenbasis.getPhase().isMasse());
-        defiToggleBtn.setSelected(!Pump.datenbasis.getPhase().isMasse());
 
-        masseDefiToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            Pump.datenbasis.getPhase().setMasse(((RadioButton) newValue).getId().equalsIgnoreCase("masseToggleBtn"));
+        ToggleGroup bulkingCuttingToggleGroup = new ToggleGroup();
+
+        phaseToggleButtonBulking.setToggleGroup(bulkingCuttingToggleGroup);
+        phaseToggleButtonCutting.setToggleGroup(bulkingCuttingToggleGroup);
+        phaseToggleButtonBulking.setSelected(Pump.databasis.getPhase().getBulk());
+        phaseToggleButtonCutting.setSelected(!Pump.databasis.getPhase().getBulk());
+
+        bulkingCuttingToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            Pump.databasis.getPhase().setBulk(((RadioButton) newValue).getId().equalsIgnoreCase("phaseToggleButtonBulking"));
         });
 
-        ListView<Uebung> uebungenListView = (ListView) root.lookup("#uebungenListView");
-        uebungenListView.setItems(Pump.datenbasis.getUebungen());
-        uebungenListView.setCellFactory(new Callback<ListView<Uebung>,
-                                                ListCell<Uebung>>() {
+        ListView<Exercise> exerciseListView = (ListView) root.lookup("#exerciseListView");
+        exerciseListView.setItems(Pump.databasis.getExecises());
+        exerciseListView.setCellFactory(new Callback<ListView<Exercise>,
+                                                ListCell<Exercise>>() {
                                             @Override
-                                            public ListCell<Uebung> call(ListView<Uebung> list) {
-                                                return new UebungBearbeitenCell();
+                                            public ListCell<Exercise> call(ListView<Exercise> list) {
+                                                return new EditExerciseCell();
                                             }
                                         }
         );
 
         ListView<Workout> workoutListView = (ListView) root.lookup("#workoutListView");
-        workoutListView.setItems(Pump.datenbasis.getWorkouts());
+        workoutListView.setItems(Pump.databasis.getWorkouts());
         workoutListView.setCellFactory(new Callback<ListView<Workout>,
                                                ListCell<Workout>>() {
                                            @Override
                                            public ListCell<Workout> call(ListView<Workout> list) {
-                                               return new WorkoutBearbeitenCell();
+                                               return new EditWorkoutCell();
                                            }
                                        }
         );
 
-        ListView<Programm> programmListView = (ListView) root.lookup("#programmListView");
-        programmListView.setItems(Pump.datenbasis.getProgramme());
-        programmListView.setCellFactory(new Callback<ListView<Programm>,
-                                                ListCell<Programm>>() {
-                                            @Override
-                                            public ListCell<Programm> call(ListView<Programm> list) {
-                                                return new ProgrammCell();
-                                            }
-                                        }
+        ListView<Program> programListView = (ListView) root.lookup("#programListView");
+        programListView.setItems(Pump.databasis.getPrograms());
+        programListView.setCellFactory(new Callback<ListView<Program>,
+                                               ListCell<Program>>() {
+                                           @Override
+                                           public ListCell<Program> call(ListView<Program> list) {
+                                               return new ProgramCell();
+                                           }
+                                       }
         );
-
 
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
@@ -94,7 +92,7 @@ public class Pump extends Application {
 
     @Override
     public void stop() throws Exception {
-        Datenbank.save(Pump.datenbasis);
+        Database.save(Pump.databasis);
     }
 
     public static void main(String[] args) {

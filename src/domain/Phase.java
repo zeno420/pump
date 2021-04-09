@@ -5,17 +5,17 @@ import javafx.beans.property.SimpleBooleanProperty;
 
 public class Phase {
 
-    private BooleanProperty masse = new SimpleBooleanProperty(true);
+    private BooleanProperty bulk = new SimpleBooleanProperty(true);
 
-    public boolean isMasse() {
-        return masse.get();
+    public boolean getBulk() {
+        return bulk.get();
     }
 
-    public BooleanProperty masseProperty() {
-        return masse;
+    public BooleanProperty bulkProperty() {
+        return bulk;
     }
 
-    public void setMasse(boolean masse) {
-        this.masse.set(masse);
+    public void setBulk(boolean bulk) {
+        this.bulk.set(bulk);
     }
 }

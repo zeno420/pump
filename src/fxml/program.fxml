@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="720" prefWidth="1080"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.ProgramController">
+    <children>
+        <Label text="Name:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0"/>
+        <Label text="Description:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0"/>
+        <TextField fx:id="programNameField" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="20.0"/>
+        <TextField fx:id="programDescriptionField" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="50.0"/>
+        <Label text="Days:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="100.0"/>
+        <ListView fx:id="dayListView" prefHeight="456.0" prefWidth="881.0" AnchorPane.bottomAnchor="60.0"
+                  AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="140.0"/>
+        <Button fx:id="addDayButton" layoutX="178.0" layoutY="128.0" mnemonicParsing="false" onAction="#createDay"
+                text="add" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="100.0"/>
+        <Button fx:id="cancelProgramButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#cancel"
+                text="cancel" textAlignment="CENTER" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="115.0"/>
+        <Button fx:id="saveProgramButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#saveProgram"
+                text="save" textAlignment="CENTER" textOverrun="CLIP" AnchorPane.bottomAnchor="20.0"
+                AnchorPane.rightAnchor="20.0"/>
+    </children>
+</AnchorPane>

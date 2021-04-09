@@ -1,16 +1,12 @@
 package test;
 
 import controller.EditDialogBuilder;
-import domain.Uebung;
-import javafx.application.Application;
+import domain.Exercise;
 import javafx.application.Platform;
-import javafx.stage.Stage;
-import main.Pump;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.concurrent.Semaphore;
 
 import static javafx.application.Application.launch;
@@ -23,7 +19,7 @@ public class EditDialogBuilderTest {
     static Thread laucher = new Thread() {
         @Override
         public void run() {
-            launch(TestApp.class);
+            launch(TestApplication.class);
         }
     };
 
@@ -53,17 +49,17 @@ public class EditDialogBuilderTest {
 
         Platform.runLater(() -> {
             try {
-                Uebung uebung = new Uebung();
+                Exercise exercise = new Exercise();
 
 
-                EditDialogBuilder<Uebung> editDialogBuilder = new EditDialogBuilder<>();
+                EditDialogBuilder<Exercise> editDialogBuilder = new EditDialogBuilder<>();
 
                 assertDoesNotThrow(() -> {
-                    editDialogBuilder.setTitle("Übung bearbeiten").setFxmlResource("../fxml/uebung.fxml").setEditableObject(uebung).build();
+                    editDialogBuilder.setWindowTitle("Übung bearbeiten").setFxmlResource("../fxml/exercise.fxml").setEditableObject(exercise).build();
                 });
 
                 assertThrows(Exception.class, () -> {
-                    editDialogBuilder.setTitle("oh no").setFxmlResource("../fxml/falsch.fxml").setEditableObject(uebung).build();
+                    editDialogBuilder.setWindowTitle("oh no").setFxmlResource("../fxml/falsch.fxml").setEditableObject(exercise).build();
                 });
             } catch (Throwable e) {
                 throwables[0] = e;

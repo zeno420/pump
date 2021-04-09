@@ -17,19 +17,15 @@ import java.util.UUID;
 public class Workout implements UniqueNamed, EditableDomainObject {
 
     private StringProperty name = new SimpleStringProperty();
-    private StringProperty beschreibung = new SimpleStringProperty();
+    private StringProperty description = new SimpleStringProperty();
 
-    private ListProperty<Uebung> uebungen = new SimpleListProperty<>(FXCollections.observableArrayList(Uebung.makeExtractor()));
+    private ListProperty<Exercise> exercises = new SimpleListProperty<>(FXCollections.observableArrayList(Exercise.makeExtractor()));
 
-    private IntegerProperty currentUebungIndex = new SimpleIntegerProperty(0);
+    private IntegerProperty currentExerciseIndex = new SimpleIntegerProperty(0);
 
     private WorkoutValid workoutValid = WorkoutValid.NONAME;
 
-    private List<Property> aenderbareMember = new ArrayList<>();
-
-
-    //static id generator shared among all instances of Coordinates
-    //private static final AtomicInteger idGenerator = new AtomicInteger(1000);
+    private List<Property> editableMembers = new ArrayList<>();
 
     @XmlAttribute
     @XmlID
@@ -39,44 +35,42 @@ public class Workout implements UniqueNamed, EditableDomainObject {
         //assign unique id to an instance variable
         wid = "w-" + UUID.randomUUID().toString();
         name.set("");
-        beschreibung.set("");
+        description.set("");
 
-        aenderbareMember.add(name);
-        aenderbareMember.add(beschreibung);
-        aenderbareMember.add(uebungen);
+        editableMembers.add(name);
+        editableMembers.add(description);
+        editableMembers.add(exercises);
     }
 
     public String getId() {
-        //return instance variable
         return wid;
     }
 
-
     public enum WorkoutValid {
-        VALID(0, ""), NONAME(1, "Name ungültig"), UEBUNG(2, "Übungen ungültig");
+        VALID(0, ""), NONAME(1, "Name invalid."), EXERCISE(2, "Exercise invalid.");
 
         private int code;
-        private String error;
+        private String errorText;
 
-        WorkoutValid(int code, String error) {
+        WorkoutValid(int code, String errorText) {
             this.code = code;
-            this.error = error;
+            this.errorText = errorText;
         }
 
         public int getCode() {
             return code;
         }
 
-        public String getError() {
-            return error;
+        public String getErrorText() {
+            return errorText;
         }
     }
 
     public Workout makeTmpCopy() {
         Workout tmpWorkout = new Workout();
         tmpWorkout.setName(name.get());
-        tmpWorkout.setBeschreibung(beschreibung.get());
-        tmpWorkout.getUebungen().addAll(uebungen.get());
+        tmpWorkout.setDescription(description.get());
+        tmpWorkout.getExercises().addAll(exercises.get());
         return tmpWorkout;
     }
 
@@ -84,7 +78,7 @@ public class Workout implements UniqueNamed, EditableDomainObject {
         return new Callback<Workout, Observable[]>() {
             @Override
             public Observable[] call(Workout workout) {
-                return new Observable[]{workout.nameProperty(), workout.beschreibungProperty(), workout.uebungenProperty()};
+                return new Observable[]{workout.nameProperty(), workout.descriptionProperty(), workout.exercisesProperty()};
             }
         };
     }
@@ -95,22 +89,22 @@ public class Workout implements UniqueNamed, EditableDomainObject {
             workoutValid = WorkoutValid.NONAME;
         } else if (name.get().equalsIgnoreCase("")) {
             workoutValid = WorkoutValid.NONAME;
-        } else if (uebungen.get().size() < 1) {
-            workoutValid = WorkoutValid.UEBUNG;
+        } else if (exercises.get().size() < 1) {
+            workoutValid = WorkoutValid.EXERCISE;
         } else {
             workoutValid = WorkoutValid.VALID;
         }
         return workoutValid;
     }
 
-    public List<Property> getAenderbareMember() {
-        return aenderbareMember;
+    public List<Property> getEditableMembers() {
+        return editableMembers;
     }
 
-    public void aenderbareMemberUebertragen(List<Property> tmpAenderbareMember) {
+    public void transferEditableMembers(List<Property> tmpAenderbareMember) {
         //set aber kein setter
         for (int i = 0; i < tmpAenderbareMember.size(); i++) {
-            aenderbareMember.get(i).setValue(tmpAenderbareMember.get(i).getValue());
+            editableMembers.get(i).setValue(tmpAenderbareMember.get(i).getValue());
 
         }
     }
@@ -131,59 +125,59 @@ public class Workout implements UniqueNamed, EditableDomainObject {
         this.name.set(name);
     }
 
-    public String getBeschreibung() {
-        return beschreibung.get();
+    public String getDescription() {
+        return description.get();
     }
 
-    public StringProperty beschreibungProperty() {
-        return beschreibung;
+    public StringProperty descriptionProperty() {
+        return description;
     }
 
-    public void setBeschreibung(String beschreibung) {
-        this.beschreibung.set(beschreibung);
+    public void setDescription(String description) {
+        this.description.set(description);
     }
 
     @XmlIDREF
-    public ObservableList<Uebung> getUebungen() {
-        return uebungen.get();
+    public ObservableList<Exercise> getExercises() {
+        return exercises.get();
     }
 
-    public ListProperty<Uebung> uebungenProperty() {
-        return uebungen;
+    public ListProperty<Exercise> exercisesProperty() {
+        return exercises;
     }
 
-    public void setUebungen(ObservableList<Uebung> uebungen) {
-        this.uebungen.set(uebungen);
+    public void setExercises(ObservableList<Exercise> exercises) {
+        this.exercises.set(exercises);
     }
 
-    public int getCurrentUebungIndex() {
+    public int getCurrentExerciseIndex() {
         validateIndex();
-        return currentUebungIndex.get();
+        return currentExerciseIndex.get();
     }
 
-    public IntegerProperty currentUebungIndexProperty() {
-        return currentUebungIndex;
+    public IntegerProperty currentExerciseIndexProperty() {
+        return currentExerciseIndex;
     }
 
-    public void setCurrentUebungIndex(int currentUebungIndex) {
-        this.currentUebungIndex.set(currentUebungIndex);
+    public void setCurrentExerciseIndex(int currentExerciseIndex) {
+        this.currentExerciseIndex.set(currentExerciseIndex);
     }
 
-    public void increaseAktuelleUebung() {
-        setCurrentUebungIndex(currentUebungIndex.get() + 1);
+    public void increaseCurrentExerciseIndex() {
+        setCurrentExerciseIndex(currentExerciseIndex.get() + 1);
         validateIndex();
     }
 
-    public void decreaseAktuelleUebung() {
-        setCurrentUebungIndex(currentUebungIndex.get() - 1);
+    public void decreaseCurrentExerciseIndex() {
+        setCurrentExerciseIndex(currentExerciseIndex.get() - 1);
         validateIndex();
     }
 
     private void validateIndex() {
-        if (currentUebungIndex.get() > uebungen.get().size() - 1) {
-            currentUebungIndex.set(0);
-        } else if (currentUebungIndex.get() < 0) {
-            currentUebungIndex.set(uebungen.get().size() - 1);
+        if (currentExerciseIndex.get() > exercises.get().size() - 1) {
+            currentExerciseIndex.set(0);
+        } else if (currentExerciseIndex.get() < 0) {
+            currentExerciseIndex.set(exercises.get().size() - 1);
         }
     }
 }

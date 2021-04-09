@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.StatisticController">
+    <children>
+        <TabPane layoutX="55.0" layoutY="48.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0"
+                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <tabs>
+                <Tab text="Workouts">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <Label layoutX="38.0" layoutY="27.0" text="Workouts count:" AnchorPane.leftAnchor="10.0"
+                                       AnchorPane.topAnchor="10.0"/>
+                                <Label fx:id="workoutCountLabel" text="0" AnchorPane.leftAnchor="300.0"
+                                       AnchorPane.topAnchor="10.0"/>
+                                <ListView fx:id="workoutLogListView" prefHeight="606.0" prefWidth="1040.0"
+                                          AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0"
+                                          AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Exercises">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <Label layoutX="38.0" layoutY="27.0" text="Exercise count:" AnchorPane.leftAnchor="10.0"
+                                       AnchorPane.topAnchor="10.0"/>
+                                <Label fx:id="exerciseCountLabel" text="0" AnchorPane.leftAnchor="300.0"
+                                       AnchorPane.topAnchor="10.0"/>
+                                <ListView fx:id="exerciseLogListView" prefHeight="606.0" prefWidth="1040.0"
+                                          AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0"
+                                          AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+        <Button fx:id="openTimelineButton" onAction="#openTimeline" mnemonicParsing="false" text="Zeitstrahl"
+                textAlignment="CENTER" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0"/>
+    </children>
+</AnchorPane>

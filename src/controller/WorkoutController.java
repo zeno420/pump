@@ -1,9 +1,9 @@
 package controller;
 
 import domain.*;
-import design.SatzSpielenCell;
-import design.UebungAnzeigenCell;
-import design.UebungCell;
+import design.ExecuteSetCell;
+import design.DisplayExerciseInWorkoutCell;
+import design.ExerciseCell;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -16,148 +16,167 @@ import java.io.IOException;
 
 public class WorkoutController implements SetupableController<Workout> {
 
-    private Workout aktuellesWorkout;
-    private Parent aktuellerWorkoutDialog;
-    private Workout tmpWorkout;
+    private Workout currentWorkout;
+    private Parent currentWorkoutDialog;
+    private Workout temporaryWorkout;
     private boolean isNew = false;
-    private Uebung aktuellGespielteUebung;
+    private Exercise currentlyPlayedExercise;
 
-    public ComboBox<Uebung> uebungComboBox;
-    public ListView<Uebung> workoutUebungenListView;
+    @FXML
+    private ComboBox<Exercise> exerciseComboBox;
+    @FXML
+    private ListView<Exercise> workoutExercisesListView;
 
     @FXML
     private TextField workoutNameField;
     @FXML
-    private TextField workoutBeschreibungField;
+    private TextField workoutDescriptionField;
     @FXML
-    private Button workouSpeichernBtn;
+    private Button saveWorkoutButton;
     @FXML
-    private ListView<Satz> satzListView;
+    private ListView<Set> setListView;
     @FXML
-    private Label uebungNameLabel;
+    private Label exerciseNameLabel;
     @FXML
     private Label indexLabel;
     @FXML
-    private Button fertigBtn;
+    private Button doneButton;
 
     public void setUpBindingEdit(Workout workout, Parent workoutDialog) {
 
         if (workout != null) {
-            aktuellesWorkout = workout;
+            currentWorkout = workout;
             isNew = false;
         } else {
-            aktuellesWorkout = new Workout();
+            currentWorkout = new Workout();
             isNew = true;
         }
-        
-        tmpWorkout = aktuellesWorkout.makeTmpCopy();
 
-        workoutUebungenListView = (ListView) workoutDialog.lookup("#workoutUebungenListView");
-        workoutUebungenListView.setItems(tmpWorkout.getUebungen());
-        workoutUebungenListView.setCellFactory(new Callback<ListView<Uebung>,
-                                                       ListCell<Uebung>>() {
-                                                   @Override
-                                                   public ListCell<Uebung> call(ListView<Uebung> list) {
-                                                       return new UebungAnzeigenCell();
-                                                   }
-                                               }
-        );
+        temporaryWorkout = currentWorkout.makeTmpCopy();
 
-        workoutNameField.textProperty().bindBidirectional(tmpWorkout.nameProperty());
-        workoutBeschreibungField.textProperty().bindBidirectional(tmpWorkout.beschreibungProperty());
+        setUpExercisesListView();
+        setUpExercisesComboBox();
+        setUpTextFields();
 
-        uebungComboBox = (ComboBox) workoutDialog.lookup("#uebungComboBox");
-        uebungComboBox.setItems(Pump.datenbasis.getUebungen());
-        uebungComboBox.setCellFactory(new Callback<ListView<Uebung>,
-                                              ListCell<Uebung>>() {
+    }
+
+    private void setUpTextFields() {
+        workoutNameField.textProperty().bindBidirectional(temporaryWorkout.nameProperty());
+        workoutDescriptionField.textProperty().bindBidirectional(temporaryWorkout.descriptionProperty());
+    }
+
+    private void setUpExercisesComboBox() {
+        exerciseComboBox.setItems(Pump.databasis.getExecises());
+        exerciseComboBox.setCellFactory(new Callback<ListView<Exercise>,
+                                              ListCell<Exercise>>() {
                                           @Override
-                                          public ListCell<Uebung> call(ListView<Uebung> list) {
-                                              return new UebungCell();
+                                          public ListCell<Exercise> call(ListView<Exercise> list) {
+                                              return new ExerciseCell();
                                           }
                                       }
         );
     }
 
+    private void setUpExercisesListView() {
+        workoutExercisesListView.setItems(temporaryWorkout.getExercises());
+        workoutExercisesListView.setCellFactory(new Callback<ListView<Exercise>,
+                                                       ListCell<Exercise>>() {
+                                                   @Override
+                                                   public ListCell<Exercise> call(ListView<Exercise> list) {
+                                                       return new DisplayExerciseInWorkoutCell();
+                                                   }
+                                               }
+        );
+    }
+
     public void setUpBindingPlay(Workout workout, Parent workoutDialog) {
 
-        aktuellesWorkout = workout;
-        aktuellerWorkoutDialog = workoutDialog;
-        aktuellGespielteUebung = workout.getUebungen().get(workout.getCurrentUebungIndex());
+        currentWorkout = workout;
+        currentWorkoutDialog = workoutDialog;
+        currentlyPlayedExercise = workout.getExercises().get(workout.getCurrentExerciseIndex());
 
-        satzListView.setItems(aktuellGespielteUebung.getSaetze(Pump.datenbasis.getPhase().isMasse()));
-        satzListView.setCellFactory(new Callback<ListView<Satz>,
-                                            ListCell<Satz>>() {
+        setUpCurrentlyPlayedExerciseListView();
+        setUpExerciseInfoText(workout);
+    }
+
+    private void setUpExerciseInfoText(Workout workout) {
+        exerciseNameLabel.textProperty().bind(currentlyPlayedExercise.nameProperty());
+        int currentUebungDisplayIndex = workout.getCurrentExerciseIndex() + 1;
+        String uebungInfoText = "Übung " + currentUebungDisplayIndex + " von " + workout.getExercises().size();
+        indexLabel.setText(uebungInfoText);
+    }
+
+
+    private void setUpCurrentlyPlayedExerciseListView() {
+        setListView.setItems(currentlyPlayedExercise.getSets(Pump.databasis.getPhase().getBulk()));
+        setListView.setCellFactory(new Callback<ListView<Set>,
+                                            ListCell<Set>>() {
                                         @Override
-                                        public ListCell<Satz> call(ListView<Satz> list) {
-                                            return new SatzSpielenCell(aktuellGespielteUebung);
+                                        public ListCell<Set> call(ListView<Set> list) {
+                                            return new ExecuteSetCell(currentlyPlayedExercise);
                                         }
                                     }
         );
-
-        uebungNameLabel.textProperty().bind(workout.getUebungen().get(workout.currentUebungIndexProperty().get()).nameProperty());
-        int currentUebung = workout.getCurrentUebungIndex() + 1;
-        String bla = "Übung " + currentUebung + " von " + workout.getUebungen().size();
-        indexLabel.setText(bla);
     }
 
-    public void workoutSpeichern(ActionEvent event) {
-        String error;
+    public void saveWorkout(ActionEvent event) {
+        String errorText;
         if (isNew) {
-            error = Pump.datenbasis.workoutHinzufuegen(aktuellesWorkout, tmpWorkout);
+            errorText = Pump.databasis.addWorkout(currentWorkout, temporaryWorkout);
         } else {
-            error = Pump.datenbasis.workoutUpdaten(aktuellesWorkout, tmpWorkout);
+            errorText = Pump.databasis.updateWorkout(currentWorkout, temporaryWorkout);
         }
-        speichernAlarmieren(error);
+        alertSaving(errorText);
     }
 
-    private void speichernAlarmieren(String error) {
-        if (error == null) {
-            Stage stage = (Stage) workouSpeichernBtn.getScene().getWindow();
+    private void alertSaving(String errorText) {
+        if (errorText == null) {
+            Stage stage = (Stage) saveWorkoutButton.getScene().getWindow();
             stage.close();
         } else {
-            new SpeicherAlert(Alert.AlertType.WARNING, error);
+            new SaveAlert(Alert.AlertType.WARNING, errorText);
         }
     }
 
 
-    public void workoutAbbrechen(ActionEvent event) {
-        Stage stage = (Stage) workouSpeichernBtn.getScene().getWindow();
+    public void cancel(ActionEvent event) {
+        Stage stage = (Stage) saveWorkoutButton.getScene().getWindow();
         stage.close();
     }
 
-    public void uebungZuWorkoutHinzufuegen(ActionEvent event) {
-        Uebung uebung = uebungComboBox.getSelectionModel().getSelectedItem();
-        if (uebung == null) {
+    public void addExerciseToWorkout(ActionEvent event) {
+        Exercise exercise = exerciseComboBox.getSelectionModel().getSelectedItem();
+        if (exercise == null) {
             return;
         }
-        tmpWorkout.getUebungen().add(uebung);
+        temporaryWorkout.getExercises().add(exercise);
     }
 
-    public void uebungEntfernen(ActionEvent event) throws IOException {
-        if (workoutUebungenListView.getSelectionModel().getSelectedIndex() >= 0) {
-            tmpWorkout.getUebungen().remove(workoutUebungenListView.getSelectionModel().getSelectedIndex());
+    public void removeExerciseFromWorkout(ActionEvent event) throws IOException {
+        if (workoutExercisesListView.getSelectionModel().getSelectedIndex() >= 0) {
+            temporaryWorkout.getExercises().remove(workoutExercisesListView.getSelectionModel().getSelectedIndex());
         }
     }
 
-    public void nextUebung(ActionEvent event) throws IOException {
-        aktuellesWorkout.increaseAktuelleUebung();
-        setUpBindingPlay(aktuellesWorkout, aktuellerWorkoutDialog);
+    public void nextExercise(ActionEvent event) throws IOException {
+        currentWorkout.increaseCurrentExerciseIndex();
+        setUpBindingPlay(currentWorkout, currentWorkoutDialog);
     }
 
-    public void nextUebungDone(ActionEvent event) throws IOException {
-        Pump.datenbasis.getUebungLog().add(new LogEintrag(aktuellGespielteUebung.getName(), aktuellesWorkout.getBeschreibung()));
-        aktuellesWorkout.increaseAktuelleUebung();
-        setUpBindingPlay(aktuellesWorkout, aktuellerWorkoutDialog);
+    public void doneAndNextExercise(ActionEvent event) throws IOException {
+        Pump.databasis.getExeciseLog().add(new LogEntry(currentlyPlayedExercise.getName(), currentWorkout.getDescription()));
+        currentWorkout.increaseCurrentExerciseIndex();
+        setUpBindingPlay(currentWorkout, currentWorkoutDialog);
     }
 
-    public void previousUebung(ActionEvent event) throws IOException {
-        aktuellesWorkout.decreaseAktuelleUebung();
-        setUpBindingPlay(aktuellesWorkout, aktuellerWorkoutDialog);
+    public void previousExercise(ActionEvent event) throws IOException {
+        currentWorkout.decreaseCurrentExerciseIndex();
+        setUpBindingPlay(currentWorkout, currentWorkoutDialog);
     }
 
-    public void fertig(ActionEvent event) {
-        Pump.datenbasis.getWorkoutLog().add(new LogEintrag(aktuellesWorkout.getName(), aktuellesWorkout.getBeschreibung()));
-        Stage stage = (Stage) fertigBtn.getScene().getWindow();
+    public void done(ActionEvent event) {
+        Pump.databasis.getWorkoutLog().add(new LogEntry(currentWorkout.getName(), currentWorkout.getDescription()));
+        Stage stage = (Stage) doneButton.getScene().getWindow();
         stage.close();
     }
 }

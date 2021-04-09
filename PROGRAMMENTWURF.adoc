@@ -211,7 +211,7 @@ TODO nomol abchecken ob das was gewollt ist
 
 In der Domäne Training oder auch Pumpen (*pump*) existieren Trainingsprogramme (*Programm*). Diese Programe können erstellt (*erstellen*), verändert (*bearbeiten*), verworfen (*löschen*) und ausgeführt (*spielen*) werden. Programme bestehen aus einem eindeutigen Namen (*Name*), einer Beschreibung (*Beschreibung*) und einer beliebigen Anzahl von Tagen (*Tag*). Tage können erstellt (*erstellen*), verändert (*bearbeiten*) und verworfen (*löschen*) werden. Tage bestehen aus einem Namen (*Name*), einer Beschreibung (*Beschreibung*) und einer beliebigen Anzahl von Workouts (*Workout*). Workouts können erstellt (*erstellen*), verändert (*bearbeiten*), verworfen (*löschen*) und ausgeführt (*spielen*) werden. Workouts bestehen aus einem eindeutigen Namen (*Name*), einer Beschreibung (*Beschreibung*) und einer beliebigen Anzahl von Übungen (*Übung*). Übungen können erstellt (*erstellen*), verändert (*bearbeiten*) und verworfen (*löschen*) werden. Übungen bestehen aus einem eindeutigen Namen (*Name*), einer Beschreibung (*Beschreibung*) und einer beliebigen Anzahl von Sätzen (*Satz*).
 
-TODO masse defi satz logik
+TODO masse defi set logik
 
 Sätze können erstellt (*erstellen*), verändert (*bearbeiten*) und verworfen (*löschen*) werden. Sätze bestehen aus einer Wiederholungsanzahl (*Wiederholungen*) und einem Arbeitsgewicht (*Gewicht*). Zudem ist beim Training die Unterscheidung zwischen der Masse- und Definitionsphase (*Phase*) wichtig.
 

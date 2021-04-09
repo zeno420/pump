@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -19,179 +18,183 @@ import java.util.Optional;
 
 public class RootController {
 
-    public void uebungErstellen(ActionEvent event) throws IOException {
+    public void createExercise(ActionEvent event) throws IOException {
 
-        EditDialogBuilder<Uebung> editDialogBuilder = new EditDialogBuilder<>();
-        editDialogBuilder.setTitle("Übung erstellen").setFxmlResource("../fxml/uebung.fxml").build().show();
+        EditDialogBuilder<Exercise> editDialogBuilder = new EditDialogBuilder<>();
+        editDialogBuilder.setWindowTitle("Create exercise").setFxmlResource("../fxml/exercise.fxml").build().show();
     }
 
-    public void uebungBearbeiten(Uebung uebung) throws IOException {
+    public void editExercise(Exercise exercise) throws IOException {
 
-        EditDialogBuilder<Uebung> editDialogBuilder = new EditDialogBuilder<>();
-        editDialogBuilder.setTitle("Übung bearbeiten").setFxmlResource("../fxml/uebung.fxml").setEditableObject(uebung).build().show();
+        EditDialogBuilder<Exercise> editDialogBuilder = new EditDialogBuilder<>();
+        editDialogBuilder.setWindowTitle("Edit exercise").setFxmlResource("../fxml/exercise.fxml").setEditableObject(exercise).build().show();
     }
 
-    public void uebungLoeschen(Uebung uebung) {
-        //TODO leeres workout macht probleme
-        List<Workout> workoutList = Pump.datenbasis.getWorkouts();
+    public void deleteExercise(Exercise exercise) {
+
         List<Workout> containingWorkoutList = new ArrayList<>();
         List<Workout> emptyAfterDeletionWorkoutList = new ArrayList<>();
 
-        StringBuilder warnung = new StringBuilder();
+        StringBuilder warnText = new StringBuilder();
 
-        for (Workout w : workoutList) {
-            if (w.getUebungen().contains(uebung)) {
-                containingWorkoutList.add(w);
-                if (w.getUebungen().stream().allMatch(uebung::equals)) {
-                    emptyAfterDeletionWorkoutList.add(w);
-                    warnung.append(w.getName()).append(": will be empty after deleting this Übung and will be also deletet.");
+        buildRemoveExerciseWarnText(exercise, containingWorkoutList, emptyAfterDeletionWorkoutList, warnText, Pump.databasis.getWorkouts());
+
+        DeleteAlert deleteAlert = new DeleteAlert(Alert.AlertType.CONFIRMATION);
+        String warnHeaderText = emptyAfterDeletionWorkoutList.size() + " workouts consist of ONLY that Exercise, " + (containingWorkoutList.size() - emptyAfterDeletionWorkoutList.size()) + " more workouts contain this exercise.";
+        deleteAlert.setHeaderText(warnHeaderText);
+        Optional<ButtonType> buttonResult = deleteAlert.customizeDeleteAlert(warnText);
+
+        if (buttonResult.get() == ButtonType.OK) {
+            removeExerciseFromDatabasis(exercise, containingWorkoutList, emptyAfterDeletionWorkoutList, Pump.databasis.getExecises());
+        }
+    }
+
+    private void removeExerciseFromDatabasis(Exercise exercise, List<Workout> containingWorkoutList, List<Workout> emptyAfterDeletionWorkoutList, List<Exercise> databasisExerciseList) {
+        databasisExerciseList.remove(exercise);
+        for (Workout workout : containingWorkoutList) {
+            while (workout.getExercises().contains(exercise)) {
+                workout.getExercises().remove(exercise);
+            }
+        }
+        for (Workout workout : emptyAfterDeletionWorkoutList) {
+            deleteWorkout(workout, false);
+        }
+    }
+
+    private void buildRemoveExerciseWarnText(Exercise exercise, List<Workout> containingWorkoutList, List<Workout> emptyAfterDeletionWorkoutList, StringBuilder warnText, List<Workout> databasisWorkoutList) {
+        for (Workout workout : databasisWorkoutList) {
+            if (workout.getExercises().contains(exercise)) {
+                containingWorkoutList.add(workout);
+                if (workout.getExercises().stream().allMatch(exercise::equals)) {
+                    emptyAfterDeletionWorkoutList.add(workout);
+                    warnText.append(workout.getName()).append(": will be empty after deleting this exercise and will be also deleted.");
                 } else {
-                    warnung.append(w.getName()).append(": contains this Übung.");
+                    warnText.append(workout.getName()).append(": contains this exercise.");
                 }
-                warnung.append("\n");
-            }
-        }
-
-        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-        a.setTitle("Achtung: wirklich löschen?");
-        a.setHeaderText(emptyAfterDeletionWorkoutList.size() + " Workouts enthalten NUR diese Übung, " + (containingWorkoutList.size() - emptyAfterDeletionWorkoutList.size()) + " weitere Workouts enthalten diese Übung.");
-        Optional<ButtonType> result = customizeDeleteAlert(warnung, a);
-        if (result.get() == ButtonType.OK) {
-            Pump.datenbasis.getUebungen().remove(uebung);
-            for (Workout w : containingWorkoutList) {
-                while (w.getUebungen().contains(uebung)) {
-                    w.getUebungen().remove(uebung);
-                }
-            }
-            for (Workout w : emptyAfterDeletionWorkoutList) {
-                workoutLoeschen(w, false);
+                warnText.append("\n");
             }
         }
     }
 
-    public void workoutErstellen(ActionEvent event) throws IOException {
+    public void createWorkout(ActionEvent event) throws IOException {
 
         EditDialogBuilder<Workout> editDialogBuilder = new EditDialogBuilder<>();
-        editDialogBuilder.setTitle("Workout erstellen").setFxmlResource("../fxml/workout.fxml").build().show();
+        editDialogBuilder.setWindowTitle("Create workout").setFxmlResource("../fxml/workout.fxml").build().show();
     }
 
-    public void workoutBearbeiten(Workout workout) throws IOException {
+    public void editWorkout(Workout workout) throws IOException {
 
         EditDialogBuilder<Workout> editDialogBuilder = new EditDialogBuilder<>();
-        editDialogBuilder.setTitle("Workout erstellen").setFxmlResource("../fxml/workout.fxml").setEditableObject(workout).build().show();
+        editDialogBuilder.setWindowTitle("create workout").setFxmlResource("../fxml/workout.fxml").setEditableObject(workout).build().show();
     }
 
-    public void workoutLoeschen(Workout workout, boolean manuell) {
-        List<Programm> programmList = Pump.datenbasis.getProgramme();
-        List<Programm> containingProgrammList = new ArrayList<>();
-        List<Tag> containingTagList = new ArrayList<>();
-        StringBuilder warnung = new StringBuilder();
+    public void deleteWorkout(Workout workout, boolean manually) {
 
-        for (Programm p : programmList) {
-            for (Tag t : p.getTage()) {
+        List<Program> programList = Pump.databasis.getPrograms();
+        List<Program> containingProgramList = new ArrayList<>();
+        List<Day> containingDayList = new ArrayList<>();
+        StringBuilder warnText = new StringBuilder();
+
+        buildRemoveProgramWarnText(workout, programList, containingProgramList, containingDayList, warnText);
+
+        Optional<ButtonType> buttonResult;
+
+        if (manually) {
+            DeleteAlert deleteAlert = new DeleteAlert(Alert.AlertType.CONFIRMATION);
+            deleteAlert.setHeaderText(containingProgramList.size() + " programms contain this workout in " + containingDayList.size() + " days:");
+            buttonResult = deleteAlert.customizeDeleteAlert(warnText);
+        } else {
+            buttonResult = Optional.of(ButtonType.OK);
+        }
+        if (buttonResult.get() == ButtonType.OK) {
+            removeWorkoutFromDatabasis(workout, Pump.databasis.getWorkouts(), containingDayList);
+        }
+    }
+
+    private void removeWorkoutFromDatabasis(Workout workout, List<Workout> databasisWorkoutList, List<Day> containingDayList) {
+        databasisWorkoutList.remove(workout);
+        for (Day t : containingDayList) {
+            while (t.getWorkouts().contains(workout)) {
+                t.getWorkouts().remove(workout);
+            }
+        }
+    }
+
+    private void buildRemoveProgramWarnText(Workout workout, List<Program> programList, List<Program> containingProgramList, List<Day> containingDayList, StringBuilder warnung) {
+        for (Program p : programList) {
+            for (Day t : p.getDays()) {
                 if (t.getWorkouts().contains(workout)) {
-                    if (!containingProgrammList.contains(p)) {
-                        containingProgrammList.add(p);
+                    if (!containingProgramList.contains(p)) {
+                        containingProgramList.add(p);
                         warnung.append(p.getName());
                         warnung.append("\n");
                     }
-                    containingTagList.add(t);
-                }
-            }
-        }
-        Optional<ButtonType> result;
-        if (manuell) {
-            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-            a.setTitle("Achtung: wirklich löschen?");
-            a.setHeaderText(containingProgrammList.size() + " Programme enthalten dieses Workout an " + containingTagList.size() + " Tagen:");
-            result = customizeDeleteAlert(warnung, a);
-        } else {
-            result = Optional.of(ButtonType.OK);
-        }
-        if (result.get() == ButtonType.OK) {
-            Pump.datenbasis.getWorkouts().remove(workout);
-            for (Tag t : containingTagList) {
-                while (t.getWorkouts().contains(workout)) {
-                    t.getWorkouts().remove(workout);
+                    containingDayList.add(t);
                 }
             }
         }
     }
 
-    public void programmErstellen(ActionEvent event) throws IOException {
+    public void createProgram(ActionEvent event) throws IOException {
 
-        EditDialogBuilder<Programm> editDialogBuilder = new EditDialogBuilder<>();
-        editDialogBuilder.setTitle("Programm erstellen").setFxmlResource("../fxml/programm.fxml").build().show();
+        EditDialogBuilder<Program> editDialogBuilder = new EditDialogBuilder<>();
+        editDialogBuilder.setWindowTitle("Create program").setFxmlResource("../fxml/program.fxml").build().show();
     }
 
-    public void programmBearbeiten(Programm programm) throws IOException {
+    public void editProgram(Program program) throws IOException {
 
-        EditDialogBuilder<Programm> editDialogBuilder = new EditDialogBuilder<>();
-        editDialogBuilder.setTitle("Programm bearbeiten").setFxmlResource("../fxml/programm.fxml").setEditableObject(programm).build().show();
+        EditDialogBuilder<Program> editDialogBuilder = new EditDialogBuilder<>();
+        editDialogBuilder.setWindowTitle("Edit program").setFxmlResource("../fxml/program.fxml").setEditableObject(program).build().show();
     }
 
-    public void programmLoeschen(Programm programm) {
+    public void deleteProgram(Program program) {
 
-        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-        a.setTitle("Achtung: wirklich löschen?");
-        a.setHeaderText("Das Programm wird dauerhaft gelöscht!");
-        Button lb = (Button) a.getDialogPane().lookupButton(ButtonType.OK);
-        lb.setText("löschen");
-        lb.setDefaultButton(false);
-        Button cb = (Button) a.getDialogPane().lookupButton(ButtonType.CANCEL);
-        cb.setText("abbrechen");
-        cb.setDefaultButton(true);
+        DeleteAlert deleteAlert = new DeleteAlert(Alert.AlertType.CONFIRMATION);
 
-        Optional<ButtonType> result = a.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            Pump.datenbasis.getProgramme().remove(programm);
+        deleteAlert.setHeaderText("This program will be delted permanently!");
+
+        Optional<ButtonType> buttonResult = deleteAlert.customizeDeleteAlert(null);
+
+        if (buttonResult.get() == ButtonType.OK) {
+            Pump.databasis.getPrograms().remove(program);
         }
     }
 
-    public void programmSpielen(Programm programm) throws IOException {
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/programm_spielen.fxml"));
+    public void executeProgram(Program program) throws IOException {
+
+        //TODO builder
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/execute_program.fxml"));
         Parent programmDialog = fxmlloader.load();
         programmDialog.setUserData(fxmlloader.getController());
 
         Stage stage = new Stage();
 
-        ProgrammController c = fxmlloader.getController();
-        c.setUpBindingPlay(programm, programmDialog);
+        ProgramController controller = fxmlloader.getController();
+        controller.setUpBindingPlay(program, programmDialog);
 
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle(programm.getName());
+        stage.setTitle(program.getName());
         stage.setScene(new Scene(programmDialog));
 
         stage.show();
     }
 
-    public void statistikOeffnen() throws IOException {
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/statistik.fxml"));
+    public void openStatistics() throws IOException {
+
+        //TODO builder
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/statistic.fxml"));
         Parent statistikDialog = fxmlloader.load();
         statistikDialog.setUserData(fxmlloader.getController());
 
         Stage stage = new Stage();
 
-        StatistikController c = fxmlloader.getController();
-        c.setUpBinding();
+        StatisticController controller = fxmlloader.getController();
+        controller.setUpBinding();
 
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Statistik");
+        stage.setTitle("Statistics");
         stage.setScene(new Scene(statistikDialog));
 
         stage.show();
-    }
-
-    private Optional<ButtonType> customizeDeleteAlert(StringBuilder warnung, Alert a) {
-        a.setContentText(warnung.toString());
-        Button lb = (Button) a.getDialogPane().lookupButton(ButtonType.OK);
-        lb.setText("löschen");
-        lb.setDefaultButton(false);
-        Button cb = (Button) a.getDialogPane().lookupButton(ButtonType.CANCEL);
-        cb.setText("abbrechen");
-        cb.setDefaultButton(true);
-
-        Optional<ButtonType> result = a.showAndWait();
-        return result;
     }
 }

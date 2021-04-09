@@ -1,6 +1,6 @@
 package test;
 
-import domain.Uebung;
+import domain.Exercise;
 import domain.Workout;
 import domain.Workout.WorkoutValid;
 import org.junit.jupiter.api.Test;
@@ -20,10 +20,10 @@ public class WorkoutTest {
         assertEquals(WorkoutValid.NONAME, workout.getWorkoutValid());
 
         workout.setName("name");
-        assertEquals(WorkoutValid.UEBUNG, workout.getWorkoutValid());
+        assertEquals(WorkoutValid.EXERCISE, workout.getWorkoutValid());
 
-        Uebung uebung = new Uebung();
-        workout.getUebungen().add(uebung);
+        Exercise exercise = new Exercise();
+        workout.getExercises().add(exercise);
         assertEquals(WorkoutValid.VALID, workout.getWorkoutValid());
     }
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.ProgramController">
+    <children>
+        <ListView fx:id="workoutListView" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0"
+                  AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0"/>
+        <Button fx:id="previousButton" mnemonicParsing="false" onAction="#previousTag" text="&lt;&lt;"
+                AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0"/>
+        <Button fx:id="nextButton" mnemonicParsing="false" onAction="#nextDay" text="&gt;&gt;"
+                AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0"/>
+        <Label fx:id="dayNameLabel" text="Label" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0"/>
+        <Label fx:id="indexLabel" text="Label" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0"/>
+        <Button fx:id="doneButton" minWidth="60.0" mnemonicParsing="false" onAction="#programDone" prefWidth="60.0"
+                text="Fertig" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="70.0"/>
+    </children>
+</AnchorPane>
