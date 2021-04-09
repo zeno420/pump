@@ -101,7 +101,7 @@ public class RootController {
 
         if (manually) {
             DeleteAlert deleteAlert = new DeleteAlert(Alert.AlertType.CONFIRMATION);
-            deleteAlert.setHeaderText(containingProgramList.size() + " programms contain this workout in " + containingDayList.size() + " days:");
+            deleteAlert.setHeaderText(containingProgramList.size() + " programs contain this workout in " + containingDayList.size() + " days:");
             buttonResult = deleteAlert.customizeDeleteAlert(warnText);
         } else {
             buttonResult = Optional.of(ButtonType.OK);
@@ -164,17 +164,17 @@ public class RootController {
 
         //TODO builder
         FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/execute_program.fxml"));
-        Parent programmDialog = fxmlloader.load();
-        programmDialog.setUserData(fxmlloader.getController());
+        Parent programDialog = fxmlloader.load();
+        programDialog.setUserData(fxmlloader.getController());
 
         Stage stage = new Stage();
 
         ProgramController controller = fxmlloader.getController();
-        controller.setUpBindingPlay(program, programmDialog);
+        controller.setUpBindingPlay(program, programDialog);
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle(program.getName());
-        stage.setScene(new Scene(programmDialog));
+        stage.setScene(new Scene(programDialog));
 
         stage.show();
     }

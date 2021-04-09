@@ -79,9 +79,9 @@ public class StatisticController {
         workoutLogEntryCountList.sort(new LogEntryCountKeyComparator());
         WorkoutLogsByDate.addAll(workoutLogEntryCountList);
 
-        List<LogEntryCount> uebungLogEntryCountList = Statistic.getAllDays(Pump.databasis.getExeciseLog());
-        uebungLogEntryCountList.sort(new LogEntryCountKeyComparator());
-        ExerciseLogsByDate.addAll(uebungLogEntryCountList);
+        List<LogEntryCount> exerciseLogEntryCountList = Statistic.getAllDays(Pump.databasis.getExeciseLog());
+        exerciseLogEntryCountList.sort(new LogEntryCountKeyComparator());
+        ExerciseLogsByDate.addAll(exerciseLogEntryCountList);
 
         Stage stage = new Stage();
         stage.setTitle("Timeline");

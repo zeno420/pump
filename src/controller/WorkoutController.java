@@ -101,9 +101,9 @@ public class WorkoutController implements SetupableController<Workout> {
 
     private void setUpExerciseInfoText(Workout workout) {
         exerciseNameLabel.textProperty().bind(currentlyPlayedExercise.nameProperty());
-        int currentUebungDisplayIndex = workout.getCurrentExerciseIndex() + 1;
-        String uebungInfoText = "Übung " + currentUebungDisplayIndex + " von " + workout.getExercises().size();
-        indexLabel.setText(uebungInfoText);
+        int currentExerciseDisplayIndex = workout.getCurrentExerciseIndex() + 1;
+        String exerciseInfoText = "Exercise " + currentExerciseDisplayIndex + " of " + workout.getExercises().size();
+        indexLabel.setText(exerciseInfoText);
     }
 
 

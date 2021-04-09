@@ -12,9 +12,9 @@
         <TextField fx:id="setRepetitionsField" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0"/>
         <TextField fx:id="setWeightField" layoutX="178.0" layoutY="89.0" AnchorPane.rightAnchor="20.0"
                    AnchorPane.topAnchor="50.0"/>
-        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen"
+        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="cancel"
                 AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="115.0"/>
-        <Button fx:id="saveSetButton" mnemonicParsing="false" onAction="#saveSet" text="Speichern"
+        <Button fx:id="saveSetButton" mnemonicParsing="false" onAction="#saveSet" text="save"
                 AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0"/>
     </children>
 </AnchorPane>

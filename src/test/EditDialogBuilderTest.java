@@ -55,7 +55,7 @@ public class EditDialogBuilderTest {
                 EditDialogBuilder<Exercise> editDialogBuilder = new EditDialogBuilder<>();
 
                 assertDoesNotThrow(() -> {
-                    editDialogBuilder.setWindowTitle("Übung bearbeiten").setFxmlResource("../fxml/exercise.fxml").setEditableObject(exercise).build();
+                    editDialogBuilder.setWindowTitle("Edit exercise").setFxmlResource("../fxml/exercise.fxml").setEditableObject(exercise).build();
                 });
 
                 assertThrows(Exception.class, () -> {

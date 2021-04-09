@@ -74,8 +74,8 @@ public class Databasis {
         return workoutLog;
     }
 
-    public void setWorkoutLog(ObservableList<LogEntry> programmLog) {
-        this.workoutLog = programmLog;
+    public void setWorkoutLog(ObservableList<LogEntry> workoutLog) {
+        this.workoutLog = workoutLog;
     }
 
 

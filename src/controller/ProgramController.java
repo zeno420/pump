@@ -76,9 +76,9 @@ public class ProgramController implements SetupableController<Program> {
         );
     }
 
-    public void setUpBindingPlay(Program program, Parent programmDialog) {
+    public void setUpBindingPlay(Program program, Parent programDialog) {
         currentProgram = program;
-        currentProgramDialog = programmDialog;
+        currentProgramDialog = programDialog;
         currentlyPlayedDay = program.getDays().get(program.getCurrentDayIndex());
 
         setUpPlayListView();
@@ -182,11 +182,11 @@ public class ProgramController implements SetupableController<Program> {
         FXMLLoader workoutFxmlloader = new FXMLLoader(getClass().getResource("../fxml/execute_workout.fxml"));
         Parent workoutDialog = workoutFxmlloader.load();
 
-        FXMLLoader uebungFxmlloader = new FXMLLoader(getClass().getResource("../fxml/exercise.fxml"));
+        FXMLLoader exerciseFxmlloader = new FXMLLoader(getClass().getResource("../fxml/exercise.fxml"));
 
         Map<String, Object> map = new HashMap<>();
         map.put("workoutController", workoutFxmlloader.getController());
-        map.put("uebungController", uebungFxmlloader.getController());
+        map.put("exerciseController", exerciseFxmlloader.getController());
 
         workoutDialog.setUserData(map);
 

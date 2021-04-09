@@ -44,7 +44,7 @@ public class SetCell extends ListCell<Set> {
                     if (userData instanceof ExerciseController) {
                         exerciseController = (ExerciseController) getScene().getRoot().getUserData();
                     } else {
-                        exerciseController = (ExerciseController) ((Map) getScene().getRoot().getUserData()).get("uebungController");
+                        exerciseController = (ExerciseController) ((Map) getScene().getRoot().getUserData()).get("exerciseController");
                     }
                     try {
                         exerciseController.editSet(set, null);
@@ -62,7 +62,7 @@ public class SetCell extends ListCell<Set> {
                     if (getScene().getRoot().getUserData() instanceof ExerciseController) {
                         exerciseController = (ExerciseController) getScene().getRoot().getUserData();
                     } else {
-                        exerciseController = (ExerciseController) ((Map) getScene().getRoot().getUserData()).get("uebungController");
+                        exerciseController = (ExerciseController) ((Map) getScene().getRoot().getUserData()).get("exerciseController");
                     }
                     exerciseController.deleteSet(set);
                 }
