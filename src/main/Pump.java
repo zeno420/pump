@@ -27,6 +27,7 @@ public class Pump extends Application {
             databasis = (Databasis) Database.load(Databasis.class);
         } catch (Exception e) {
             new SaveAlert(Alert.AlertType.ERROR, "Could not load data.");
+            databasis = new Databasis();
         }
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/root.fxml"));
@@ -46,15 +47,15 @@ public class Pump extends Application {
 
         phaseToggleButtonBulking.setToggleGroup(bulkingCuttingToggleGroup);
         phaseToggleButtonCutting.setToggleGroup(bulkingCuttingToggleGroup);
-        phaseToggleButtonBulking.setSelected(Pump.databasis.getPhase().getBulk());
-        phaseToggleButtonCutting.setSelected(!Pump.databasis.getPhase().getBulk());
+        phaseToggleButtonBulking.setSelected(databasis.getPhase().getBulk());
+        phaseToggleButtonCutting.setSelected(!databasis.getPhase().getBulk());
 
         bulkingCuttingToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            Pump.databasis.getPhase().setBulk(((RadioButton) newValue).getId().equalsIgnoreCase("phaseToggleButtonBulking"));
+            databasis.getPhase().setBulk(((RadioButton) newValue).getId().equalsIgnoreCase("phaseToggleButtonBulking"));
         });
 
         ListView<Exercise> exerciseListView = (ListView) root.lookup("#exerciseListView");
-        exerciseListView.setItems(Pump.databasis.getExecises());
+        exerciseListView.setItems(databasis.getExecises());
         exerciseListView.setCellFactory(new Callback<ListView<Exercise>,
                                                 ListCell<Exercise>>() {
                                             @Override
@@ -65,7 +66,7 @@ public class Pump extends Application {
         );
 
         ListView<Workout> workoutListView = (ListView) root.lookup("#workoutListView");
-        workoutListView.setItems(Pump.databasis.getWorkouts());
+        workoutListView.setItems(databasis.getWorkouts());
         workoutListView.setCellFactory(new Callback<ListView<Workout>,
                                                ListCell<Workout>>() {
                                            @Override
@@ -76,7 +77,7 @@ public class Pump extends Application {
         );
 
         ListView<Program> programListView = (ListView) root.lookup("#programListView");
-        programListView.setItems(Pump.databasis.getPrograms());
+        programListView.setItems(databasis.getPrograms());
         programListView.setCellFactory(new Callback<ListView<Program>,
                                                ListCell<Program>>() {
                                            @Override
@@ -92,7 +93,7 @@ public class Pump extends Application {
 
     @Override
     public void stop() throws Exception {
-        Database.save(Pump.databasis);
+        Database.save(databasis);
     }
 
     public static void main(String[] args) {

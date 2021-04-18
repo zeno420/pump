@@ -12,6 +12,10 @@ import java.util.stream.Collectors;
 @XmlRootElement(name = "data")
 public class Databasis {
 
+    public Databasis() {
+        phase = new Phase();
+    }
+
     private ObservableList<Program> programs = FXCollections.observableArrayList(Program.makeExtractor());
 
     @XmlElement(name = "program")
