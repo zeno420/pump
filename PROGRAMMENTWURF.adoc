@@ -1,102 +1,95 @@
-// Header of this document:
-
 = Advanced Software Engineering - Dokumentation
 :toc:
 :toc-placement: preamble
 :toclevels: 4
 
-Eigenständigkeitserklärung: Hiermit erkläre ich, dass ich die vorliegende Arbeit selbstständig verfasst und keine anderen als die angegebenen Quellen und Hilfsmittel benutzt habe.Alle sinngemäß und wörtlich übernommenen Textstellen aus fremden Quellen wurden kenntlich gemacht.
+Hiermit erkläre ich, dass ich die vorliegende Arbeit selbstständig verfasst habe.
 
 == pump
 
 Mit der pump Desktopanwendung lassen sich einfach persönliche Trainingspläne erstellen.
 Das eigene Training lässt sich individuell gestalten, ohne dabei abhängig von Übungsangeboten von etablierten Anbietern zu sein.
 
-
 === Grundlagen
 
-In pump lassen sich Übungen erstellen.
-Diese bestehen aus einem Namen, einer optionalen Beschreibung and Sätzen für die Masse- und Definitionsphase.
-Sätze setzen sich aus der Wiederholungsanzahl und dem Arbeitsgewicht zusammen.
-Anschließend können Workouts erstellt werden, denen neben einem Namen und einer Beschreuíbung beliebig viele Übungen, auch einzelne mehrfach, hinzugefügt werden können.
-Um nun ein Trainingsplan, im folgenden Programm, zu kreieren werden diesem Tage hinzugefügt, die aus Workouts bestehen.
+//TODO
+//TODO zu dieser arbeit: bearbeitungen in der reihenfolger der doku vorgenommen, klassen heißen vorne ganz anders als hinten und haben andere strukturen
 
-Programme lassen sich anschließend ausführen.
-Während dem ausführen ist es möglich die Sätze der Übungen anzupassen, falls entsprechende Vortschritte dies erfordern.
-Außerdem lässt sich mit einem Knopfdruck einfach zwischen der Masse- und Definitionsphase wechseln.
-So müssen, die Phase betreffende, Gewichts- und Wiederholungsänderungen nicht direkt in den Sätzen immer wieder vorgenommen werden.
+==== Aufbau
 
-Um das Persönliche Trainingsverhalten beobachten zu können werden durchtgeführte Workouts und Übungen in ein Logbuchgeschrieben um anschließend dem Anwender aufgeschlüsselt dargestellt werden zu können.
-
+//TODO
 
 ==== Verwendete Bibliotheken
 
-Neben Java wurden für den Programmentwurf JavaFX und JUnit verwendet.
+Neben Java wurden für den Programmentwurf JavaFX, JUnit und Mockito verwendet.
 In diesem Abschnit wird erläutert warum gerade diese.
 
 ===== JavaFX
 
-TODO
+JavaFX ist eine Java-Spezifikation von Oracle.
+Es ist ein Framework zur Erstellung grafischer Desktopanwendungen.
+Es löst AWT und Swing als Quasistandard ab.
+
+Mit JavaFX ist das erstellen grafischer Anwendung erleichtrt und die Anwendungen sind nativ plattformübergreifend.
+Außerdem ensteht beim entwickeln mit JavaFX quasi automatisch eine Schichtenarchitektur.
 
 ===== JUnit
 
-TODO
+JUnit ist ein gängiges Testframework für Java Anwendungen.
+Es eignet sich für automatisierung von Tests, beziehungsweise nimmt es einem ab.
 
 ===== Mockito
 
-TODO
-
-==== Aufbau
-
-TODO
+Mockito ist eine etablierte Programmbibliothek zur Erstellung von Mock-Objekten für Java Unittests.
 
 === Programmierprinzipien
 
-TODO
-
 ==== SOLID
 
-TODO
+SOLID ist ein Akronym für fünf Programerprinzipien, die bei Einhaltung zu besserer Lesbarkeit, Wartbarkeit und Lebensdauer von Software führen.
 
 ===== Single-responsibility principle
-
-TODO bildüberschriften "Klasse.funktion()"
 
 Für meine Klasse Datenbank gab es mehrere Gründe sie zu bearbeiten.
 Ein Grund wäre eine Veränderung der Datenbasis, ein weiterer eine Änderung der Routine beim speichern oder laden der Daten.
 
+.Datenbank.java before
 image::doc/screenshots/Datenbank_0.png[]
 
 Um nun das single-responsibility Prinzip umzusetzen wird die Logik der Datenbasis aus der Klasse extrahiert.
 Die Datenbank Klasse lädt und speichert nun lediglich eine Datenbasis.
 Die Struktur der Datenbasis befindet sich in der Klasse Datenbasis.
 
+.Datenbank.java after
 image::doc/screenshots/Datenbank_1_1.png[]
 
 Hier der zugehörige link:https://github.com/zeno420/pump/commit/55e2463a3013b87e0f49d280a61823e3f4b1fb3b[commit].
 
 ===== Open–closed principle
 
-TODO bildüberschriften "Klasse.funktion()"
-
 Ein Programm enthält veränderbare Member, wie den Namen, die Beschreibung und die Liste der Tage.
 Im ProgrammController wird beim drüken des Speicherknopfes die Funktion programmSpeichern() aufgerufen.
 Diese überprüft die Member des beim Start des Bearbeiten oder Erstellen eines Programms erzeugten temprären Programm auf korrektheit und überträgt die Werte der Memebr anschließend auf das tatsächliche Programm. (zeile 100 bis 102)
 
+.ProgrammController.java beofre
 image::doc/screenshots/programmSpeichern_0.png[]
 
 Wollte man einem Programm ein weiteren Member hinzufügen, so müsste auch diese stelle im Code überarbeitet werden.
 Um das open-closed Prinzip hier zu unserem Vorteil zu nutzen wird in der Klasse Programm eine List erzeugt, welche alle änderbaren Member beinhaltet, also alle, auf die beim Erstellen oder Bearbeiten zugegriffen werden.
 
+.Programm.java
 image::doc/screenshots/programmSpeichern_1_3.png[]
+.Programm.java
 image::doc/screenshots/programmSpeichern_1_4.png[]
 
 Eine neue Funktion "aenderbareMemberUebertragen(List<Property> tmpAenderbareMember)" iteriert nun über all diese Felder und überträggt die Werte.
 
+.Programm.java
 image::doc/screenshots/programmSpeichern_1_2.png[]
 
 In "programmSpeichern()" muss nun nur noch die Funktion zum Übertragen aufgerufen werden.
 
+.ProgrammController.java after
 image::doc/screenshots/programmSpeichern_1_1.png[]
 
 Somit kann in Programm einfach die Liste der Member erweitert werden ohne programmSpeicher() im ProgrammController ändern zu müssen.
@@ -104,82 +97,90 @@ Hier der zugehörige link:https://github.com/zeno420/pump/commit/7f2e49c88027a58
 
 ===== Liskov substitution principle
 
-TODO keine abgeleiteten klassen/ property als beispiel zum beweis dass verstanden/ listcell
+//TODO keine abgeleiteten klassen/ property als beispiel zum beweis dass verstanden/ listcell
 
 ===== Interface segregation principle
 
-TODO
+//TODO
 
 ===== Dependency inversion principle
 
-TODO bildüberschriften "Klasse.funktion()"
+In der Statistik Klasse gibt es Funktionen, die Listen von Logeinträgen nach gewissen Kriterien zusammenfassen.
+Initial mit einer ObservableList als Parameter.
 
-In der Statistik Klasse wurden den Funktionen, die Listen von Logeinträgen nach gewissen Kriterien zusammenfassen, initial mit einer ObservableList als parameter aufgerufen.
-
+.Statistik.java before
 image::doc/screenshots/StatistikDI_0.png[]
 
 Dependency inversion fordert, dass auf das abstrakteste Level abgestuft wird.
 Die Funktionen werden jetzt also mit List als parameter aufgerufen.
 
+.Statistik.java after
 image::doc/screenshots/StatistikDI_1_1.png[]
 
 ==== GRASP
 
-TODO
+General Responsibility Assignment Software Patterns (GRASP) ist eine Menge von Entwurfsmustern, die die Zuständigkeit bestimmter Klassen objektorientierter Systeme festlegen.
 
 ===== Low Coupling
 
-TODO bildüberschriften "Klasse.funktion()"
-
 Das Abspeichern einer Übung fand im ÜbungController statt.
 
+.ÜbungController.java before
 image::doc/screenshots/LowCoupling_0_2.png[]
 
 Dort brauchte es Wissen aus der Übung Klasse
 
+.Übung.java before
 image::doc/screenshots/LowCoupling_0_3.png[]
 
 und eine Liste mit Namen der bereits existierenden Übungen.
 
+.ÜbungController.java before
 image::doc/screenshots/LowCoupling_0_1.png[]
 
-Die Verantwortung zum Abspeichern, also in die Datenbasis eintragen, liegt eher bei der Datenbasis selbst.
+Die Verantwortung zum Abspeichern, also die Übung in die Datenbasis eintragen, liegt eher bei der Datenbasis selbst.
 
+.Datenbasis.java before
 image::doc/screenshots/LowCoupling_1_1.png[]
 
-In der Datenbasis ist ebenfalls das wissen über die bereits existierenden Übungen, also wird hier die Namenskollision geprüft.
+In der Datenbasis ist ebenfalls das Wissen über die bereits existierenden Übungen, also wird hier die Namenskollision geprüft.
 
+.Datenbasis.java before
 image::doc/screenshots/LowCoupling_1_2.png[]
 
 Im Controller wird nun nur noch die hinzufügen() und updaten() Funktion aufgerufen.
 
+.ÜbungController.java after
 image::doc/screenshots/LowCoupling_1_4.png[]
 
 Die Validierung innerhalb der Übung selbst beinhaltet nurnoch die Prüfungen, die auf internens Wissen der Übung basieren.
 
+.Übung.java after
 image::doc/screenshots/LowCoupling_1_3.png[]
 
 Hier der zugehörige link:https://github.com/zeno420/pump/commit/e28d6914da42028e8ae67a6eacfa08adb5d58ee4[commit].
 
 ===== High Cohesion
 
-TODO bildüberschriften "Klasse.funktion()"
-
 Um die Kohäsion zu steigern soll beispielsweise vermieden werden, einer Domainklasse, semantisch zu weit enfernten Code hinzuzufügen.
 In der Klasse EintragCount befand sich die Funktion keyLexikographischKleiner(),
 
+.EintragCount.java
 image::doc/screenshots/HighCohesion_0_1.png[]
 
 die in der Satistik Klasse dazu verwendet wurde, den Eintrag mit dem frühsten Datum zu ermitteln.
 
+.Statistik.java before
 image::doc/screenshots/HighCohesion_0_2.png[]
 
 Diese Funktionalität wird in einen Comparator namens EintragCountKeyComparator ausgelagert.
 
+.EintragCountKeyComparator.java
 image::doc/screenshots/HighCohesion_1_2.png[]
 
 Mit diesem Comparator wird anschließend die Liste Sortiert und auf das Element mit dem Index 0 zugegriffen.
 
+.Statistik.java after
 image::doc/screenshots/HighCohesion_1_1.png[]
 
 Um Listen von EintragCount nach weiteren Kriterien zu sortieren muss nun lediglich ein entsprechender Comparator hinzugefügt werden.
@@ -187,17 +188,17 @@ Hier der zugehörige link:https://github.com/zeno420/pump/commit/540f6c38374af92
 
 ==== DRY
 
-TODO bildüberschriften "Klasse.funktion()"
-
 Oft integrieren IDEs statische Codeanalyse.
 Bei IntelliJ IDEA ist dies der Fall.
 Diese Analyse zeigt einem einige Stellen auf, an denen duplicated Code existiert.
 Dies ist in dem nachfogenden Bild in Zeile 82, als eine graue Unterkringelung, zu sehen.
 
+.RootController.java before
 image::doc/screenshots/DRYDeleteAlert_0_1.png[]
 
 Der Code wiederholt sich ab Zeile 158.
 
+.RootController.java before
 image::doc/screenshots/DRYDeleteAlert_0_2.png[]
 
 In manchen Fällen wird sogar eine automatische Extraktion des Codestückes geboten.
@@ -206,11 +207,14 @@ image::doc/screenshots/DRYDeleteAlert_0_3.png[]
 
 Das Codestück wirde in die customizeDeleteAlert() Funktion ausgelagert und die variablen Teile übergeben.
 
+.RootController.java after
 image::doc/screenshots/DRYDeleteAlert_1_3.png[]
 
 Diese Funktin wird nun an den Stellen aufgerufen, wo vorher gleicher Code stand.
 
+.RootController.java after
 image::doc/screenshots/DRYDeleteAlert_1_1.png[]
+.RootController.java after
 image::doc/screenshots/DRYDeleteAlert_1_2.png[]
 
 Wiederholungen von Code ziehen sich oft durch das ganze Projekt.
@@ -219,13 +223,9 @@ Im Zuge des zugehörigen link:https://github.com/zeno420/pump/commit/ba45d2b46b9
 
 === Entwurfsmuster
 
-TODO
-
 ==== Builder Pattern
 
-TODO bildüberschriften "Klasse.funktion()"
-
-Möchte man in der Satrtansicht der Anwendung ein neues Prgramm, Workout oder eine nue Übung erstellen, oder ein Bestehendes Objekt bearbeiten, wird bei Dürcken des entsprenden Knopfes, im RootController die zugehörige Funktion aufgerufen. diese sechs verschiedenen Funktionen folgen immer dem gleichen Schema: Ein neuer Dialog wird aus einer fxml Resource erstellt, ein Name für diesen Dialog gewählt und der für den Dialog zukünftig zuständige Controller mit dem zu bearbeitenden Objekt initialisiert (setUpBingingEdit()).
+Möchte man in der Startansicht der Anwendung ein neues Prgramm, Workout oder eine nue Übung erstellen, oder ein Bestehendes Objekt bearbeiten, wird bei Dürcken des entsprenden Knopfes, im RootController die zugehörige Funktion aufgerufen. diese sechs verschiedenen Funktionen folgen immer dem gleichen Schema: Ein neuer Dialog wird aus einer fxml Resource erstellt, ein Name für diesen Dialog gewählt und der für den Dialog zukünftig zuständige Controller mit dem zu bearbeitenden Objekt initialisiert (setUpBingingEdit()).
 Vereinfacht gesagt, es wird immer der Editierdialog *gebaut*.
 Hier bietet es sich an ein Entwurfsmuster vom Typ Erzeuger anzuwenden.
 Genauer, das Builder Pattern.
@@ -241,7 +241,9 @@ Dies bedarf die Hilfsinterfaces EditableDomainObject, welches von Programm, Work
 
 Zuvor hängt der RootController, aus dem die erstellen und bearbeiten Funktionen aufgerufen werden, noch von der setUpBingingEdit() Funktion des Programm-, Workout, und Übungscontrollers ab.
 
+.before
 image::doc/classdiagrams/Package_controller_builder_0.png[]
+.before
 image::doc/classdiagrams/Package_daten_builder_0.png[]
 
 Nach der Implementierung des EditDialogBuilders hängt der Rootcontroller nurnoch von dem Builder ab.
@@ -250,7 +252,9 @@ EditableDomainObject ist lediglich ein Markierungsinterface.
 SetupableController stellt sicher, dass ein Controller über die setUpBingingEdit() Funktion verfügt.
 
 
+.after
 image::doc/classdiagrams/Package_controller_builder_1.png[]
+.after
 image::doc/classdiagrams/Package_daten_builder_1.png[]
 
 Die weiterhin bestehende Abhängigkeit des RootControllers auf den ProgrammController ist einer anderen Codestelle geschuldet.
@@ -259,37 +263,35 @@ In diesem link:https://github.com/zeno420/pump/commit/bd64481cd97d911d30e3503471
 
 === Domain Driven Design
 
-TODO
+//TODO
 
 ==== Analyse der Ubiquitous Language
 
-TODO nomol abchecken ob das was gewollt ist
+//TODO nomol abchecken ob das was gewollt ist
 
-In der Domäne Training oder auch Pumpen (*pump*) existieren Trainingsprogramme (*Programm*).
-Diese Programe können erstellt (*erstellen*), verändert (*bearbeiten*), verworfen (*löschen*) und ausgeführt (*spielen*) werden.
-Programme bestehen aus einem eindeutigen Namen (*Name*), einer Beschreibung (*Beschreibung*) und einer beliebigen Anzahl von Tagen (*Tag*).
-Tage können erstellt (*erstellen*), verändert (*bearbeiten*) und verworfen (*löschen*) werden.
-Tage bestehen aus einem Namen (*Name*), einer Beschreibung (*Beschreibung*) und einer beliebigen Anzahl von Workouts (*Workout*).
-Workouts können erstellt (*erstellen*), verändert (*bearbeiten*), verworfen (*löschen*) und ausgeführt (*spielen*) werden.
-Workouts bestehen aus einem eindeutigen Namen (*Name*), einer Beschreibung (*Beschreibung*) und einer beliebigen Anzahl von Übungen (*Übung*).
-Übungen können erstellt (*erstellen*), verändert (*bearbeiten*) und verworfen (*löschen*) werden.
-Übungen bestehen aus einem eindeutigen Namen (*Name*), einer Beschreibung (*Beschreibung*) und einer beliebigen Anzahl von Sätzen (*Satz*).
+In der Domäne Training oder auch Pumpen (*pump*) existieren Trainingsprogramme (*program*).
+Diese Programe können erstellt (*create*), verändert (*edit*), verworfen (*delete*) und ausgeführt (*execute*) werden.
+Programme bestehen aus einem eindeutigen Namen (*name*), einer Beschreibung (*description*) und einer beliebigen Anzahl von Tagen (*day*).
+Tage können erstellt (*create*), verändert (*edit*) und verworfen (*delete*) werden.
+Tage bestehen aus einem Namen (*name*), einer Beschreibung (*description*) und einer beliebigen Anzahl von Workouts (*workout*).
+Workouts können erstellt (*create*), verändert (*edit*), verworfen (*delete*) und ausgeführt (*execute*) werden.
+Workouts bestehen aus einem eindeutigen Namen (*name*), einer Beschreibung (*description*) und einer beliebigen Anzahl von Übungen (*exercise*).
+Übungen können erstellt (*create*), verändert (*edit*) und verworfen (*delete*) werden.
+Übungen bestehen aus einem eindeutigen Namen (*name*), einer Beschreibung (*description*) und einer beliebigen Anzahl von Sätzen (*set*).
 
-TODO masse defi set logik
+Beim Training wird zwischen der Masse- und Definitionsphase unterschieden (*bulking*, *cutting*, *phase*).
+Sätze können erstellt (*create*), verändert (*edit*) und verworfen (*delete*) werden.
+Sätze bestehen aus einer Wiederholungsanzahl (*repetitions*) und einem Arbeitsgewicht (*weight*).
 
-Sätze können erstellt (*erstellen*), verändert (*bearbeiten*) und verworfen (*löschen*) werden.
-Sätze bestehen aus einer Wiederholungsanzahl (*Wiederholungen*) und einem Arbeitsgewicht (*Gewicht*).
-Zudem ist beim Training die Unterscheidung zwischen der Masse- und Definitionsphase (*Phase*) wichtig.
-
-TODO statistik
+//TODO statistik
 
 ==== Analyse und Begründung für Repositories
 
-TODO
+//TODO versteh ich ned
 
 ==== Analyse und Begründung für Aggregates
 
-TODO versteh ich ned
+//TODO versteh ich ned
 
 ==== Analyse und Begründung für Entities
 
@@ -303,27 +305,27 @@ Die Sätze einer Übung können während des Lebenszyklus der Übung verändert 
 Die Domainobjekte Satz und Tag sind Value Objects.
 Bei ihnen ist nur der Wert ihrer Attribute wichtig.
 Ein Satz teilt dem Nutzer mit wieviel Wiederholungen mit welchem Gewicht er zu machen hat.
-Sätze sind zwar in der Ubiquitous Language änderbar (*bearbeiten*), wird so eine Änderung jedoch vorgenommen wird der bearbeitete Satz durch einen neuen mit den neuen Werten ersetzt.
+Sätze sind zwar in der Ubiquitous Language änderbar (*edit*), wird so eine Änderung jedoch vorgenommen wird der bearbeitete Satz durch einen neuen mit den neuen Werten ersetzt.
 Bei Tagen genau so.
 Sätze und Tage sind also immutable.
 
 === Architektur
-
-TODO
 
 ==== Schichtenarchitektur
 
 Durch die Verwendung von JavaFX enstand automatisch schon eine 2-Schichtenarchitektur, aufgeteilt in die Anzeigeschicht/GUI und die Domainschicht.
 Die, äußere Schicht, die Anzeigeschicht besteht aus den Controllern, den speziellen ListCells, den fxml Dateien und dem Hauptprogramm.
 
-image::doc/screenshots/Schichten_0.png[Anzeigeschicht (+Tests) mit Abhängigkeiten in untere Schichten]
+.Anzeigeschicht (+Tests) mit Abhängigkeiten in untere Schichten
+image::doc/screenshots/Schichten_0.png[]
 
 Die Controller sind dafür zuständig, die Interaktion des Benutzers mit der Geschäftslogik zu visualisieren.
 Ändert sich etwas in der Domainschicht kann es vorkommen, dass die Anzeigeschicht angepasst werden muss.
 Wird etwas in der GUI geändert kann es nicht vorkommen, dass die Domainschicht angepasst werden muss.
 Die Domainschicht beinhaltet die Domainklassen, in denen die Geschäftslogik steckt.
 
-image::doc/screenshots/Schichten_1.png[Domainschicht mit Abhängigkeiten nur in untere (Persistenz)Schicht]
+.Domainschicht mit Abhängigkeiten nur in untere (Persistenz)Schicht
+image::doc/screenshots/Schichten_1.png[]
 
 Um die Anwendung sinnvoll nutzen zu können fügen wir noch eine dritte, innerste Schicht hinzu.
 Die Persistenzschicht soll dafür sorgen Daten zu speichern, zu persistieren.
@@ -333,28 +335,28 @@ Eine Änderung in der Domainschicht fordert zwar gegebenenfalls eine anpassung d
 Die Persistenzschicht besteht lediglich aus der Datenbankklasse und dem erzeugten xml-File.
 Änderungen in der Datenbank Klasse können Anpassungen in den äußeren Schichten erfordern, das xml-File sollte nicht händisch geändert werden.
 
-image::doc/screenshots/Schichten_2.png[Persistenzschicht mit Abhängigkeiten in keine Schicht da selbst unterste]
+.Persistenzschicht mit Abhängigkeiten in keine Schicht da selbst unterste
+image::doc/screenshots/Schichten_2.png[]
 
 Die Verwendung einer 3-Schichtenarchitektur aus Anzeige-, Domain-, und Persistenzschicht begründet sich dadurch, dass die Persistierung unabhängig von der Anzeige- und Domainlogik sein soll und die Domainlogik unabhängig von der Art wie sie Angezeigt wird sein soll.
 Für die Visualisierung der Abhängigkeiten zwischen den Packages einer Schicht und dem Rest wurde der Dependency Viewer von IntelliJ genutzt.
 
 === Unit Tests
 
-TODO JUnit
+//TODO
 
 ==== ATRIP
 
-TODO
+//TODO
 
 ===== Automatic
-
-TODO bildüberschriften "Klasse.funktion()"
 
 Die Kombination aus IntelliJ und JUnit erlaubt die Ausführung aller Tests in einem Ordner, Projekt oder einer Klasse mit nur einem Knopfdruck.
 Außerdem lässt sich bei der Ausführungskonfiguration ein "Before launch" Block angeben.
 In diesem habe ich meine Testrun Konfiguration eingebunden.
 Vor dem Ausführen meiner Desktopanwendung werden also die Test durchgeführt und bei einem Fehlschlag eines Tests die Anwendung nicht gestartet.
 
+.Run Configuration
 image::doc/screenshots/Tests_3.png[]
 
 ===== Thorough
@@ -388,22 +390,20 @@ DRY wird in manchen Tests etwas verletzt um die Independence der einzelnen Testf
 
 ==== Code Coverage
 
-TODO bildüberschriften "Klasse.funktion()"
-
 IntelliJ bietet die Möglichkeit bei Tests Coveragedaten zu sammeln.
 Das default Plugin sammelt Daten bezüglich der getesteten Klassen, Methoden und durchlaufen Codezeilen.
 
+.Test code coverage
 image::doc/screenshots/Tests_2.png[]
 
 ==== Mocks
-
-TODO bildüberschriften "Klasse.funktion()"
 
 Die Domainklasse Datenbasis benutzt in ihren *hinzufügen und *updaten Funktionen die Klasse Datenbank.
 Genauer, die statische Funktion Datenbank.save().
 Da wir Datenbasis unabhängig von Datenbank testen wollen, muss die statische Funktion gemocked werden.
 Hierfür wird Mockito verwendet.
 
+.DatenbasisTest.java
 image::doc/screenshots/Tests_1.png[]
 
 Dies bewirkt, dass beim Aufruf der statischen Funktion save() keine Exception geworfen wird.
@@ -412,22 +412,33 @@ Dies bewirkt, dass beim Aufruf der statischen Funktion save() keine Exception ge
 
 ==== Code Smells
 
-TODO screenshot von codesmell extract meth und name TODO bildüberschriften "Klasse.funktion()"
-
 Die Funktion zum löschen einer Übung im Rootcontroller hatte sehr viele Zeilen.
 
+.RootController.java before
 image::doc/screenshots/refactoring_0_1.png[]
 
-Um diese Fanktion lesbarer zu machen wurden Codezeilen in extra Methoden extrahiert.
+Um diese Funktion lesbarer zu machen wurden Codezeilen in extra Methoden extrahiert.
 
+.RootController.java after
 image::doc/screenshots/refactoring_1_1.png[]
 
 Der Vorgang des tatsächlichen Entfernens der Übung aus der Datenbasis und der Vorgang des Ermittlens in welchen Workouts diese Übung ist wurden ausgelagert.
 
+.RootController.java after
 image::doc/screenshots/refactoring_1_2.png[]
 
-Es wurden ein ein paar mehr Stellen Methoden extrahiert.
-Zudem wurden alle Variablen- und Funktionsnamen sowie Teste in der Benutzeroberfläche auf Englisch umgestellt.
+Es wurden an ein paar weiteren Stellen Methoden extrahiert.
+Zudem wurden alle Variablen- und Funktionsnamen sowie Texte in der Benutzeroberfläche auf Englisch umgestellt.
+Im Zuge der kompletten Umstellung auf Englisch wurden einigen Methoden auch neue Namen gegeben.
+Es wurden zum Beispiel Abkürzungen entfernt und eine vollständigere Beschreibung ihrer Aufgabe verwirklicht.
+Hies eine Funktion im WorkoutController zuvor beispielsweise uebungEntfernen(), sagte dieser name nicht eindeutig ob eine Übung aus der Datenbasis oder einem Workout entfernt wird.
+Der neue Name removeExerciseFromWorkout() ist klarer.
+
+.WorkoutController.java git diff
+image::doc/screenshots/refactoring_1_3.png[]
+
 Alle Vorgenommen Änderungen sind in diesem link:https://github.com/zeno420/pump/commit/c658070937cdb2af43df12937d2500cd972d8ff0[commit] einzusehen.
 
 ==== Anwendung und Begründung
+
+//TODO
