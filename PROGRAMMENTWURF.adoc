@@ -12,12 +12,7 @@ Das eigene Training lässt sich individuell gestalten, ohne dabei abhängig von 
 
 === Grundlagen
 
-//TODO
 //TODO zu dieser arbeit: bearbeitungen in der reihenfolger der doku vorgenommen, klassen heißen vorne ganz anders als hinten und haben andere strukturen
-
-==== Aufbau
-
-//TODO
 
 ==== Verwendete Bibliotheken
 
@@ -41,6 +36,47 @@ Es eignet sich für automatisierung von Tests, beziehungsweise nimmt es einem ab
 ===== Mockito
 
 Mockito ist eine etablierte Programmbibliothek zur Erstellung von Mock-Objekten für Java Unittests.
+
+==== Aufbau
+
+===== Persistenz
+
+Die Persistenz der Daten erfolgt durch die Verwendung des _javax.xml.bind.*_ Moduls quasi automatisch.
+In der Databasis sind die zu persistierenden Objekte vorgehalten, strukturiert und mit Annotations versehen.
+
+.Databasis.java
+image::doc/screenshots/Databasis_0.png[]
+
+In Database erfolgt dann die persistierung der Databasis in einem XML File und umgekehrt die erstellung einer Databasis aus einem XML File.
+
+.Database.java
+image::doc/screenshots/Database_0.png[]
+
+Für die Persistierung per XML wurde sich entschieden, da keine riesen Datenmengen verwendet werden und nicht viele oder komplizierte Beziehungen zwischen Objekten bestehen.
+Verweise auf andere Objekte sind mit einer einfachen Annotation im referenzierenden Objekt und einer eindeutigen Identifikationsnummer als String im referenzierten Objekt umgesetzt.
+
+.Workout.java
+image::doc/screenshots/XML_Binding_1.png[]
+.Exercise.java
+image::doc/screenshots/XML_Binding_2.png[]
+
+===== JavaFX Beans
+
+Die Member von Domainklassen sind mittels Beans umgesetzt.
+Beans erlauben einem, Member direkt an UI-Elemnte zu binden.
+So kann zum Beispiel der Name einer Übung bidirektional an ein entsprechendes Textfeld gebunden werden.
+Ändert sich der Wert des Namen, wird der Inhalt des Textfeldes angepasst und umgekehrt.
+
+Des Weiteren liefert das __javafx.beans.*__Modul die Observable funtionalität, mit der man die Domainobjekte beobachtbar machen kann.
+Dadurch können ObservableLists<DomainObjekt> ebenso an UI-Elemente gebunden werden und so beispielsweise ListViews aktuell gehalten werden.
+
+===== fxml und Controller
+
+Um die Benutzeroberfläche zu entwerfen wurden fxml Dateien verwendet.
+Mit ihnen lassen sich einfach Grundstrukturen und permanente Elemente, also Elemente die nicht zur laufzeit variabel erscheinen können, entwerfen.
+Außerdem lassen sich fxml Dateien einfach in einem Scenebuilder zusammenklicken.
+Jedem fxml File ist ein verantwortlicher Controller zugeteilt.
+Der Controller übernimmt die Steurung der UI-Elemente und Szenen sowie die bearbeitung der Nutzeraktionen, also Eingaben oder Klicks.
 
 === Programmierprinzipien
 
@@ -97,11 +133,29 @@ Hier der zugehörige link:https://github.com/zeno420/pump/commit/7f2e49c88027a58
 
 ===== Liskov substitution principle
 
-//TODO keine abgeleiteten klassen/ property als beispiel zum beweis dass verstanden/ listcell
+Das Liskovsche Substitutionsprinzip ist erfüllt, da alle Klassen, die von anderen Klassen erben dies nicht per abstrakten Klassen und/oder _extends_ vollziehen, sondern nur einstufig Interfaces implementieren.
+Da in einem Interface noch keine Implementierung von Funktionen erfolgt, können keine Logikwiedersprüche enstehen.
+Durch das Ersetzen einer Oberklasse durch eine Unterklasse kann also nicht das Verhalten des Programms verändert werden.
+In dem Fall meiner spezialisierten ListCell's wird zwar von ListCell geerbt, jedoch erfolgt diese Vererbung Parametrisiert.
+Es ließe sich also syntaktisch keine DayCell an einer Stelle verwenden, an der zuvor eine generische ListCell verwendet wurde.
+
+.DayCell.java
+image::doc/screenshots/liskov_0.png[]
 
 ===== Interface segregation principle
 
-//TODO
+Die Domainklasse Exercise impelemntiert die Interfaces EditableDomainObject und UniqueNamed.
+Die beiden Interfaces liegen logisch relativ nah bei einander und man könnte nun also denken wieso steckt die Logik des eindeutigen Namens nicht mit im EditabeDomainObject?
+Die Domainklasse Set ist (theoretisch, zum Stand der Abgabe leider noch nicht umgeseztzt) auch ein EditableDomainObject muss aber keinen eindeutigen Namen haben.
+Um der Klasse Set diese Funktionalität nicht aufzuzwingen ergeben sich die beiden getrennten Interfaces.
+Die Klasse Exercise implementiert dann eben beide Interfaces.
+
+.Exercise.java
+image::doc/screenshots/isp_1.png[]
+.UniqueNamed.java
+image::doc/screenshots/isp_2.png[]
+.EditableDomainObject.java
+image::doc/screenshots/isp_3.png[]
 
 ===== Dependency inversion principle
 
@@ -263,11 +317,9 @@ In diesem link:https://github.com/zeno420/pump/commit/bd64481cd97d911d30e3503471
 
 === Domain Driven Design
 
-//TODO
-
 ==== Analyse der Ubiquitous Language
 
-//TODO nomol abchecken ob das was gewollt ist
+//FIXME ist das analyse?
 
 In der Domäne Training oder auch Pumpen (*pump*) existieren Trainingsprogramme (*program*).
 Diese Programe können erstellt (*create*), verändert (*edit*), verworfen (*delete*) und ausgeführt (*execute*) werden.
@@ -283,15 +335,25 @@ Beim Training wird zwischen der Masse- und Definitionsphase unterschieden (*bulk
 Sätze können erstellt (*create*), verändert (*edit*) und verworfen (*delete*) werden.
 Sätze bestehen aus einer Wiederholungsanzahl (*repetitions*) und einem Arbeitsgewicht (*weight*).
 
-//TODO statistik
+Zusätzlich lassen sich Statistiken (*statistic*) ausgeben.
+Um diese zu berechnen wird ein Logbuch geführt, bestehend aus Einträgen (*logentry*).
 
 ==== Analyse und Begründung für Repositories
 
-//TODO versteh ich ned
+//FIXME kann das richtig sein?
+Da keine wirkliche Datenbank oder Infrastruktur zur Laufzeit eingesetzt wird, sonder nach start des Programms alles als Java Objekte vorgehalten wird und somit also keine Objekte in der Infastruktur gesucht werden müssen, bin ich mir nicht vollständig sicher, ob ich Repostories einsetze.
+Lediglich das laden des XML FIles, also das initiale "Objekte heraussuchen", würde ich eventuell als Repsitory einstufen.
+Damit wäre die Klasse Database.java das einzige Repository.
 
 ==== Analyse und Begründung für Aggregates
 
-//TODO versteh ich ned
+//FIXME kann das richtig sein?
+Übungen zusammen mit ihren Sätzen stellen ein Aggregat dar.
+Möchte man Sätze einer Übung bearbeiten erfolgt das immer über Funktionen der Übung.
+Programme mit ihren Tagen stellen ebenfalls Aggregate dar.
+
+Worouts mit ihren Übungen hingegen sind keine Aggregate, da die Übungen im einzelnen verändert werden können oder müssen.
+Änderungen am Workout erfolgen also über die Entität Workout und änderungen an einer Übung über die Entität Übung.
 
 ==== Analyse und Begründung für Entities
 
@@ -343,11 +405,9 @@ Für die Visualisierung der Abhängigkeiten zwischen den Packages einer Schicht 
 
 === Unit Tests
 
-//TODO
+Unit Tests sollen die korrekte Funktionalität einzelner Einheiten einer Software überprüfen.
 
 ==== ATRIP
-
-//TODO
 
 ===== Automatic
 
@@ -438,7 +498,3 @@ Der neue Name removeExerciseFromWorkout() ist klarer.
 image::doc/screenshots/refactoring_1_3.png[]
 
 Alle Vorgenommen Änderungen sind in diesem link:https://github.com/zeno420/pump/commit/c658070937cdb2af43df12937d2500cd972d8ff0[commit] einzusehen.
-
-==== Anwendung und Begründung
-
-//TODO
