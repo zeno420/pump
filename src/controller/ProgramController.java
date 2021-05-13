@@ -131,7 +131,7 @@ public class ProgramController implements SetupableController<Program> {
     public void createDay(ActionEvent event) throws IOException {
 
         //TODO builder
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/day.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/fxml/day.fxml"));
         Parent dayDialog = fxmlloader.load();
 
         Stage stage = new Stage();
@@ -149,7 +149,7 @@ public class ProgramController implements SetupableController<Program> {
     public void editDay(Day day) throws IOException {
 
         //TODO builder
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/day.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/fxml/day.fxml"));
         Parent dayDialog = fxmlloader.load();
         dayDialog.setUserData(fxmlloader.getController());
 
@@ -179,10 +179,10 @@ public class ProgramController implements SetupableController<Program> {
     public void executeWorkout(Workout workout) throws IOException {
 
         //TODO builder
-        FXMLLoader workoutFxmlloader = new FXMLLoader(getClass().getResource("../fxml/execute_workout.fxml"));
+        FXMLLoader workoutFxmlloader = new FXMLLoader(getClass().getResource("/fxml/execute_workout.fxml"));
         Parent workoutDialog = workoutFxmlloader.load();
 
-        FXMLLoader exerciseFxmlloader = new FXMLLoader(getClass().getResource("../fxml/exercise.fxml"));
+        FXMLLoader exerciseFxmlloader = new FXMLLoader(getClass().getResource("/fxml/exercise.fxml"));
 
         Map<String, Object> map = new HashMap<>();
         map.put("workoutController", workoutFxmlloader.getController());

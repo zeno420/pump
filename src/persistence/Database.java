@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Database {
 
 
-    private static final String databaseFilePath = "datenbank.xml";
+    private static final String databaseFilePath = System.getProperty("user.home") + System.getProperty("file.separator") + ".pump_database.xml";
     private static File databaseFile;
 
     public static void init() throws IOException {

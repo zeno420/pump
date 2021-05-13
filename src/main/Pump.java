@@ -30,7 +30,7 @@ public class Pump extends Application {
             databasis = new Databasis();
         }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/root.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/root.fxml"));
         Parent root = loader.load();
 
         root.setUserData(loader.getController());

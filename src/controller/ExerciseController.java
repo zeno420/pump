@@ -106,7 +106,7 @@ public class ExerciseController implements SetupableController<Exercise> {
     public void createSet(ActionEvent event) throws IOException {
 
         //TODO builder
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/set.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/fxml/set.fxml"));
         Parent setDialog = fxmlloader.load();
 
         Stage stage = new Stage();
@@ -126,7 +126,7 @@ public class ExerciseController implements SetupableController<Exercise> {
     public void editSet(Set set, Exercise parentExercise) throws IOException {
 
         //TODO builder
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/set.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/fxml/set.fxml"));
         Parent setDialog = fxmlloader.load();
 
         Stage stage = new Stage();

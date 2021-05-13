@@ -21,13 +21,13 @@ public class RootController {
     public void createExercise(ActionEvent event) throws IOException {
 
         EditDialogBuilder<Exercise> editDialogBuilder = new EditDialogBuilder<>();
-        editDialogBuilder.setWindowTitle("Create exercise").setFxmlResource("../fxml/exercise.fxml").build().show();
+        editDialogBuilder.setWindowTitle("Create exercise").setFxmlResource("/fxml/exercise.fxml").build().show();
     }
 
     public void editExercise(Exercise exercise) throws IOException {
 
         EditDialogBuilder<Exercise> editDialogBuilder = new EditDialogBuilder<>();
-        editDialogBuilder.setWindowTitle("Edit exercise").setFxmlResource("../fxml/exercise.fxml").setEditableObject(exercise).build().show();
+        editDialogBuilder.setWindowTitle("Edit exercise").setFxmlResource("/fxml/exercise.fxml").setEditableObject(exercise).build().show();
     }
 
     public void deleteExercise(Exercise exercise) {
@@ -79,13 +79,13 @@ public class RootController {
     public void createWorkout(ActionEvent event) throws IOException {
 
         EditDialogBuilder<Workout> editDialogBuilder = new EditDialogBuilder<>();
-        editDialogBuilder.setWindowTitle("Create workout").setFxmlResource("../fxml/workout.fxml").build().show();
+        editDialogBuilder.setWindowTitle("Create workout").setFxmlResource("/fxml/workout.fxml").build().show();
     }
 
     public void editWorkout(Workout workout) throws IOException {
 
         EditDialogBuilder<Workout> editDialogBuilder = new EditDialogBuilder<>();
-        editDialogBuilder.setWindowTitle("create workout").setFxmlResource("../fxml/workout.fxml").setEditableObject(workout).build().show();
+        editDialogBuilder.setWindowTitle("create workout").setFxmlResource("/fxml/workout.fxml").setEditableObject(workout).build().show();
     }
 
     public void deleteWorkout(Workout workout, boolean manually) {
@@ -138,13 +138,13 @@ public class RootController {
     public void createProgram(ActionEvent event) throws IOException {
 
         EditDialogBuilder<Program> editDialogBuilder = new EditDialogBuilder<>();
-        editDialogBuilder.setWindowTitle("Create program").setFxmlResource("../fxml/program.fxml").build().show();
+        editDialogBuilder.setWindowTitle("Create program").setFxmlResource("/fxml/program.fxml").build().show();
     }
 
     public void editProgram(Program program) throws IOException {
 
         EditDialogBuilder<Program> editDialogBuilder = new EditDialogBuilder<>();
-        editDialogBuilder.setWindowTitle("Edit program").setFxmlResource("../fxml/program.fxml").setEditableObject(program).build().show();
+        editDialogBuilder.setWindowTitle("Edit program").setFxmlResource("/fxml/program.fxml").setEditableObject(program).build().show();
     }
 
     public void deleteProgram(Program program) {
@@ -163,7 +163,7 @@ public class RootController {
     public void executeProgram(Program program) throws IOException {
 
         //TODO builder
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/execute_program.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/fxml/execute_program.fxml"));
         Parent programDialog = fxmlloader.load();
         programDialog.setUserData(fxmlloader.getController());
 
@@ -182,7 +182,7 @@ public class RootController {
     public void openStatistics() throws IOException {
 
         //TODO builder
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../fxml/statistic.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/fxml/statistic.fxml"));
         Parent statistikDialog = fxmlloader.load();
         statistikDialog.setUserData(fxmlloader.getController());
 

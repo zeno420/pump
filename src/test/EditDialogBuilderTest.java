@@ -55,11 +55,11 @@ public class EditDialogBuilderTest {
                 EditDialogBuilder<Exercise> editDialogBuilder = new EditDialogBuilder<>();
 
                 assertDoesNotThrow(() -> {
-                    editDialogBuilder.setWindowTitle("Edit exercise").setFxmlResource("../fxml/exercise.fxml").setEditableObject(exercise).build();
+                    editDialogBuilder.setWindowTitle("Edit exercise").setFxmlResource("/fxml/exercise.fxml").setEditableObject(exercise).build();
                 });
 
                 assertThrows(Exception.class, () -> {
-                    editDialogBuilder.setWindowTitle("oh no").setFxmlResource("../fxml/falsch.fxml").setEditableObject(exercise).build();
+                    editDialogBuilder.setWindowTitle("oh no").setFxmlResource("/fxml/falsch.fxml").setEditableObject(exercise).build();
                 });
             } catch (Throwable e) {
                 throwables[0] = e;
