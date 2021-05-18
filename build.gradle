@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+}
+
+version '1'
+
+sourceSets.main {
+    java {
+        srcDir 'src'
+    }
+    resources {
+        srcDir 'src'
+        exclude "**/*.java"
+    }
+}
+
+sourceSets.test {
+    java {
+        srcDir 'test'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testImplementation 'org.mockito:mockito-inline:3.9.0'
+    testImplementation 'org.loadui:testFx:3.1.2'
+    testImplementation 'org.testfx:testfx-junit:4.0.15-alpha'
+    testImplementation 'org.testfx:testfx-junit:4.0.15-alpha'
+
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+}
+
+test {
+    useJUnitPlatform()
+}
