@@ -4,9 +4,6 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.9'
 }
 
-mainClassName = 'main.Pump'
-version '1'
-
 sourceSets.main {
     java {
         srcDir 'src'
@@ -22,6 +19,9 @@ sourceSets.test {
         srcDir 'test'
     }
 }
+
+mainClassName = 'main.Pump'
+version '2'
 
 repositories {
     mavenCentral()
@@ -55,4 +55,3 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-
