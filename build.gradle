@@ -1,7 +1,10 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
 }
 
+mainClassName = 'main.Pump'
 version '1'
 
 sourceSets.main {
@@ -24,7 +27,22 @@ repositories {
     mavenCentral()
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+javafx {
+    version = "11"
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
 dependencies {
+
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.0'
+    runtimeOnly 'com.sun.xml.bind:jaxb-impl:3.0.0'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testImplementation 'org.mockito:mockito-inline:3.9.0'
     testImplementation 'org.loadui:testFx:3.1.2'
@@ -32,9 +50,9 @@ dependencies {
     testImplementation 'org.testfx:testfx-junit:4.0.15-alpha'
 
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-
 }
 
 test {
     useJUnitPlatform()
 }
+

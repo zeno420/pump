@@ -6,7 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Callback;
 
-import javax.xml.bind.annotation.XmlIDREF;
+import jakarta.xml.bind.annotation.XmlIDREF;
 
 public class Day {
 

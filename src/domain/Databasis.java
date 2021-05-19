@@ -4,8 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import persistence.Database;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 import java.util.stream.Collectors;
 
