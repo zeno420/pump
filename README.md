@@ -19,4 +19,5 @@ cd pump
 
 ## install
 `sudo dpkg -i pump_<version>.deb`
+
 `/opt/pump/bin/pump` or via shortcut/gui

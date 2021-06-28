@@ -13,4 +13,5 @@ module pump.main {
     exports persistence;
 
     opens domain to jakarta.xml.bind;
+    opens controller to javafx.fxml;
 }
