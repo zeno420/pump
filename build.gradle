@@ -59,7 +59,7 @@ application {
     mainModule.set('pump.main')
     mainClass.set('main.Pump')
 }
-version '2'
+version '3'
 
 test {
     useJUnitPlatform()
